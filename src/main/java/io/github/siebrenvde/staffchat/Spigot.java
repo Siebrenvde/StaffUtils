@@ -1,16 +1,16 @@
 package io.github.siebrenvde.staffchat;
 
-import eu.mcdb.spicord.Spicord;
 import io.github.siebrenvde.staffchat.commands.spigot.HelpOp;
 import io.github.siebrenvde.staffchat.commands.spigot.Report;
 import io.github.siebrenvde.staffchat.commands.spigot.StaffChat;
 import io.github.siebrenvde.staffchat.discord.SpigotAddon;
 import io.github.siebrenvde.staffchat.events.SpigotMessageEvent;
 import io.github.siebrenvde.staffchat.util.SpigotUtils;
-import net.dv8tion.jda.core.entities.User;
+import net.dv8tion.jda.api.entities.User;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.spicord.SpicordLoader;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +27,9 @@ public class Spigot extends JavaPlugin {
         saveDefaultConfig();
         registerCommands();
         getServer().getPluginManager().registerEvents(new SpigotMessageEvent(this), this);
-        Spicord.getInstance().getAddonManager().registerAddon(addon);
+        SpicordLoader.addStartupListener(spicord -> {
+            spicord.getAddonManager().registerAddon(addon);
+        });
     }
 
     private void registerCommands() {

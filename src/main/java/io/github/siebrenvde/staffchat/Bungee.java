@@ -1,19 +1,19 @@
 package io.github.siebrenvde.staffchat;
 
-import eu.mcdb.spicord.Spicord;
 import io.github.siebrenvde.staffchat.commands.bungee.HelpOp;
 import io.github.siebrenvde.staffchat.commands.bungee.Report;
 import io.github.siebrenvde.staffchat.commands.bungee.StaffChat;
 import io.github.siebrenvde.staffchat.discord.BungeeAddon;
 import io.github.siebrenvde.staffchat.events.BungeeMessageEvent;
 import io.github.siebrenvde.staffchat.util.BungeeUtils;
-import net.dv8tion.jda.core.entities.User;
+import net.dv8tion.jda.api.entities.User;
 import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 import net.md_5.bungee.api.plugin.Plugin;
 import net.md_5.bungee.config.Configuration;
 import net.md_5.bungee.config.ConfigurationProvider;
 import net.md_5.bungee.config.YamlConfiguration;
+import org.spicord.SpicordLoader;
 
 import java.io.File;
 import java.io.IOException;
@@ -34,7 +34,9 @@ public class Bungee extends Plugin {
         registerCommands();
         registerConfig();
         getProxy().getPluginManager().registerListener(this, new BungeeMessageEvent(this));
-        Spicord.getInstance().getAddonManager().registerAddon(addon);
+        SpicordLoader.addStartupListener(spicord -> {
+            spicord.getAddonManager().registerAddon(addon);
+        });
     }
 
     private void registerCommands(){

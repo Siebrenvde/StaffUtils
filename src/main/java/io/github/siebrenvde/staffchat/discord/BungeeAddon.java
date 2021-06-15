@@ -1,13 +1,13 @@
 package io.github.siebrenvde.staffchat.discord;
 
-import eu.mcdb.spicord.api.addon.SimpleAddon;
-import eu.mcdb.spicord.bot.DiscordBot;
-import eu.mcdb.spicord.bot.command.DiscordBotCommand;
+import org.spicord.api.addon.SimpleAddon;
+import org.spicord.bot.DiscordBot;
+import org.spicord.bot.command.DiscordBotCommand;
 import io.github.siebrenvde.staffchat.Bungee;
 import io.github.siebrenvde.staffchat.util.BungeeUtils;
-import net.dv8tion.jda.core.EmbedBuilder;
-import net.dv8tion.jda.core.entities.TextChannel;
-import net.dv8tion.jda.core.entities.User;
+import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.entities.TextChannel;
+import net.dv8tion.jda.api.entities.User;
 
 public class BungeeAddon extends SimpleAddon {
 
