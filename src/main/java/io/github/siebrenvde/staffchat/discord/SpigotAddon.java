@@ -23,7 +23,7 @@ public class SpigotAddon extends SimpleAddon {
     }
 
     @Override
-    public void onLoad(DiscordBot bot) {
+    public void onReady(DiscordBot bot) {
         this.bot = bot;
         prefix = bot.getCommandPrefix();
         enableCommands();
