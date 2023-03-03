@@ -6,8 +6,8 @@ import org.spicord.bot.command.DiscordBotCommand;
 import io.github.siebrenvde.staffchat.Spigot;
 import io.github.siebrenvde.staffchat.util.SpigotUtils;
 import net.dv8tion.jda.api.EmbedBuilder;
-import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.entities.User;
+import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
 
 public class SpigotAddon extends SimpleAddon {
 
@@ -46,7 +46,7 @@ public class SpigotAddon extends SimpleAddon {
 
     public void sendEmbed(String title, String description) {
         TextChannel tc = bot.getJda().getTextChannelById(plugin.getConfig().getString("staff-channel"));
-        tc.sendMessage(new EmbedBuilder().setTitle(title).setDescription(description).build()).queue();
+        tc.sendMessageEmbeds(new EmbedBuilder().setTitle(title).setDescription(description).build()).queue();
     }
 
     private void staffChat(DiscordBotCommand command) {
