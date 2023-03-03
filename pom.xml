@@ -28,8 +28,8 @@
             <url>https://oss.sonatype.org/content/repositories/snapshots</url>
         </repository>
         <repository>
-            <id>spicord-repo</id>
-            <url>https://repo.spicord.org/</url>
+            <id>jitpack.io</id>
+            <url>https://jitpack.io</url>
         </repository>
     </repositories>
     <dependencies>
@@ -40,15 +40,15 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>org.spicord</groupId>
+            <groupId>com.github.Spicord.Spicord</groupId>
             <artifactId>spicord-common</artifactId>
-            <version>4.0.0</version>
+            <version>v5-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>org.spicord</groupId>
+            <groupId>net.dv8tion</groupId>
             <artifactId>JDA</artifactId>
-            <version>4.4.0</version>
+            <version>5.0.0-beta.4</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
