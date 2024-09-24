@@ -30,6 +30,10 @@ allprojects {
             name = "papermc"
             url = "https://repo.papermc.io/repository/maven-public/"
         }
+        maven {
+            name = "jitpack"
+            url = "https://jitpack.io/"
+        }
     }
 }
 
