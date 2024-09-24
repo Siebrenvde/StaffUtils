@@ -1,0 +1,13 @@
+{
+  "id": "staffchat",
+  "name": "StaffChat",
+  "version": "${version}",
+  "authors": ["Siebrenvde"],
+  "dependencies": [
+    {
+      "id": "spicord",
+      "optional": false
+    }
+  ],
+  "main": "dev.siebrenvde.staffchat.velocity.StaffChatVelocity"
+}

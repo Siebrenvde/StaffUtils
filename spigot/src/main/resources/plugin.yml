@@ -1,0 +1,6 @@
+name: StaffChat
+version: ${version}
+main: dev.siebrenvde.staffchat.spigot.StaffChatSpigot
+api-version: '1.21'
+author: Siebrenvde
+depend: [Spicord]
