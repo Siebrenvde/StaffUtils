@@ -11,8 +11,15 @@ public class StaffChatCommand {
         manager.command(
             manager.commandBuilder("staffchat", Description.of("Chat with other staff members"), "sc", "schat", "staffc")
                 .permission("staffchat.use")
-                .required("message", StringParser.greedyStringParser())
+                .optional("message", StringParser.greedyStringParser())
                 .handler(ctx -> {
+                    String message = ctx.getOrDefault("message", "");
+
+                    if(message.isEmpty()) {
+                        // TODO: Toggle
+                        return;
+                    }
+
                     // TODO: Send the message
                 })
         );
