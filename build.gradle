@@ -61,7 +61,7 @@ shadowJar {
     archiveClassifier.set("")
 
     // Relocate dependencies
-    relocate "net.kyori", "dev.siebrenvde.staffchat.dependencies.kyori"
+    // relocate "net.kyori", "dev.siebrenvde.staffchat.dependencies.kyori" - Breaks Velocity
     relocate "com.electronwill.nightconfig", "dev.siebrenvde.staffchat.dependencies.nightconfig"
     relocate "org.incendo", "dev.siebrenvde.staffchat.dependencies.incendo"
     relocate "io.leangen.geantyref", "dev.siebrenvde.staffchat.dependencies.geantyref" // Dependency for cloud
