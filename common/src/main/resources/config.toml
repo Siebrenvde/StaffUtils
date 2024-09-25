@@ -1,0 +1,33 @@
+# Do not change this
+config_version = 1
+
+# All in-game messages are formatted using MiniMessage
+# https://docs.advntr.dev/minimessage/format.html
+[messages.staffchat]
+
+# The message shown to in-game staff when using the staffchat command in-game
+# Placeholders:
+# %displayname% - The player's displayname
+# %username% - The player's username
+# %message% - The sent message
+minecraft.from_minecraft = "<red>StaffChat <yellow>%username%</yellow>:</red> <green>%message%</green>"
+
+# The message shown to in-game staff when receiving a message from Discord
+# Placeholders:
+# %displayname% - The user's (nick)name in the current server
+# %username% - The user's username
+# %message% - The sent message
+minecraft.from_discord = "<blue>Discord</blue> <red>StaffChat <yellow>%displayname%</yellow>:</red> <green>%message%</green>"
+
+# The message shown in the Discord when using the staffchat command in-game
+# Placeholders:
+# %displayname% - The player's displayname
+# %username% - The player's username
+# %message% - The sent message
+discord.from_minecraft = "**[StaffChat] %username%**: %message%"
+
+[embeds]
+staffchat.from_minecraft = false
+
+[commands.staffchat]
+aliases = ["sc", "schat", "staffc"]
