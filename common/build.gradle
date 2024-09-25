@@ -2,4 +2,5 @@ dependencies {
     implementation 'com.electronwill.night-config:toml:3.6.0'
     compileOnly "com.github.Spicord.Spicord:spicord-common:v5-SNAPSHOT"
     compileOnly "net.dv8tion:JDA:5.0.1"
+    implementation 'org.incendo:cloud-core:2.0.0'
 }
