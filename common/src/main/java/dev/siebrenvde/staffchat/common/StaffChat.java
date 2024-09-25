@@ -1,6 +1,7 @@
 package dev.siebrenvde.staffchat.common;
 
-import dev.siebrenvde.staffchat.common.commands.StaffChatCommand;
+import dev.siebrenvde.staffchat.common.minecraft.commands.StaffChatCommand;
+import dev.siebrenvde.staffchat.common.minecraft.MinecraftPlugin;
 import dev.siebrenvde.staffchat.common.spicord.Addon;
 import org.incendo.cloud.CommandManager;
 import org.spicord.SpicordLoader;

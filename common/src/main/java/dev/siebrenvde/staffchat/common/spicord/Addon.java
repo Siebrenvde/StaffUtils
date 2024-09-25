@@ -1,6 +1,6 @@
 package dev.siebrenvde.staffchat.common.spicord;
 
-import dev.siebrenvde.staffchat.common.MinecraftPlugin;
+import dev.siebrenvde.staffchat.common.minecraft.MinecraftPlugin;
 import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
 import org.spicord.api.addon.SimpleAddon;
 import org.spicord.bot.DiscordBot;

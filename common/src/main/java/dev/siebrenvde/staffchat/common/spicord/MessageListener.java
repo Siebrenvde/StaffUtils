@@ -1,10 +1,11 @@
 package dev.siebrenvde.staffchat.common.spicord;
 
-import dev.siebrenvde.staffchat.common.MinecraftPlugin;
+import dev.siebrenvde.staffchat.common.minecraft.MinecraftPlugin;
 import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
+import net.kyori.adventure.text.Component;
 import org.jetbrains.annotations.NotNull;
 
 public class MessageListener extends ListenerAdapter {
@@ -29,7 +30,7 @@ public class MessageListener extends ListenerAdapter {
         ) return;
 
         // TODO: Convert to MiniMessage
-        plugin.sendToMinecraft("");
+        plugin.broadcast(Component.empty(), "staffchat.see");
 
     }
 

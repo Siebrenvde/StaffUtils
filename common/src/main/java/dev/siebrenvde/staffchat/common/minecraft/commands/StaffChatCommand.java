@@ -1,6 +1,7 @@
-package dev.siebrenvde.staffchat.common.commands;
+package dev.siebrenvde.staffchat.common.minecraft.commands;
 
-import dev.siebrenvde.staffchat.common.MinecraftPlugin;
+import dev.siebrenvde.staffchat.common.minecraft.MinecraftCommandSender;
+import dev.siebrenvde.staffchat.common.minecraft.MinecraftPlugin;
 import org.incendo.cloud.CommandManager;
 import org.incendo.cloud.description.Description;
 import org.incendo.cloud.parser.standard.StringParser;
@@ -13,6 +14,7 @@ public class StaffChatCommand {
                 .permission("staffchat.use")
                 .optional("message", StringParser.greedyStringParser())
                 .handler(ctx -> {
+                    MinecraftCommandSender sender = plugin.getCommandSender(ctx.sender());
                     String message = ctx.getOrDefault("message", "");
 
                     if(message.isEmpty()) {
