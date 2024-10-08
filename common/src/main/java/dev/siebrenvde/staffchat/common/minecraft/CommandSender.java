@@ -2,7 +2,7 @@ package dev.siebrenvde.staffchat.common.minecraft;
 
 import net.kyori.adventure.text.Component;
 
-public interface MinecraftCommandSender {
+public interface CommandSender {
 
     /**
      * {@return the name of the command sender}

@@ -1,6 +1,6 @@
 package dev.siebrenvde.staffchat.common.spicord;
 
-import dev.siebrenvde.staffchat.common.minecraft.MinecraftPlugin;
+import dev.siebrenvde.staffchat.common.StaffChat;
 import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
@@ -11,11 +11,9 @@ import org.jetbrains.annotations.NotNull;
 public class MessageListener extends ListenerAdapter {
 
     private final Addon addon;
-    private final MinecraftPlugin plugin;
 
-    public MessageListener(Addon addon, MinecraftPlugin plugin) {
+    public MessageListener(Addon addon) {
         this.addon = addon;
-        this.plugin = plugin;
     }
 
     @Override
@@ -30,7 +28,7 @@ public class MessageListener extends ListenerAdapter {
         ) return;
 
         // TODO: Convert to MiniMessage
-        plugin.broadcast(Component.empty(), "staffchat.see");
+        StaffChat.getPlatform().broadcast(Component.empty(), "staffchat.see");
 
     }
 
