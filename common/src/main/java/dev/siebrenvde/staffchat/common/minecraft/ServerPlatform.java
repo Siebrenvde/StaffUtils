@@ -19,4 +19,10 @@ public interface ServerPlatform {
      */
     <C> CommandSender getCommandSender(C sender);
 
+    /**
+     * Returns whether the current server is a proxy server
+     * @return {@code true} if the server is a proxy server
+     */
+    boolean isProxy();
+
 }
