@@ -2,32 +2,43 @@
 config_version = 1
 
 # All in-game messages are formatted using MiniMessage
-# https://docs.advntr.dev/minimessage/format.html
-[messages.staffchat]
+# You can use the MiniMessage Viewer to preview and format your messages:
+# https://webui.advntr.dev
+[messages]
 
-# The message shown to in-game staff when using the staffchat command in-game
-# Placeholders:
-# <displayname> - The player's displayname
-# <username> - The player's username
-# <message> - The sent message
-minecraft.from_minecraft = "<red>StaffChat <yellow><username></yellow>:</red> <green><message></green>"
+  [messages.staffchat]
 
-# The message shown to in-game staff when receiving a message from Discord
-# Placeholders:
-# <displayname> - The user's (nick)name in the current server
-# <username> - The user's username
-# <message> - The sent message
-minecraft.from_discord = "<blue>Discord</blue> <red>StaffChat <yellow><displayname></yellow>:</red> <green><message></green>"
+    # The message shown to in-game staff when using the staffchat command on a Paper or Spigot server
+    # Placeholders:
+    # <displayname> - The player's displayname
+    # <username> - The player's username
+    # <message> - The sent message
+    server_from_server = "<red>StaffChat <yellow><username></yellow>:</red> <green><message></green>"
 
-# The message shown in the Discord when using the staffchat command in-game
-# Placeholders:
-# <displayname> - The player's displayname
-# <username> - The player's username
-# <message> - The sent message
-discord.from_minecraft = "**[StaffChat] <username>**: <message>"
+    # The message shown to in-game staff when using the staffchat command on a proxy server (Velocity/BungeeCord)
+    # Placeholders:
+    # <username> - The player's username
+    # <server> - The server the player is connected to
+    # <message> - The sent message
+    proxy_from_proxy = "<red>StaffChat <yellow><username></yellow> <gold>(<server>)</gold>:</red> <green><message></green>"
 
-[embeds]
-staffchat.from_minecraft = false
+    # The message shown to in-game staff when receiving a message from Discord
+    # Placeholders:
+    # <displayname> - The user's (nick)name in the current server
+    # <username> - The user's username
+    # <message> - The sent message
+    game_from_discord = "<blue>Discord</blue> <red>StaffChat <yellow><displayname></yellow>:</red> <green><message></green>"
 
-[commands.staffchat]
-aliases = ["sc", "schat", "staffc"]
+    # The message shown in Discord when using the staffchat command on a Paper or Spigot server
+    # Placeholders:
+    # <displayname> - The player's displayname
+    # <username> - The player's username
+    # <message> - The sent message
+    discord_from_server = "**[StaffChat] <username>**: <message>"
+
+    # The message shown in Discord when using the staffchat command on a proxy server (Velocity/BungeeCord)
+    # Placeholders:
+    # <username> - The player's username
+    # <server> - The server the player is connected to
+    # <message> - The sent message
+    discord_from_proxy = "**[StaffChat] <username> (<server>)**: <message>"

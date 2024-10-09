@@ -1,5 +1,6 @@
 package dev.siebrenvde.staffchat.common;
 
+import dev.siebrenvde.staffchat.common.config.Config;
 import dev.siebrenvde.staffchat.common.minecraft.commands.StaffChatCommand;
 import dev.siebrenvde.staffchat.common.minecraft.ServerPlatform;
 import dev.siebrenvde.staffchat.common.spicord.Addon;
@@ -7,6 +8,8 @@ import org.incendo.cloud.CommandManager;
 import org.spicord.SpicordLoader;
 
 public class StaffChat {
+
+    public static Config CONFIG;
 
     private static ServerPlatform platform;
     private static Addon addon;
