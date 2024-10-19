@@ -7,6 +7,8 @@ import dev.siebrenvde.staffchat.common.spicord.Addon;
 import org.incendo.cloud.CommandManager;
 import org.spicord.SpicordLoader;
 
+import java.nio.file.Path;
+
 public class StaffChat {
 
     public static Config CONFIG;
@@ -14,7 +16,8 @@ public class StaffChat {
     private static ServerPlatform platform;
     private static Addon addon;
 
-    public <C> StaffChat(ServerPlatform serverPlatform, CommandManager<C> commandManager) {
+    public <C> StaffChat(Path dataDirectory, ServerPlatform serverPlatform, CommandManager<C> commandManager) {
+        CONFIG = Config.load(dataDirectory);
         platform = serverPlatform;
         addon = new Addon();
         SpicordLoader.addStartupListener(spicord -> {
