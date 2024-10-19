@@ -1,6 +1,9 @@
 # Do not change this
 config_version = 1
 
+# The id of the staff channel
+staff_channel = ""
+
 # All in-game messages are formatted using MiniMessage
 # You can use the MiniMessage Viewer to preview and format your messages:
 # https://webui.advntr.dev

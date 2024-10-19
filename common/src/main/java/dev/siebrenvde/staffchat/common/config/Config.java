@@ -37,6 +37,9 @@ public class Config {
     @SerdeKey("config_version")
     public int configVersion;
 
+    @SerdeKey("staff_channel")
+    public String staffChannel;
+
     public Messages messages;
     public static class Messages {
 
