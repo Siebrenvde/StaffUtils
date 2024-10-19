@@ -25,4 +25,10 @@ public interface CommandSender {
      */
     void sendMessage(Component message);
 
+    /**
+     * {@return whether the command sender has the provided permission}
+     * @param permission the permission to check
+     */
+    boolean hasPermission(String permission);
+
 }
