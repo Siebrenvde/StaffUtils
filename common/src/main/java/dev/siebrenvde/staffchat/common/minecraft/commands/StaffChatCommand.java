@@ -2,6 +2,8 @@ package dev.siebrenvde.staffchat.common.minecraft.commands;
 
 import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.tree.LiteralCommandNode;
+import dev.siebrenvde.staffchat.common.StaffChat;
+import dev.siebrenvde.staffchat.common.messages.Messages;
 import dev.siebrenvde.staffchat.common.minecraft.BrigadierCommandManager;
 import dev.siebrenvde.staffchat.common.minecraft.CommandSender;
 import dev.siebrenvde.staffchat.common.minecraft.ServerPlatform;
@@ -49,7 +51,11 @@ public class StaffChatCommand extends BaseCommand {
     }
 
     private void executeSendMessage(CommandSender sender, String message) {
-        // TODO: Implement
+        StaffChat.getPlatform().broadcast(
+            Messages.staffChat().serverFromServer(sender, message),
+            "staffchat.see"
+        );
+        StaffChat.getAddon().sendMessage(Messages.staffChat().discordFromServer(sender, message));
     }
 
 }

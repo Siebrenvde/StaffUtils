@@ -27,10 +27,11 @@ staff_channel = ""
 
     # The message shown to in-game staff when receiving a message from Discord
     # Placeholders:
+    # <profile> - The user's (nick)name with extra info when hovering over their name
     # <displayname> - The user's (nick)name in the current server
     # <username> - The user's username
     # <message> - The sent message
-    game_from_discord = "<blue>Discord</blue> <red>StaffChat <yellow><displayname></yellow>:</red> <green><message></green>"
+    game_from_discord = "<blue>Discord</blue> <red>StaffChat <yellow><profile></yellow>:</red> <green><message></green>"
 
     # The message shown in Discord when using the staffchat command on a Paper or Spigot server
     # Placeholders:

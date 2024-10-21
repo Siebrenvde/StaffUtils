@@ -23,6 +23,10 @@ public class Addon extends SimpleAddon {
         jda.addEventListener(new MessageListener(this));
     }
 
+    public void sendMessage(String message) {
+        staffChannel.sendMessage(message).queue();
+    }
+
     public TextChannel getStaffChannel() { return staffChannel; }
 
 }

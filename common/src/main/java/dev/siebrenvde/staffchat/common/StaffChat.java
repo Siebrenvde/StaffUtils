@@ -1,6 +1,7 @@
 package dev.siebrenvde.staffchat.common;
 
 import dev.siebrenvde.staffchat.common.config.Config;
+import dev.siebrenvde.staffchat.common.messages.Messages;
 import dev.siebrenvde.staffchat.common.minecraft.CommandManager;
 import dev.siebrenvde.staffchat.common.minecraft.ServerPlatform;
 import dev.siebrenvde.staffchat.common.minecraft.commands.StaffChatCommand;
@@ -23,6 +24,7 @@ public class StaffChat {
         SpicordLoader.addStartupListener(spicord -> {
             spicord.getAddonManager().registerAddon(addon);
         });
+        new Messages(platform, CONFIG);
     }
 
     public void registerCommands(CommandManager manager) {
