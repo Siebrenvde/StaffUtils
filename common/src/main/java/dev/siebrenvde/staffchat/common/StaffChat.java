@@ -14,25 +14,22 @@ public class StaffChat {
     public static Config CONFIG;
 
     private static ServerPlatform platform;
-    private static CommandManager commandManager;
     private static Addon addon;
 
-    public StaffChat(Path dataDirectory, ServerPlatform serverPlatform, CommandManager cmdManager) {
+    public StaffChat(Path dataDirectory, ServerPlatform serverPlatform) {
         CONFIG = Config.load(dataDirectory);
         platform = serverPlatform;
-        commandManager = cmdManager;
         addon = new Addon();
         SpicordLoader.addStartupListener(spicord -> {
             spicord.getAddonManager().registerAddon(addon);
         });
     }
 
-    public void registerCommands() {
-        commandManager.register(new StaffChatCommand());
+    public void registerCommands(CommandManager manager) {
+        manager.register(new StaffChatCommand());
     }
 
     public static ServerPlatform getPlatform() { return platform; }
-    public static CommandManager getCommandManager() { return commandManager; }
     public static Addon getAddon() { return addon; }
 
 }
