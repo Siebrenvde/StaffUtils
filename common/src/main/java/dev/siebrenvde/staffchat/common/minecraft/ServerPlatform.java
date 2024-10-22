@@ -4,6 +4,17 @@ import net.kyori.adventure.text.Component;
 
 public interface ServerPlatform {
 
+    enum ServerType {
+        SPIGOT,
+        VELOCITY,
+        BUNGEECORD
+    }
+
+    /**
+     * {@return the type of the server implementation}
+     */
+    ServerType getServerType();
+
     /**
      * Broadcasts a message to all online players with the specified permission
      * @param message The message to broadcast
