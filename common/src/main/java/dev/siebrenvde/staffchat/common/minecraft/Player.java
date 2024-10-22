@@ -15,6 +15,9 @@ public interface Player extends CommandSender {
         return (Player) StaffChat.getPlatform().getCommandSender(player);
     }
 
+    /**
+     * {@return the player's UUID}
+     */
     UUID getUniqueId();
 
 }

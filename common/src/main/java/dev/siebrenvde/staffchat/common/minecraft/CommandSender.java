@@ -25,11 +25,6 @@ public interface CommandSender {
     String getDisplayName();
 
     /**
-     * {@return the name of the server the command sender is connected to}
-     */
-    String getServerName();
-
-    /**
      * Sends a message to the command sender
      * @param message the message to send
      */

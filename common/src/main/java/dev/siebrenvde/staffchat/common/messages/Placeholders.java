@@ -2,6 +2,7 @@ package dev.siebrenvde.staffchat.common.messages;
 
 import dev.siebrenvde.staffchat.common.StaffChat;
 import dev.siebrenvde.staffchat.common.minecraft.CommandSender;
+import dev.siebrenvde.staffchat.common.minecraft.ProxyPlayer;
 import net.dv8tion.jda.api.entities.Member;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import net.kyori.adventure.text.minimessage.tag.resolver.Placeholder;
@@ -26,7 +27,11 @@ public class Placeholders {
         return TagResolver.resolver(
             Placeholder.unparsed("username", sender.getName()),
             StaffChat.getPlatform().isProxy()
-                ? Placeholder.unparsed("server", sender.getServerName())
+                ? Placeholder.unparsed("server",
+                    sender instanceof ProxyPlayer player
+                    ? player.getServerName()
+                    : "none"
+                )
                 : Placeholder.unparsed("displayname", sender.getDisplayName())
         );
     }
