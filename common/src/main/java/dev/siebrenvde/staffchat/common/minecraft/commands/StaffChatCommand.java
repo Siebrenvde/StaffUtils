@@ -5,6 +5,7 @@ import com.mojang.brigadier.tree.LiteralCommandNode;
 import dev.siebrenvde.staffchat.common.StaffChat;
 import dev.siebrenvde.staffchat.common.messages.Messages;
 import dev.siebrenvde.staffchat.common.minecraft.*;
+import dev.siebrenvde.staffchat.common.util.SignedMessageCompat;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 
@@ -30,16 +31,6 @@ public class StaffChatCommand extends BaseCommand {
         return manager.literal(getName())
             .requires(sender -> platform.getCommandSender(sender).hasPermission(getPermission()))
             .executes(ctx -> {
-                if(
-                    platform.getServerType() == ServerPlatform.ServerType.VELOCITY
-                    && CommandSender.of(ctx.getSource()) instanceof ProxyPlayer player
-                    && player.getProtocolVersion() >= 760
-                    /* Cannot deny signed messages on Velocity with 1.19.1+ clients */
-                ) {
-                    player.sendMessage(Component.text("Toggling StaffChat is not supported by your client", NamedTextColor.RED));
-                    StaffChat.LOGGER.warn("Toggling StaffChat is not supported when using a 1.19.1+ client with Velocity");
-                    return 1;
-                }
                 executeToggle(platform.getCommandSender(ctx.getSource()));
                 return 1;
             })
@@ -67,6 +58,7 @@ public class StaffChatCommand extends BaseCommand {
             sender.sendMessage(Component.text("Only players can toggle StaffChat", NamedTextColor.RED));
             return;
         }
+        if(!SignedMessageCompat.isSupported(player)) return;
         UUID uuid = player.getUniqueId();
         if(!ENABLED_PLAYERS.contains(uuid)) {
             ENABLED_PLAYERS.add(uuid);
