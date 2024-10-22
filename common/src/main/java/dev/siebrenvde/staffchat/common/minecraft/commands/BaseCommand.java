@@ -1,11 +1,10 @@
 package dev.siebrenvde.staffchat.common.minecraft.commands;
 
 import com.mojang.brigadier.tree.LiteralCommandNode;
+import dev.siebrenvde.staffchat.common.messages.Messages;
 import dev.siebrenvde.staffchat.common.minecraft.BrigadierCommandManager;
 import dev.siebrenvde.staffchat.common.minecraft.CommandSender;
 import dev.siebrenvde.staffchat.common.minecraft.ServerPlatform;
-import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.format.NamedTextColor;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
@@ -84,7 +83,7 @@ public abstract class BaseCommand {
      */
     public boolean checkPermission(CommandSender sender) {
         if(sender.hasPermission(permission) || permission == null) return true;
-        sender.sendMessage(Component.text("You don't have permission to execute this command!", NamedTextColor.RED));
+        sender.sendMessage(Messages.messages().permissionMessage());
         return false;
     }
 

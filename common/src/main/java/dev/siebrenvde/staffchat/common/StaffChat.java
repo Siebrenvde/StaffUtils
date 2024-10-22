@@ -13,21 +13,20 @@ import java.nio.file.Path;
 
 public class StaffChat {
 
-    public static Config CONFIG;
     public static Logger LOGGER;
 
     private static ServerPlatform platform;
     private static Addon addon;
 
     public StaffChat(Path dataDirectory, ServerPlatform serverPlatform, Logger logger) {
-        CONFIG = Config.load(dataDirectory);
+        Config.load(dataDirectory);
         LOGGER = logger;
         platform = serverPlatform;
         addon = new Addon();
         SpicordLoader.addStartupListener(spicord -> {
             spicord.getAddonManager().registerAddon(addon);
         });
-        new Messages(platform, CONFIG);
+        new Messages(platform, Config.MESSAGES);
     }
 
     public void registerCommands(CommandManager manager) {

@@ -1,6 +1,6 @@
 package dev.siebrenvde.staffchat.common.spicord;
 
-import dev.siebrenvde.staffchat.common.StaffChat;
+import dev.siebrenvde.staffchat.common.config.Config;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
 import org.spicord.api.addon.SimpleAddon;
@@ -18,8 +18,8 @@ public class Addon extends SimpleAddon {
     @Override
     public void onReady(DiscordBot bot) {
         jda = bot.getJda();
-        if(StaffChat.CONFIG.staffChannel.isEmpty()) throw new RuntimeException("Staff channel is empty");
-        staffChannel = jda.getTextChannelById(StaffChat.CONFIG.staffChannel);
+        if(Config.CONFIG.staffChannel.isEmpty()) throw new RuntimeException("Staff channel is empty");
+        staffChannel = jda.getTextChannelById(Config.CONFIG.staffChannel);
         jda.addEventListener(new MessageListener(this));
     }
 

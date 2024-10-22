@@ -1,6 +1,6 @@
 package dev.siebrenvde.staffchat.common.messages;
 
-import dev.siebrenvde.staffchat.common.config.Config;
+import dev.siebrenvde.staffchat.common.config.MessageConfig;
 import dev.siebrenvde.staffchat.common.minecraft.CommandSender;
 import dev.siebrenvde.staffchat.common.minecraft.ServerPlatform;
 import net.dv8tion.jda.api.entities.Member;
@@ -13,20 +13,27 @@ import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer;
  */
 public class Messages {
 
-    private static Messages instance;
+    private final MiniMessage miniMessage;
+    private final MessageConfig config;
 
+    private static Messages instance;
     private final StaffChat staffChat;
 
-    public Messages(ServerPlatform platform, Config config) {
+    public Messages(ServerPlatform platform, MessageConfig config) {
         instance = this;
-        MiniMessage miniMessage = MiniMessage.miniMessage();
+        miniMessage = MiniMessage.miniMessage();
+        this.config = config;
         staffChat = new StaffChat(platform, config, miniMessage);
     }
 
     public static Messages messages() { return instance; }
     public static StaffChat staffChat() { return instance.staffChat; }
 
-    public record StaffChat(ServerPlatform platform, Config config, MiniMessage miniMessage) {
+    public Component permissionMessage() {
+        return miniMessage.deserialize(config.permissionMessage);
+    }
+
+    public record StaffChat(ServerPlatform platform, MessageConfig config, MiniMessage miniMessage) {
 
         /**
          * The message sent in-game when using the staffchat command
@@ -37,8 +44,8 @@ public class Messages {
         public Component serverFromServer(CommandSender sender, String message) {
             return miniMessage().deserialize(
                 platform.isProxy()
-                    ? config().messages.staffChat.proxyFromProxy
-                    : config().messages.staffChat.serverFromServer,
+                    ? config().staffChat.proxyFromProxy
+                    : config().staffChat.serverFromServer,
                 Placeholders.sender(sender),
                 Placeholders.parsedMessage(message) // TODO: Add config option to disable parsing
             );
@@ -46,7 +53,7 @@ public class Messages {
 
         public Component serverFromDiscord(Member author, String message) {
             return miniMessage().deserialize(
-                config().messages.staffChat.gameFromDiscord,
+                config().staffChat.gameFromDiscord,
                 Placeholders.discordMember(author),
                 Placeholders.parsedMessage(message)
             );
@@ -56,8 +63,8 @@ public class Messages {
             return PlainTextComponentSerializer.plainText().serialize(
                 miniMessage.deserialize(
                     platform.isProxy()
-                        ? config().messages.staffChat.discordFromProxy
-                        : config().messages.staffChat.discordFromServer,
+                        ? config().staffChat.discordFromProxy
+                        : config().staffChat.discordFromServer,
                     Placeholders.sender(sender),
                     Placeholders.parsedMessage(message)
                 )
