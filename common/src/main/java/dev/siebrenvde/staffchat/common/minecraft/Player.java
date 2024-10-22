@@ -2,6 +2,8 @@ package dev.siebrenvde.staffchat.common.minecraft;
 
 import dev.siebrenvde.staffchat.common.StaffChat;
 
+import java.util.UUID;
+
 public interface Player extends CommandSender {
 
     /**
@@ -12,5 +14,7 @@ public interface Player extends CommandSender {
     static <P> Player of(P player) {
         return (Player) StaffChat.getPlatform().getCommandSender(player);
     }
+
+    UUID getUniqueId();
 
 }
