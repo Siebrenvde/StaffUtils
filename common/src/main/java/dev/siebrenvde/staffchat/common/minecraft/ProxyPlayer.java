@@ -10,7 +10,7 @@ public interface ProxyPlayer extends Player {
      * @param <P> the server software's player class
      */
     static <P> ProxyPlayer of(P player) {
-        return (ProxyPlayer) StaffChat.getPlatform().getCommandSender(player);
+        return (ProxyPlayer) StaffChat.getPlatform().getPlayer(player);
     }
 
     /**

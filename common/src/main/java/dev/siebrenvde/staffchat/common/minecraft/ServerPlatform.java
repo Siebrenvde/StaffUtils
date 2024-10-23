@@ -31,6 +31,14 @@ public interface ServerPlatform {
     <C> CommandSender getCommandSender(C sender);
 
     /**
+     * Returns an instance of {@link Player} corresponding to the provided player
+     * @param player the player
+     * @return an instance of {@link Player}
+     * @param <P> the server software's player
+     */
+    <P> Player getPlayer(P player);
+
+    /**
      * Returns whether the current server is a proxy server
      * @return {@code true} if the server is a proxy server
      */

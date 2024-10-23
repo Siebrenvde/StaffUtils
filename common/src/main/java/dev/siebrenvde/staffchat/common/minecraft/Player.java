@@ -12,7 +12,7 @@ public interface Player extends CommandSender {
      * @param <P> the server software's player class
      */
     static <P> Player of(P player) {
-        return (Player) StaffChat.getPlatform().getCommandSender(player);
+        return StaffChat.getPlatform().getPlayer(player);
     }
 
     /**
