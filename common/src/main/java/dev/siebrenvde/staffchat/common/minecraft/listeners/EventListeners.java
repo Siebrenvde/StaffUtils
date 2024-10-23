@@ -11,4 +11,8 @@ public class EventListeners {
         return true;
     }
 
+    public static void disconnectListener(Player player) {
+        StaffChatCommand.ENABLED_PLAYERS.remove(player.getUniqueId());
+    }
+
 }
