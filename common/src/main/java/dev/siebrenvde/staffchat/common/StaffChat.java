@@ -30,7 +30,7 @@ public class StaffChat {
     }
 
     public void registerCommands(CommandManager manager) {
-        manager.register(new StaffChatCommand());
+        if(Config.COMMANDS.staffChat.enabled) manager.register(new StaffChatCommand(Config.COMMANDS.staffChat));
     }
 
     public static ServerPlatform getPlatform() { return platform; }

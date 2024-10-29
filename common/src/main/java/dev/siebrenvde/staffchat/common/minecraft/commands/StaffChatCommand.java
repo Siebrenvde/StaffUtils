@@ -3,6 +3,7 @@ package dev.siebrenvde.staffchat.common.minecraft.commands;
 import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.tree.LiteralCommandNode;
 import dev.siebrenvde.staffchat.common.StaffChat;
+import dev.siebrenvde.staffchat.common.config.CommandConfig;
 import dev.siebrenvde.staffchat.common.messages.Messages;
 import dev.siebrenvde.staffchat.common.minecraft.*;
 import dev.siebrenvde.staffchat.common.util.Permissions;
@@ -18,11 +19,11 @@ public class StaffChatCommand extends BaseCommand {
 
     public static final List<UUID> ENABLED_PLAYERS = new ArrayList<>();
 
-    public StaffChatCommand() {
+    public StaffChatCommand(CommandConfig.StaffChat config) {
         super(
-            "staffchat",
-            new String[]{"sc", "schat"},
-            "Chat with other staff members",
+            config.name,
+            config.aliases,
+            config.description,
             Permissions.COMMAND_STAFFCHAT
         );
     }

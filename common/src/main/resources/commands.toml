@@ -1,0 +1,8 @@
+[staffchat]
+  enabled = true
+  name = "staffchat"
+  aliases = [
+    "sc",
+    "schat"
+  ]
+  description = "Chat with other staff members"
