@@ -4,7 +4,6 @@ import com.mojang.brigadier.tree.LiteralCommandNode;
 import dev.siebrenvde.staffchat.common.messages.Messages;
 import dev.siebrenvde.staffchat.common.minecraft.BrigadierCommandManager;
 import dev.siebrenvde.staffchat.common.minecraft.CommandSender;
-import dev.siebrenvde.staffchat.common.minecraft.ServerPlatform;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
@@ -33,11 +32,10 @@ public abstract class BaseCommand {
     /**
      * The Brigadier implementation of the command
      * @param manager the Brigadier command manager
-     * @param platform the server platform
      * @return a new LiteralCommandNode
      * @param <C> the server software's command sender
      */
-    public abstract <C> LiteralCommandNode<C> brigadier(BrigadierCommandManager<C> manager, ServerPlatform platform);
+    public abstract <C> LiteralCommandNode<C> brigadier(BrigadierCommandManager<C> manager);
 
     /**
      * The simple implementation of the command

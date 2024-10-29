@@ -28,17 +28,17 @@ public class StaffChatCommand extends BaseCommand {
     }
 
     @Override
-    public <C> LiteralCommandNode<C> brigadier(BrigadierCommandManager<C> manager, ServerPlatform platform) {
+    public <C> LiteralCommandNode<C> brigadier(BrigadierCommandManager<C> manager) {
         return manager.literal(getName())
-            .requires(sender -> platform.getCommandSender(sender).hasPermission(getRootPermission()))
+            .requires(sender -> CommandSender.of(sender).hasPermission(getRootPermission()))
             .executes(ctx -> {
-                executeToggle(platform.getCommandSender(ctx.getSource()));
+                executeToggle(CommandSender.of(ctx.getSource()));
                 return 1;
             })
             .then(manager.argument("message", StringArgumentType.greedyString())
                 .executes(ctx -> {
                     executeSendMessage(
-                        platform.getCommandSender(ctx.getSource()),
+                        CommandSender.of(ctx.getSource()),
                         StringArgumentType.getString(ctx, "message")
                     );
                     return 1;
