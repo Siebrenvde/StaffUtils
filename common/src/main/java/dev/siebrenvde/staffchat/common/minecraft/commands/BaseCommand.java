@@ -14,20 +14,20 @@ public abstract class BaseCommand {
     private final String name;
     @Nullable private final String[] aliases;
     @Nullable private final String description;
-    @Nullable private final String permission;
+    @Nullable private final String rootPermission;
 
     /**
      * Creates a new command with the provided parameters
      * @param name the name of the command
      * @param aliases the aliases of the command
      * @param description the description of the command
-     * @param permission the permission of the command
+     * @param rootPermission the root permission of the command
      */
-    public BaseCommand(String name, @Nullable String[] aliases, @Nullable String description, @Nullable String permission) {
+    public BaseCommand(String name, @Nullable String[] aliases, @Nullable String description, @Nullable String rootPermission) {
         this.name = name;
         this.aliases = aliases;
         this.description = description;
-        this.permission = permission;
+        this.rootPermission = rootPermission;
     }
 
     /**
@@ -72,17 +72,20 @@ public abstract class BaseCommand {
     public String getDescription() { return description != null ? description : ""; }
 
     /**
-     * {@return the permission of the command}
+     * {@return the root permission of the command}
      */
-    public @Nullable String getPermission() { return permission; }
+    public @Nullable String getRootPermission() { return rootPermission; }
 
     /**
-     * Returns whether the command sender has the command's permission
+     * Checks whether the command sender has the given permission
+     * <br>
+     * If {@code false}, sends them a permission message
      * @param sender the command sender
-     * @return {@code true} if the command sender has the command's permission
+     * @param permission the permission to check
+     * @return {@code true} if the command sender has the given permission
      */
-    public boolean checkPermission(CommandSender sender) {
-        if(sender.hasPermission(permission) || permission == null) return true;
+    public boolean checkPermission(CommandSender sender, String permission) {
+        if(permission == null || sender.hasPermission(permission)) return true;
         sender.sendMessage(Messages.messages().permissionMessage());
         return false;
     }

@@ -30,7 +30,7 @@ public class StaffChatCommand extends BaseCommand {
     @Override
     public <C> LiteralCommandNode<C> brigadier(BrigadierCommandManager<C> manager, ServerPlatform platform) {
         return manager.literal(getName())
-            .requires(sender -> platform.getCommandSender(sender).hasPermission(getPermission()))
+            .requires(sender -> platform.getCommandSender(sender).hasPermission(getRootPermission()))
             .executes(ctx -> {
                 executeToggle(platform.getCommandSender(ctx.getSource()));
                 return 1;
@@ -49,7 +49,7 @@ public class StaffChatCommand extends BaseCommand {
 
     @Override
     public void simple(CommandSender sender, String[] args) {
-        if(!checkPermission(sender)) return;
+        if(!checkPermission(sender, getRootPermission())) return;
         if(args.length == 0) executeToggle(sender);
         else executeSendMessage(sender, String.join(" ", args));
     }
