@@ -5,6 +5,7 @@ import com.mojang.brigadier.tree.LiteralCommandNode;
 import dev.siebrenvde.staffchat.common.StaffChat;
 import dev.siebrenvde.staffchat.common.messages.Messages;
 import dev.siebrenvde.staffchat.common.minecraft.*;
+import dev.siebrenvde.staffchat.common.util.Permissions;
 import dev.siebrenvde.staffchat.common.util.SignedMessageCompat;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
@@ -22,7 +23,7 @@ public class StaffChatCommand extends BaseCommand {
             "staffchat",
             new String[]{"sc", "schat"},
             "Chat with other staff members",
-            "staffchat.use"
+            Permissions.COMMAND_STAFFCHAT
         );
     }
 
@@ -76,7 +77,7 @@ public class StaffChatCommand extends BaseCommand {
     public static void executeSendMessage(CommandSender sender, String message) {
         StaffChat.getPlatform().broadcast(
             Messages.staffChat().serverFromServer(sender, message),
-            "staffchat.see"
+            Permissions.RECEIVE_STAFFCHAT
         );
         StaffChat.getAddon().sendMessage(Messages.staffChat().discordFromServer(sender, message));
     }

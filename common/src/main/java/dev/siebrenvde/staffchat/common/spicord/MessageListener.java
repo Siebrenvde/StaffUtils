@@ -2,6 +2,7 @@ package dev.siebrenvde.staffchat.common.spicord;
 
 import dev.siebrenvde.staffchat.common.StaffChat;
 import dev.siebrenvde.staffchat.common.messages.Messages;
+import dev.siebrenvde.staffchat.common.util.Permissions;
 import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
@@ -32,7 +33,7 @@ public class MessageListener extends ListenerAdapter {
                 addon.getStaffChannel().getGuild().getMember(author),
                 event.getMessage().getContentStripped()
             ),
-            "staffchat.see"
+            Permissions.RECEIVE_STAFFCHAT
         );
 
     }
