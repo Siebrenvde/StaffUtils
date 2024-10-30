@@ -27,7 +27,7 @@ public class Addon extends SimpleAddon {
         staffChannel = jda.getTextChannelById(Config.CONFIG.staffChannel);
         jda.addEventListener(new MessageListener(this));
         isReady = true;
-        staffChannel.sendMessage(String.join("\n", messageQueue)).queue();
+        if(!messageQueue.isEmpty()) staffChannel.sendMessage(String.join("\n", messageQueue)).queue();
     }
 
     public void sendMessage(String message) {
