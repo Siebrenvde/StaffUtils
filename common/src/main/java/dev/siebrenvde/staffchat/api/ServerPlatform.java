@@ -1,7 +1,7 @@
 package dev.siebrenvde.staffchat.api;
 
-import dev.siebrenvde.staffchat.api.command.CommandSender;
-import dev.siebrenvde.staffchat.api.player.Player;
+import dev.siebrenvde.staffchat.api.command.CommonCommandSender;
+import dev.siebrenvde.staffchat.api.player.CommonPlayer;
 import net.kyori.adventure.text.Component;
 
 public interface ServerPlatform {
@@ -25,20 +25,20 @@ public interface ServerPlatform {
     void broadcast(Component message, String permission);
 
     /**
-     * Returns an instance of {@link CommandSender} corresponding to the provided command sender
+     * Returns an instance of {@link CommonCommandSender} corresponding to the provided command sender
      * @param sender The command sender
-     * @return An instance of {@link CommandSender}
+     * @return An instance of {@link CommonCommandSender}
      * @param <C> The server software's command sender
      */
-    <C> CommandSender getCommandSender(C sender);
+    <C> CommonCommandSender getCommandSender(C sender);
 
     /**
-     * Returns an instance of {@link Player} corresponding to the provided player
+     * Returns an instance of {@link CommonPlayer} corresponding to the provided player
      * @param player the player
-     * @return an instance of {@link Player}
+     * @return an instance of {@link CommonPlayer}
      * @param <P> the server software's player
      */
-    <P> Player getPlayer(P player);
+    <P> CommonPlayer getPlayer(P player);
 
     /**
      * Returns whether the current server is a proxy server

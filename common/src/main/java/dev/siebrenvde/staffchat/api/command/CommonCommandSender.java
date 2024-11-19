@@ -3,14 +3,14 @@ package dev.siebrenvde.staffchat.api.command;
 import dev.siebrenvde.staffchat.StaffChat;
 import net.kyori.adventure.text.Component;
 
-public interface CommandSender {
+public interface CommonCommandSender {
 
     /**
      * {@return a new CommandSender instance}
      * @param sender the command sender
      * @param <C> the server software's command sender
      */
-    static <C> CommandSender of(C sender) {
+    static <C> CommonCommandSender of(C sender) {
         return StaffChat.getPlatform().getCommandSender(sender);
     }
 

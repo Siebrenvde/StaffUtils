@@ -2,7 +2,7 @@ package dev.siebrenvde.staffchat.api.player;
 
 import dev.siebrenvde.staffchat.StaffChat;
 
-public interface ProxyPlayer extends Player {
+public interface ProxyPlayer extends CommonPlayer {
 
     /**
      * {@return a new ProxyPlayer instance}

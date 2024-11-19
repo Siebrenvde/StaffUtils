@@ -1,7 +1,7 @@
 package dev.siebrenvde.staffchat.messages;
 
 import dev.siebrenvde.staffchat.StaffChat;
-import dev.siebrenvde.staffchat.api.command.CommandSender;
+import dev.siebrenvde.staffchat.api.command.CommonCommandSender;
 import dev.siebrenvde.staffchat.api.player.ProxyPlayer;
 import net.dv8tion.jda.api.entities.Member;
 import net.kyori.adventure.text.minimessage.MiniMessage;
@@ -23,7 +23,7 @@ public class Placeholders {
             )
             .build();
 
-    public static TagResolver sender(CommandSender sender) {
+    public static TagResolver sender(CommonCommandSender sender) {
         return TagResolver.resolver(
             Placeholder.unparsed("username", sender.getName()),
             StaffChat.getPlatform().isProxy()

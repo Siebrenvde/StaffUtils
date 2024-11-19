@@ -40,7 +40,7 @@ public abstract class BaseCommand {
      * @param sender the command sender
      * @param args the command arguments
      */
-    public abstract void simple(CommandSender sender, String[] args);
+    public abstract void simple(CommonCommandSender sender, String[] args);
 
     /**
      * The suggestions for the simple command
@@ -48,7 +48,7 @@ public abstract class BaseCommand {
      * @param args the command arguments
      * @return a list of strings to suggest
      */
-    public List<String> suggestions(CommandSender sender, String[] args) {
+    public List<String> suggestions(CommonCommandSender sender, String[] args) {
         return List.of();
     }
 
@@ -80,7 +80,7 @@ public abstract class BaseCommand {
      * @param permission the permission to check
      * @return {@code true} if the command sender has the given permission
      */
-    public boolean checkPermission(CommandSender sender, String permission) {
+    public boolean checkPermission(CommonCommandSender sender, String permission) {
         if(permission == null || sender.hasPermission(permission)) return true;
         sender.sendMessage(Messages.messages().permissionMessage());
         return false;

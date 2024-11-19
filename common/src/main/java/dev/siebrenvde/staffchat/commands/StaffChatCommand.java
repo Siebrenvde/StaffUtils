@@ -7,8 +7,8 @@ import dev.siebrenvde.staffchat.config.CommandConfig;
 import dev.siebrenvde.staffchat.messages.Messages;
 import dev.siebrenvde.staffchat.api.command.BaseCommand;
 import dev.siebrenvde.staffchat.api.command.BrigadierCommandManager;
-import dev.siebrenvde.staffchat.api.command.CommandSender;
-import dev.siebrenvde.staffchat.api.player.Player;
+import dev.siebrenvde.staffchat.api.command.CommonCommandSender;
+import dev.siebrenvde.staffchat.api.player.CommonPlayer;
 import dev.siebrenvde.staffchat.util.Permissions;
 import dev.siebrenvde.staffchat.util.SignedMessageCompat;
 import net.kyori.adventure.text.Component;
@@ -34,15 +34,15 @@ public class StaffChatCommand extends BaseCommand {
     @Override
     public <C> LiteralCommandNode<C> brigadier(BrigadierCommandManager<C> manager) {
         return manager.literal(getName())
-            .requires(sender -> CommandSender.of(sender).hasPermission(getRootPermission()))
+            .requires(sender -> CommonCommandSender.of(sender).hasPermission(getRootPermission()))
             .executes(ctx -> {
-                executeToggle(CommandSender.of(ctx.getSource()));
+                executeToggle(CommonCommandSender.of(ctx.getSource()));
                 return 1;
             })
             .then(manager.argument("message", StringArgumentType.greedyString())
                 .executes(ctx -> {
                     executeSendMessage(
-                        CommandSender.of(ctx.getSource()),
+                        CommonCommandSender.of(ctx.getSource()),
                         StringArgumentType.getString(ctx, "message")
                     );
                     return 1;
@@ -52,14 +52,14 @@ public class StaffChatCommand extends BaseCommand {
     }
 
     @Override
-    public void simple(CommandSender sender, String[] args) {
+    public void simple(CommonCommandSender sender, String[] args) {
         if(!checkPermission(sender, getRootPermission())) return;
         if(args.length == 0) executeToggle(sender);
         else executeSendMessage(sender, String.join(" ", args));
     }
 
-    private void executeToggle(CommandSender sender) {
-        if(!(sender instanceof Player player)) {
+    private void executeToggle(CommonCommandSender sender) {
+        if(!(sender instanceof CommonPlayer player)) {
             sender.sendMessage(Component.text("Only players can toggle StaffChat", NamedTextColor.RED));
             return;
         }
@@ -78,7 +78,7 @@ public class StaffChatCommand extends BaseCommand {
         }
     }
 
-    public static void executeSendMessage(CommandSender sender, String message) {
+    public static void executeSendMessage(CommonCommandSender sender, String message) {
         StaffChat.getPlatform().broadcast(
             Messages.staffChat().serverFromServer(sender, message),
             Permissions.RECEIVE_STAFFCHAT

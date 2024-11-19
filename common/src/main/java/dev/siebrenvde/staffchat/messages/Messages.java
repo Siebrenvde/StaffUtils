@@ -1,7 +1,7 @@
 package dev.siebrenvde.staffchat.messages;
 
 import dev.siebrenvde.staffchat.config.MessageConfig;
-import dev.siebrenvde.staffchat.api.command.CommandSender;
+import dev.siebrenvde.staffchat.api.command.CommonCommandSender;
 import dev.siebrenvde.staffchat.api.ServerPlatform;
 import net.dv8tion.jda.api.entities.Member;
 import net.kyori.adventure.text.Component;
@@ -41,7 +41,7 @@ public class Messages {
          * @param message the message
          * @return the message parsed as a Component
          */
-        public Component serverFromServer(CommandSender sender, String message) {
+        public Component serverFromServer(CommonCommandSender sender, String message) {
             return miniMessage().deserialize(
                 platform.isProxy()
                     ? config().staffChat.proxyFromProxy
@@ -59,7 +59,7 @@ public class Messages {
             );
         }
 
-        public String discordFromServer(CommandSender sender, String message) {
+        public String discordFromServer(CommonCommandSender sender, String message) {
             return PlainTextComponentSerializer.plainText().serialize(
                 miniMessage.deserialize(
                     platform.isProxy()
