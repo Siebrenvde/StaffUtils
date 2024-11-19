@@ -42,3 +42,12 @@ permission_message = "<red>You don't have permission to execute this command</re
   # <server> - The server the player is connected to
   # <message> - The sent message
   discord_from_proxy = "**[StaffChat] <username> (<server>)**: <message>"
+
+  # The message shown when a non-player tries to toggle StaffChat
+  player_only = "<red>Only players can toggle StaffChat</red>"
+
+  # The message shown when a player enables StaffChat
+  enabled = "<green>Enabled StaffChat<newline>Any message you send will be sent to the staff chat</green>"
+
+  # The message shown when a player disables StaffChat
+  disabled = "<red>Disabled StaffChat</red>"

@@ -34,6 +34,13 @@ public class MessageConfig extends BaseConfig {
         @SerdeKey("discord_from_proxy")
         public String discordFromProxy;
 
+        @SerdeKey("player_only")
+        public String playerOnly;
+
+        public String enabled;
+
+        public String disabled;
+
     }
 
 }

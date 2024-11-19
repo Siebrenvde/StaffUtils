@@ -71,6 +71,10 @@ public class Messages {
             );
         }
 
+        public Component playerOnly() { return miniMessage().deserialize(config().staffChat.playerOnly); }
+        public Component enabled() { return miniMessage().deserialize(config().staffChat.enabled); }
+        public Component disabled() { return miniMessage().deserialize(config().staffChat.disabled); }
+
     }
 
 }

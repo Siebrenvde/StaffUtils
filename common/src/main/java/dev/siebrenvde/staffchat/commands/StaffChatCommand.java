@@ -11,8 +11,6 @@ import dev.siebrenvde.staffchat.api.command.CommonCommandSender;
 import dev.siebrenvde.staffchat.api.player.CommonPlayer;
 import dev.siebrenvde.staffchat.util.Permissions;
 import dev.siebrenvde.staffchat.util.SignedMessageCompat;
-import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.format.NamedTextColor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,21 +58,17 @@ public class StaffChatCommand extends BaseCommand {
 
     private void executeToggle(CommonCommandSender sender) {
         if(!(sender instanceof CommonPlayer player)) {
-            sender.sendMessage(Component.text("Only players can toggle StaffChat", NamedTextColor.RED));
+            sender.sendMessage(Messages.staffChat().playerOnly());
             return;
         }
         if(!SignedMessageCompat.isSupported(player)) return;
         UUID uuid = player.getUniqueId();
         if(!ENABLED_PLAYERS.contains(uuid)) {
             ENABLED_PLAYERS.add(uuid);
-            player.sendMessage(
-                Component.text("Enabled StaffChat", NamedTextColor.GREEN)
-                    .appendNewline()
-                    .append(Component.text("Any message you send will be sent to the staff chat"))
-            );
+            player.sendMessage(Messages.staffChat().enabled());
         } else {
             ENABLED_PLAYERS.remove(uuid);
-            player.sendMessage(Component.text("Disabled StaffChat", NamedTextColor.RED));
+            player.sendMessage(Messages.staffChat().disabled());
         }
     }
 
