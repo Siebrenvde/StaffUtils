@@ -1,6 +1,7 @@
 package dev.siebrenvde.staffchat.api.command;
 
 import com.mojang.brigadier.tree.LiteralCommandNode;
+import dev.siebrenvde.staffchat.config.CommandConfig;
 import dev.siebrenvde.staffchat.messages.Messages;
 import org.jetbrains.annotations.Nullable;
 
@@ -8,6 +9,7 @@ import java.util.List;
 
 public abstract class BaseCommand {
 
+    private final boolean enabled;
     private final String name;
     @Nullable private final String[] aliases;
     @Nullable private final String description;
@@ -21,9 +23,23 @@ public abstract class BaseCommand {
      * @param rootPermission the root permission of the command
      */
     public BaseCommand(String name, @Nullable String[] aliases, @Nullable String description, @Nullable String rootPermission) {
+        enabled = true;
         this.name = name;
         this.aliases = aliases;
         this.description = description;
+        this.rootPermission = rootPermission;
+    }
+
+    /**
+     * Creates a new command from a config file
+     * @param config the command config
+     * @param rootPermission the root permission of the command
+     */
+    public BaseCommand(CommandConfig.Command config, @Nullable String rootPermission) {
+        this.enabled = config.enabled;
+        this.name = config.name;
+        this.aliases = config.aliases;
+        this.description = config.description;
         this.rootPermission = rootPermission;
     }
 
@@ -51,6 +67,11 @@ public abstract class BaseCommand {
     public List<String> suggestions(CommonCommandSender sender, String[] args) {
         return List.of();
     }
+
+    /**
+     * {@return whether the command is enabled}
+     */
+    public boolean isEnabled() { return enabled; }
 
     /**
      * {@return the name of the command}

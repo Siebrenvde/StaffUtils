@@ -3,7 +3,7 @@ package dev.siebrenvde.staffchat.commands;
 import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.tree.LiteralCommandNode;
 import dev.siebrenvde.staffchat.StaffChat;
-import dev.siebrenvde.staffchat.config.CommandConfig;
+import dev.siebrenvde.staffchat.config.Config;
 import dev.siebrenvde.staffchat.messages.Messages;
 import dev.siebrenvde.staffchat.api.command.BaseCommand;
 import dev.siebrenvde.staffchat.api.command.BrigadierCommandManager;
@@ -20,13 +20,8 @@ public class StaffChatCommand extends BaseCommand {
 
     public static final List<UUID> ENABLED_PLAYERS = new ArrayList<>();
 
-    public StaffChatCommand(CommandConfig.StaffChat config) {
-        super(
-            config.name,
-            config.aliases,
-            config.description,
-            Permissions.COMMAND_STAFFCHAT
-        );
+    public StaffChatCommand() {
+        super(Config.COMMANDS.staffChat, Permissions.COMMAND_STAFFCHAT);
     }
 
     @Override

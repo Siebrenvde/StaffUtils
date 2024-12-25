@@ -13,8 +13,8 @@ public class CommandConfig extends BaseConfig {
     }
 
     @SerdeKey("staffchat")
-    public StaffChat staffChat;
-    public static class StaffChat {
+    public Command staffChat;
+    public static class Command {
         public boolean enabled;
         public String name;
         public String[] aliases;
