@@ -60,7 +60,7 @@ public abstract class BaseCommand {
     /**
      * {@return the aliases of the command}
      */
-    public String[] getAliases() { return aliases; }
+    public String[] getAliases() { return aliases != null ? aliases : new String[0]; }
 
     /**
      * {@return the description of the command}
