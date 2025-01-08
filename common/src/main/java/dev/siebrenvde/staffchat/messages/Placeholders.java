@@ -21,6 +21,8 @@ public class Placeholders {
                 .resolvers(
                     StandardTags.color(),
                     StandardTags.rainbow(),
+                    StandardTags.pride(),
+                    StandardTags.gradient(),
                     StandardTags.decorations()
                 )
                 .build()
