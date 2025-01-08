@@ -4,6 +4,8 @@ import dev.siebrenvde.staffchat.StaffChat;
 import dev.siebrenvde.staffchat.api.command.CommonCommandSender;
 import dev.siebrenvde.staffchat.api.player.ProxyPlayer;
 import net.dv8tion.jda.api.entities.Member;
+import net.dv8tion.jda.api.entities.Role;
+import net.kyori.adventure.text.format.TextColor;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import net.kyori.adventure.text.minimessage.tag.resolver.Placeholder;
 import net.kyori.adventure.text.minimessage.tag.resolver.TagResolver;
@@ -44,10 +46,17 @@ public class Placeholders {
     }
 
     public static TagResolver discordMember(Member member) {
+        Role role = member.getRoles().stream().findFirst().orElse(null);
         return TagResolver.resolver(
             Placeholder.component("profile", Components.discordProfile(member)),
             Placeholder.unparsed("displayname", member.getEffectiveName()),
-            Placeholder.unparsed("username", member.getUser().getName())
+            Placeholder.unparsed("username", member.getUser().getName()),
+            Placeholder.unparsed("role", role != null ? role.getName() : ""),
+            Placeholder.styling("effective_colour", TextColor.color(member.getColorRaw())),
+            Placeholder.styling("role_colour", role != null
+                ? TextColor.color(role.getColorRaw())
+                : TextColor.color(Role.DEFAULT_COLOR_RAW)
+            )
         );
     }
 

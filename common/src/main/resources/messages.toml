@@ -29,7 +29,11 @@ permission_message = "<red>You don't have permission to execute this command</re
   # <profile> - The user's (nick)name with extra info when hovering over their name
   # <displayname> - The user's (nick)name in the current server
   # <username> - The user's username
+  # <role> - The name of the user's top role
   # <message> - The sent message
+  # Styling:
+  # <effective_colour> - The actual colour a member shows up as
+  # <role_colour> - The colour of the user's top role
   game_from_discord = "<blue>Discord</blue> <red>StaffChat <yellow><profile></yellow>:</red> <green><message></green>"
 
   # The message shown in Discord when using the staffchat command
