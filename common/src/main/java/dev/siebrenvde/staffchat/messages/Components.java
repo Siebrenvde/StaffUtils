@@ -32,7 +32,7 @@ public class Components {
         }
 
         return text()
-            .content("@" + member.getEffectiveName())
+            .content(member.getEffectiveName())
             .hoverEvent(HoverEvent.showText(profile))
             .build();
     }
