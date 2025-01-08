@@ -1,41 +1,40 @@
 package dev.siebrenvde.staffchat.messages;
 
 import net.dv8tion.jda.api.entities.Member;
-import net.dv8tion.jda.api.entities.Role;
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.JoinConfiguration;
 import net.kyori.adventure.text.TextComponent;
 import net.kyori.adventure.text.event.HoverEvent;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextColor;
 
+import static net.kyori.adventure.text.Component.text;
+
 public class Components {
 
     public static Component discordProfile(Member member) {
-        TextComponent.Builder builder = Component.text();
+        TextComponent.Builder profile = text()
+            .append(text(member.getEffectiveName(), TextColor.color(member.getColorRaw())));
 
-        builder.content(member.getEffectiveName());
-
-        TextComponent.Builder profile = Component.text();
-        profile.append(Component.text(member.getEffectiveName(), TextColor.color(member.getColorRaw())));
-
-        if(!member.getEffectiveName().equals(member.getUser().getName())) {
-            profile.append(Component.newline().append(Component.text(member.getUser().getName(), NamedTextColor.WHITE)));
+        if(!member.getEffectiveName().equals(member.getUser().getAsTag())) {
+            profile.appendNewline();
+            profile.append(text(member.getUser().getAsTag(), NamedTextColor.WHITE));
         }
 
-        int roleAmount = member.getRoles().size();
-        for(int i = 0; i < roleAmount; i++) {
-            if(i == 0) {
-                profile.append(Component.newline());
-            }
-            Role role = member.getRoles().get(i);
-            profile.append(Component.text(role.getName(), TextColor.color(role.getColorRaw())));
-            if(i != (roleAmount - 1)) {
-                profile.append(Component.text(" | ", NamedTextColor.GRAY));
-            }
+        if(!member.getRoles().isEmpty()) {
+            profile.appendNewline();
+            profile.append(Component.join(
+                JoinConfiguration.separator(text(" | ", NamedTextColor.GRAY)),
+                member.getRoles().stream()
+                    .map(role -> text(role.getName(), TextColor.color(role.getColorRaw())))
+                    .toList()
+            ));
         }
 
-        builder.hoverEvent(HoverEvent.showText(profile.build()));
-        return builder.build();
+        return text()
+            .content("@" + member.getEffectiveName())
+            .hoverEvent(HoverEvent.showText(profile))
+            .build();
     }
 
 }
