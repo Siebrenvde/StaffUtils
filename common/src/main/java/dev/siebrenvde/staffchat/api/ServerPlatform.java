@@ -2,7 +2,8 @@ package dev.siebrenvde.staffchat.api;
 
 import dev.siebrenvde.staffchat.api.command.CommonCommandSender;
 import dev.siebrenvde.staffchat.api.player.CommonPlayer;
-import net.kyori.adventure.text.Component;
+
+import java.util.Optional;
 
 public interface ServerPlatform {
 
@@ -16,13 +17,6 @@ public interface ServerPlatform {
      * {@return the type of the server implementation}
      */
     ServerType getServerType();
-
-    /**
-     * Broadcasts a message to all online players with the specified permission
-     * @param message The message to broadcast
-     * @param permission The required permission
-     */
-    void broadcast(Component message, String permission);
 
     /**
      * Returns an instance of {@link CommonCommandSender} corresponding to the provided command sender
@@ -41,9 +35,18 @@ public interface ServerPlatform {
     <P> CommonPlayer getPlayer(P player);
 
     /**
+     * Returns an optional instance of {@link CommonPlayer} for the provided name
+     * @param name the name of the player
+     * @return an optional instance of {@link CommonPlayer}
+     */
+    Optional<CommonPlayer> getPlayerByName(String name);
+
+    /**
      * Returns whether the current server is a proxy server
      * @return {@code true} if the server is a proxy server
      */
-    boolean isProxy();
+    default boolean isProxy() {
+        return getServerType() == ServerType.VELOCITY || getServerType() == ServerType.BUNGEECORD;
+    }
 
 }

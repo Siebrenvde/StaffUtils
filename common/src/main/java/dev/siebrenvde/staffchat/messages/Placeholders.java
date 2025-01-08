@@ -8,6 +8,8 @@ import net.kyori.adventure.text.minimessage.MiniMessage;
 import net.kyori.adventure.text.minimessage.tag.resolver.Placeholder;
 import net.kyori.adventure.text.minimessage.tag.resolver.TagResolver;
 import net.kyori.adventure.text.minimessage.tag.standard.StandardTags;
+import org.intellij.lang.annotations.Subst;
+import org.jetbrains.annotations.Nullable;
 
 public class Placeholders {
 
@@ -24,15 +26,20 @@ public class Placeholders {
             .build();
 
     public static TagResolver sender(CommonCommandSender sender) {
+        return sender(null, sender);
+    }
+
+    public static TagResolver sender(@Subst("sender") @Nullable String prefix, CommonCommandSender sender) {
+        prefix = prefix != null ? prefix + "_" : "";
         return TagResolver.resolver(
-            Placeholder.unparsed("username", sender.getName()),
+            Placeholder.unparsed(prefix + "username", sender.getName()),
             StaffChat.getPlatform().isProxy()
-                ? Placeholder.unparsed("server",
+                ? Placeholder.unparsed(prefix + "server",
                     sender instanceof ProxyPlayer player
-                    ? player.getServerName()
+                    ? player.getServer().getName()
                     : "none"
                 )
-                : Placeholder.unparsed("displayname", sender.getDisplayName())
+                : Placeholder.unparsed(prefix + "displayname", sender.getDisplayName())
         );
     }
 

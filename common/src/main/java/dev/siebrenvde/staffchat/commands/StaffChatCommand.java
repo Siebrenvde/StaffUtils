@@ -68,7 +68,7 @@ public class StaffChatCommand extends BaseCommand {
     }
 
     public static void executeSendMessage(CommonCommandSender sender, String message) {
-        StaffChat.getPlatform().broadcast(
+        StaffChat.getServer().broadcast(
             Messages.staffChat().serverFromServer(sender, message),
             Permissions.RECEIVE_STAFFCHAT
         );

@@ -6,3 +6,9 @@
     "schat"
   ]
   description = "Chat with other staff members"
+
+[report]
+  enabled = true
+  name = "report"
+  aliases = []
+  description = "Report a player"

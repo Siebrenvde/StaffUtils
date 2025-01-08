@@ -1,6 +1,7 @@
 package dev.siebrenvde.staffchat.api.player;
 
 import dev.siebrenvde.staffchat.StaffChat;
+import dev.siebrenvde.staffchat.api.server.CommonServer;
 
 public interface ProxyPlayer extends CommonPlayer {
 
@@ -14,9 +15,9 @@ public interface ProxyPlayer extends CommonPlayer {
     }
 
     /**
-     * {@return the name of the server the player is connected to}
+     * {@return the server the player is connected to}
      */
-    String getServerName();
+    CommonServer getServer();
 
     /**
      * {@return the protocol version of the player}

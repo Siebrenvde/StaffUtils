@@ -1,11 +1,13 @@
 package dev.siebrenvde.staffchat.messages;
 
+import dev.siebrenvde.staffchat.api.player.CommonPlayer;
 import dev.siebrenvde.staffchat.config.MessageConfig;
 import dev.siebrenvde.staffchat.api.command.CommonCommandSender;
 import dev.siebrenvde.staffchat.api.ServerPlatform;
 import net.dv8tion.jda.api.entities.Member;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
+import net.kyori.adventure.text.minimessage.tag.resolver.Placeholder;
 import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer;
 
 /**
@@ -18,22 +20,25 @@ public class Messages {
 
     private static Messages instance;
     private final StaffChat staffChat;
+    private final Report report;
 
     public Messages(ServerPlatform platform, MessageConfig config) {
         instance = this;
         miniMessage = MiniMessage.miniMessage();
         this.config = config;
-        staffChat = new StaffChat(platform, config, miniMessage);
+        staffChat = new StaffChat(platform, config.staffChat, miniMessage);
+        report = new Report(platform, config.report, miniMessage);
     }
 
     public static Messages messages() { return instance; }
     public static StaffChat staffChat() { return instance.staffChat; }
+    public static Report report() { return instance.report; }
 
     public Component permissionMessage() {
         return miniMessage.deserialize(config.permissionMessage);
     }
 
-    public record StaffChat(ServerPlatform platform, MessageConfig config, MiniMessage miniMessage) {
+    public record StaffChat(ServerPlatform platform, MessageConfig.StaffChat config, MiniMessage miniMessage) {
 
         /**
          * The message sent in-game when using the staffchat command
@@ -44,8 +49,8 @@ public class Messages {
         public Component serverFromServer(CommonCommandSender sender, String message) {
             return miniMessage().deserialize(
                 platform.isProxy()
-                    ? config().staffChat.proxyFromProxy
-                    : config().staffChat.serverFromServer,
+                    ? config().proxyFromProxy
+                    : config().serverFromServer,
                 Placeholders.sender(sender),
                 Placeholders.parsedMessage(message) // TODO: Add config option to disable parsing
             );
@@ -53,7 +58,7 @@ public class Messages {
 
         public Component serverFromDiscord(Member author, String message) {
             return miniMessage().deserialize(
-                config().staffChat.gameFromDiscord,
+                config().gameFromDiscord,
                 Placeholders.discordMember(author),
                 Placeholders.parsedMessage(message)
             );
@@ -63,17 +68,63 @@ public class Messages {
             return PlainTextComponentSerializer.plainText().serialize(
                 miniMessage.deserialize(
                     platform.isProxy()
-                        ? config().staffChat.discordFromProxy
-                        : config().staffChat.discordFromServer,
+                        ? config().discordFromProxy
+                        : config().discordFromServer,
                     Placeholders.sender(sender),
                     Placeholders.parsedMessage(message)
                 )
             );
         }
 
-        public Component playerOnly() { return miniMessage().deserialize(config().staffChat.playerOnly); }
-        public Component enabled() { return miniMessage().deserialize(config().staffChat.enabled); }
-        public Component disabled() { return miniMessage().deserialize(config().staffChat.disabled); }
+        public Component playerOnly() { return miniMessage().deserialize(config().playerOnly); }
+        public Component enabled() { return miniMessage().deserialize(config().enabled); }
+        public Component disabled() { return miniMessage().deserialize(config().disabled); }
+
+    }
+
+    public record Report(ServerPlatform platform, MessageConfig.Report config, MiniMessage miniMessage) {
+
+        public Component serverFromServer(CommonCommandSender reporter, CommonPlayer reportedPlayer, String message) {
+            return miniMessage().deserialize(
+                platform.isProxy()
+                    ? config().proxyFromProxy
+                    : config().serverFromServer,
+                Placeholders.sender("reporter", reporter),
+                Placeholders.sender("reported_player", reportedPlayer),
+                Placeholder.unparsed("reason", message)
+            );
+        }
+
+        public String discordFromServer(CommonCommandSender reporter, CommonPlayer reportedPlayer, String reason) {
+            return PlainTextComponentSerializer.plainText().serialize(
+                miniMessage.deserialize(
+                    platform.isProxy()
+                        ? config().discordFromProxy
+                        : config().discordFromServer,
+                    Placeholders.sender("reporter", reporter),
+                    Placeholders.sender("reported_player", reportedPlayer),
+                    Placeholder.unparsed("reason", reason)
+                )
+            );
+        }
+
+        public Component success(CommonPlayer reportedPlayer) {
+            return miniMessage().deserialize(
+                config().success,
+                Placeholders.sender(reportedPlayer)
+            );
+        }
+
+        public Component playerNotFound(String input) {
+            return miniMessage().deserialize(
+                config().playerNotFound,
+                Placeholder.unparsed("input", input)
+            );
+        }
+
+        public Component usage() {
+            return miniMessage().deserialize(config().usage);
+        }
 
     }
 

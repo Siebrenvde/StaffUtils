@@ -7,14 +7,16 @@ permission_message = "<red>You don't have permission to execute this command</re
 
 [staffchat]
 
-  # The message shown to in-game staff when using the staffchat command on a Paper or Spigot server
+  # The message shown to in-game staff when using the staffchat command
+  # Applies to: Paper & Spigot
   # Placeholders:
   # <displayname> - The player's displayname
   # <username> - The player's username
   # <message> - The sent message
   server_from_server = "<red>StaffChat <yellow><username></yellow>:</red> <green><message></green>"
 
-  # The message shown to in-game staff when using the staffchat command on a proxy server (Velocity/BungeeCord)
+  # The message shown to in-game staff when using the staffchat command
+  # Applies to: Velocity & BungeeCord
   # Placeholders:
   # <username> - The player's username
   # <server> - The server the player is connected to
@@ -22,6 +24,7 @@ permission_message = "<red>You don't have permission to execute this command</re
   proxy_from_proxy = "<red>StaffChat <yellow><username></yellow> <gold>(<server>)</gold>:</red> <green><message></green>"
 
   # The message shown to in-game staff when receiving a message from Discord
+  # Applies to: All server types
   # Placeholders:
   # <profile> - The user's (nick)name with extra info when hovering over their name
   # <displayname> - The user's (nick)name in the current server
@@ -29,14 +32,16 @@ permission_message = "<red>You don't have permission to execute this command</re
   # <message> - The sent message
   game_from_discord = "<blue>Discord</blue> <red>StaffChat <yellow><profile></yellow>:</red> <green><message></green>"
 
-  # The message shown in Discord when using the staffchat command on a Paper or Spigot server
+  # The message shown in Discord when using the staffchat command
+  # Applies to: Paper & Spigot
   # Placeholders:
   # <displayname> - The player's displayname
   # <username> - The player's username
   # <message> - The sent message
   discord_from_server = "**[StaffChat] <username>**: <message>"
 
-  # The message shown in Discord when using the staffchat command on a proxy server (Velocity/BungeeCord)
+  # The message shown in Discord when using the staffchat command
+  # Applies to: Velocity & BungeeCord
   # Placeholders:
   # <username> - The player's username
   # <server> - The server the player is connected to
@@ -51,3 +56,59 @@ permission_message = "<red>You don't have permission to execute this command</re
 
   # The message shown when a player disables StaffChat
   disabled = "<red>Disabled StaffChat</red>"
+
+[report]
+
+  # The message shown to in-game staff when a player is reported
+  # Applies to: Paper & Spigot
+  # Placeholders:
+  # <reporter_displayname> - The reporter's displayname
+  # <reporter_username> - The reporter's username
+  # <reported_player_displayname> - The reported player's displayname
+  # <reported_player_username> - The reported player's username
+  # <reason> - The reason
+  server_from_server = "<red><reporter_username></red> reported <red><reported_player_username></red> for: <i><reason></i>"
+
+  # The message shown to in-game staff when a player is reported
+  # Applies to: Velocity & BungeeCord
+  # Placeholders:
+  # <reporter_username> - The reporter's username
+  # <reporter_server> - The server the reporter is connected to
+  # <reported_player_username> - The reported player's username
+  # <reporter_server> - The server the reported player is connected to
+  # <reason> - The reason
+  proxy_from_proxy = "<red><reporter_username> (<reporter_server>)</red> reported <red><reported_player_username> (<reported_player_server>)</red> for: <i><reason></i>"
+
+  # The message shown in Discord when a player is reported
+  # Applies to: Paper & Spigot
+  # Placeholders:
+  # <reporter_displayname> - The reporter's displayname
+  # <reporter_username> - The reporter's username
+  # <reported_player_displayname> - The reported player's displayname
+  # <reported_player_username> - The reported player's username
+  # <reason> - The reason
+  discord_from_server = "**[Report] <reporter_username>** reported **<reported_player_username>** for: *<reason>*"
+
+  # The message shown in Discord when a player is reported
+  # Applies to: Velocity & BungeeCord
+  # Placeholders:
+  # <reporter_username> - The reporter's username
+  # <reporter_server> - The server the reporter is connected to
+  # <reported_player_username> - The reported player's username
+  # <reporter_server> - The server the reported player is connected to
+  # <reason> - The reason
+  discord_from_proxy = "**[Report] <reporter_username> (<reporter_server>)** reported **<reported_player_username> (<reported_player_server>)** for: *<reason>*"
+
+  # The message sent to the reporter after successfully reporting a player
+  # Placeholders:
+  # <displayname> - The reported player's displayname
+  # <username> - The reported player's username
+  success = "Successfully reported <red><username></red>"
+
+  # The message sent to the reporter when the player was not found
+  # Placeholders:
+  # <input> - The name entered by the reporter
+  player_not_found = "<red>Player '<input>' was not found</red>"
+
+  # The message sent to the reporter when no player or reason is entered
+  usage = "<red>Usage: /report <player> <reason></red>"

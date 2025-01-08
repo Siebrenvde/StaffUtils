@@ -28,7 +28,7 @@ public class MessageListener extends ListenerAdapter {
             || author.isBot()
         ) return;
 
-        StaffChat.getPlatform().broadcast(
+        StaffChat.getServer().broadcast(
             Messages.staffChat().serverFromDiscord(
                 addon.getStaffChannel().getGuild().getMember(author),
                 event.getMessage().getContentStripped()
