@@ -62,7 +62,7 @@ public class Placeholders {
         );
     }
 
-    public static TagResolver parsedMessage(String message) {
+    public static TagResolver formattedMessage(String message) {
         return Placeholder.component("message", COLOUR_DECORATION.deserialize(message));
     }
 

@@ -52,7 +52,7 @@ public class Messages {
                     ? config().proxyFromProxy
                     : config().serverFromServer,
                 Placeholders.sender(sender),
-                Placeholders.parsedMessage(message) // TODO: Add config option to disable parsing
+                Placeholders.formattedMessage(message) // TODO: Add config option to disable parsing
             );
         }
 
@@ -60,7 +60,7 @@ public class Messages {
             return miniMessage().deserialize(
                 config().gameFromDiscord,
                 Placeholders.discordMember(author),
-                Placeholders.parsedMessage(message)
+                Placeholders.formattedMessage(message)
             );
         }
 
@@ -71,7 +71,7 @@ public class Messages {
                         ? config().discordFromProxy
                         : config().discordFromServer,
                     Placeholders.sender(sender),
-                    Placeholders.parsedMessage(message)
+                    Placeholders.formattedMessage(message)
                 )
             );
         }
