@@ -21,6 +21,7 @@ public class Messages {
     private static Messages instance;
     private final StaffChat staffChat;
     private final Report report;
+    private final HelpOp helpOp;
 
     public Messages(ServerPlatform platform, MessageConfig config) {
         instance = this;
@@ -28,11 +29,13 @@ public class Messages {
         this.config = config;
         staffChat = new StaffChat(platform, config.staffChat, miniMessage);
         report = new Report(platform, config.report, miniMessage);
+        helpOp = new HelpOp(platform, config.helpOp, miniMessage);
     }
 
     public static Messages messages() { return instance; }
     public static StaffChat staffChat() { return instance.staffChat; }
     public static Report report() { return instance.report; }
+    public static HelpOp helpOp() { return instance.helpOp; }
 
     public Component permissionMessage() {
         return miniMessage.deserialize(config.permissionMessage);
@@ -120,6 +123,40 @@ public class Messages {
                 config().playerNotFound,
                 Placeholder.unparsed("input", input)
             );
+        }
+
+        public Component usage() {
+            return miniMessage().deserialize(config().usage);
+        }
+
+    }
+
+    public record HelpOp(ServerPlatform platform, MessageConfig.HelpOp config, MiniMessage miniMessage) {
+
+        public Component serverFromServer(CommonCommandSender sender, String message) {
+            return miniMessage().deserialize(
+                platform.isProxy()
+                    ? config().proxyFromProxy
+                    : config().serverFromServer,
+                Placeholders.sender(sender),
+                Placeholder.unparsed("message", message)
+            );
+        }
+
+        public String discordFromServer(CommonCommandSender sender, String message) {
+            return PlainTextComponentSerializer.plainText().serialize(
+                miniMessage.deserialize(
+                    platform.isProxy()
+                        ? config().discordFromProxy
+                        : config().discordFromServer,
+                    Placeholders.sender(sender),
+                    Placeholder.unparsed("message", message)
+                )
+            );
+        }
+
+        public Component success() {
+            return miniMessage().deserialize(config().success);
         }
 
         public Component usage() {

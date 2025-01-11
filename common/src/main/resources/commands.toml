@@ -12,3 +12,9 @@
   name = "report"
   aliases = []
   description = "Report a player"
+
+[helpop]
+  enabled = true
+  name = "helpop"
+  aliases = []
+  description = "Ask staff for help"

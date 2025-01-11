@@ -15,6 +15,8 @@ public class CommandConfig extends BaseConfig {
     @SerdeKey("staffchat")
     public Command staffChat;
     public Command report;
+    @SerdeKey("helpop")
+    public Command helpOp;
 
     public static class Command {
         public boolean enabled;

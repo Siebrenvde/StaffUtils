@@ -1,6 +1,7 @@
 package dev.siebrenvde.staffchat;
 
 import dev.siebrenvde.staffchat.api.server.CommonServer;
+import dev.siebrenvde.staffchat.commands.HelpOpCommand;
 import dev.siebrenvde.staffchat.commands.ReportCommand;
 import dev.siebrenvde.staffchat.config.Config;
 import dev.siebrenvde.staffchat.messages.Messages;
@@ -36,7 +37,8 @@ public class StaffChat {
     public void registerCommands(CommandManager manager) {
         manager.registerAll(
             new StaffChatCommand(),
-            new ReportCommand()
+            new ReportCommand(),
+            new HelpOpCommand()
         );
     }
 

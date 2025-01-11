@@ -18,7 +18,8 @@ public class MessageConfig extends BaseConfig {
     @SerdeKey("staffchat")
     public StaffChat staffChat;
     public Report report;
-
+    @SerdeKey("helpop")
+    public HelpOp helpOp;
 
     public static class StaffChat {
 
@@ -64,6 +65,26 @@ public class MessageConfig extends BaseConfig {
 
         @SerdeKey("player_not_found")
         public String playerNotFound;
+
+        public String usage;
+
+    }
+
+    public static class HelpOp {
+
+        @SerdeKey("server_from_server")
+        public String serverFromServer;
+
+        @SerdeKey("proxy_from_proxy")
+        public String proxyFromProxy;
+
+        @SerdeKey("discord_from_server")
+        public String discordFromServer;
+
+        @SerdeKey("discord_from_proxy")
+        public String discordFromProxy;
+
+        public String success;
 
         public String usage;
 

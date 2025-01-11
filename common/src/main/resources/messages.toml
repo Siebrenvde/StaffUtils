@@ -116,3 +116,43 @@ permission_message = "<red>You don't have permission to execute this command</re
 
   # The message sent to the reporter when no player or reason is entered
   usage = "<red>Usage: /report <player> <reason></red>"
+
+[helpop]
+
+  # The message shown to in-game staff when the helpop command is used
+  # Applies to: Paper & Spigot
+  # Placeholders:
+  # <displayname> - The player's displayname
+  # <username> - The player's username
+  # <message> - The sent message
+  server_from_server = "<dark_red>HelpOp <yellow><username></yellow>:</dark_red> <green><message></green>"
+
+  # The message shown to in-game staff when the helpop command is used
+  # Applies to: Velocity & BungeeCord
+  # Placeholders:
+  # <username> - The player's username
+  # <server> - The server the player is connected to
+  # <message> - The sent message
+  proxy_from_proxy = "<dark_red>HelpOp <yellow><username></yellow> <gold>(<server>)</gold>:</dark_red> <green><message></green>"
+
+  # The message shown in Discord when the helpop command is used
+  # Applies to: Paper & Spigot
+  # Placeholders:
+  # <displayname> - The player's displayname
+  # <username> - The player's username
+  # <message> - The sent message
+  discord_from_server = "**[HelpOp] <username>**: <message>"
+
+  # The message shown in Discord when the helpop command is used
+  # Applies to: Velocity & BungeeCord
+  # Placeholders:
+  # <username> - The player's username
+  # <server> - The server the player is connected to
+  # <message> - The sent message
+  discord_from_proxy = "**[HelpOp] <username> (<server>)**: <message>"
+
+  # The message sent to the sender after successfully using the helpop command
+  success = "Successfully requested help"
+
+  # The message sent to the sender when no message is entered
+  usage = "<red>Usage: /helpop <message></red>"
