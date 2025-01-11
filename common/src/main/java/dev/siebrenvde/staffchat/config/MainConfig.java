@@ -18,4 +18,7 @@ public class MainConfig extends BaseConfig {
     @SerdeKey("staff_channel")
     public String staffChannel;
 
+    @SerdeKey("verbose_logging")
+    public boolean verboseLogging;
+
 }
