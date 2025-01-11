@@ -31,7 +31,7 @@ public class StaffChat {
         SpicordLoader.addStartupListener(spicord -> {
             spicord.getAddonManager().registerAddon(addon);
         });
-        new Messages(platform, Config.MESSAGES);
+        new Messages();
     }
 
     public void registerCommands(CommandManager manager) {

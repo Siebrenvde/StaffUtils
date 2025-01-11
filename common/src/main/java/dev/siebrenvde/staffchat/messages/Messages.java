@@ -1,21 +1,22 @@
 package dev.siebrenvde.staffchat.messages;
 
 import dev.siebrenvde.staffchat.api.player.CommonPlayer;
+import dev.siebrenvde.staffchat.config.Config;
 import dev.siebrenvde.staffchat.config.MessageConfig;
 import dev.siebrenvde.staffchat.api.command.CommonCommandSender;
-import dev.siebrenvde.staffchat.api.ServerPlatform;
 import net.dv8tion.jda.api.entities.Member;
 import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.minimessage.MiniMessage;
 import net.kyori.adventure.text.minimessage.tag.resolver.Placeholder;
 import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer;
+
+import static dev.siebrenvde.staffchat.StaffChat.getPlatform;
+import static net.kyori.adventure.text.minimessage.MiniMessage.miniMessage;
 
 /**
  * Parses MiniMessage messages from the config
  */
 public class Messages {
 
-    private final MiniMessage miniMessage;
     private final MessageConfig config;
 
     private static Messages instance;
@@ -23,13 +24,12 @@ public class Messages {
     private final Report report;
     private final HelpOp helpOp;
 
-    public Messages(ServerPlatform platform, MessageConfig config) {
+    public Messages() {
         instance = this;
-        miniMessage = MiniMessage.miniMessage();
-        this.config = config;
-        staffChat = new StaffChat(platform, config.staffChat, miniMessage);
-        report = new Report(platform, config.report, miniMessage);
-        helpOp = new HelpOp(platform, config.helpOp, miniMessage);
+        config = Config.MESSAGES;
+        staffChat = new StaffChat(config.staffChat);
+        report = new Report(config.report);
+        helpOp = new HelpOp(config.helpOp);
     }
 
     public static Messages messages() { return instance; }
@@ -38,10 +38,10 @@ public class Messages {
     public static HelpOp helpOp() { return instance.helpOp; }
 
     public Component permissionMessage() {
-        return miniMessage.deserialize(config.permissionMessage);
+        return miniMessage().deserialize(config.permissionMessage);
     }
 
-    public record StaffChat(ServerPlatform platform, MessageConfig.StaffChat config, MiniMessage miniMessage) {
+    public record StaffChat(MessageConfig.StaffChat config) {
 
         /**
          * The message sent in-game when using the staffchat command
@@ -51,7 +51,7 @@ public class Messages {
          */
         public Component serverFromServer(CommonCommandSender sender, String message) {
             return miniMessage().deserialize(
-                platform.isProxy()
+                getPlatform().isProxy()
                     ? config().proxyFromProxy
                     : config().serverFromServer,
                 Placeholders.sender(sender),
@@ -69,8 +69,8 @@ public class Messages {
 
         public String discordFromServer(CommonCommandSender sender, String message) {
             return PlainTextComponentSerializer.plainText().serialize(
-                miniMessage.deserialize(
-                    platform.isProxy()
+                miniMessage().deserialize(
+                    getPlatform().isProxy()
                         ? config().discordFromProxy
                         : config().discordFromServer,
                     Placeholders.sender(sender),
@@ -85,11 +85,11 @@ public class Messages {
 
     }
 
-    public record Report(ServerPlatform platform, MessageConfig.Report config, MiniMessage miniMessage) {
+    public record Report(MessageConfig.Report config) {
 
         public Component serverFromServer(CommonCommandSender reporter, CommonPlayer reportedPlayer, String message) {
             return miniMessage().deserialize(
-                platform.isProxy()
+                getPlatform().isProxy()
                     ? config().proxyFromProxy
                     : config().serverFromServer,
                 Placeholders.sender("reporter", reporter),
@@ -100,8 +100,8 @@ public class Messages {
 
         public String discordFromServer(CommonCommandSender reporter, CommonPlayer reportedPlayer, String reason) {
             return PlainTextComponentSerializer.plainText().serialize(
-                miniMessage.deserialize(
-                    platform.isProxy()
+                miniMessage().deserialize(
+                    getPlatform().isProxy()
                         ? config().discordFromProxy
                         : config().discordFromServer,
                     Placeholders.sender("reporter", reporter),
@@ -131,11 +131,11 @@ public class Messages {
 
     }
 
-    public record HelpOp(ServerPlatform platform, MessageConfig.HelpOp config, MiniMessage miniMessage) {
+    public record HelpOp(MessageConfig.HelpOp config) {
 
         public Component serverFromServer(CommonCommandSender sender, String message) {
             return miniMessage().deserialize(
-                platform.isProxy()
+                getPlatform().isProxy()
                     ? config().proxyFromProxy
                     : config().serverFromServer,
                 Placeholders.sender(sender),
@@ -145,8 +145,8 @@ public class Messages {
 
         public String discordFromServer(CommonCommandSender sender, String message) {
             return PlainTextComponentSerializer.plainText().serialize(
-                miniMessage.deserialize(
-                    platform.isProxy()
+                miniMessage().deserialize(
+                    getPlatform().isProxy()
                         ? config().discordFromProxy
                         : config().discordFromServer,
                     Placeholders.sender(sender),
