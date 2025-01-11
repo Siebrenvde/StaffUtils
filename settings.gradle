@@ -1,2 +1,2 @@
 rootProject.name = 'StaffChat'
-include "common", "spigot", "bungeecord", "velocity"
+include "common", "paper", "spigot", "bungeecord", "velocity"
