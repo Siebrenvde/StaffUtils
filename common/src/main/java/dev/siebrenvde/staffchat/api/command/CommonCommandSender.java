@@ -22,7 +22,7 @@ public interface CommonCommandSender {
     /**
      * {@return the display name of the command sender}
      */
-    String getDisplayName();
+    Component getDisplayName();
 
     /**
      * Sends a message to the command sender

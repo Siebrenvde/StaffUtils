@@ -18,8 +18,8 @@ public class BungeeCommandSender implements CommonCommandSender {
     }
 
     @Override
-    public String getDisplayName() {
-        return getName();
+    public Component getDisplayName() {
+        return Component.text(getName());
     }
 
     @Override

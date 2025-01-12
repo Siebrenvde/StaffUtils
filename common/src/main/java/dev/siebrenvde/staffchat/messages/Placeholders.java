@@ -43,7 +43,7 @@ public class Placeholders {
                     ? player.getServer().getName()
                     : "none"
                 )
-                : Placeholder.unparsed(prefix + "displayname", sender.getDisplayName())
+                : Placeholder.component(prefix + "displayname", sender.getDisplayName())
         );
     }
 
