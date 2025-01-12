@@ -33,7 +33,7 @@ public class SpigotCommandManager implements CommandManager {
         }
 
         pluginCommand.setAliases(Arrays.asList(command.getAliases()));
-        pluginCommand.setDescription(command.getDescription());
+        if(command.getDescription() != null) pluginCommand.setDescription(command.getDescription());
 
         SpigotCommand spigotCommand = new SpigotCommand(command);
         pluginCommand.setExecutor(spigotCommand);

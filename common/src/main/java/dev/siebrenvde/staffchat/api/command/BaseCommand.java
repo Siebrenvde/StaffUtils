@@ -86,7 +86,7 @@ public abstract class BaseCommand {
     /**
      * {@return the description of the command}
      */
-    public String getDescription() { return description != null ? description : ""; }
+    public @Nullable String getDescription() { return description; }
 
     /**
      * {@return the root permission of the command}
