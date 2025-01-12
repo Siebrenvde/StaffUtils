@@ -28,10 +28,7 @@ public class VelocityPlatform implements ServerPlatform {
 
     @Override
     public Optional<CommonPlayer> getPlayerByName(String name) {
-        Player player = StaffChatVelocity.getProxy().getPlayer(name).orElse(null);
-        return player != null
-            ? Optional.of(new VelocityPlayer(player))
-            : Optional.empty();
+        return StaffChatVelocity.getProxy().getPlayer(name).map(VelocityPlayer::new);
     }
 
 }
