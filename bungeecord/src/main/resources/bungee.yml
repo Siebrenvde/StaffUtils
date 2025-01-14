@@ -1,5 +1,0 @@
-name: StaffChat
-version: ${version}
-main: dev.siebrenvde.staffchat.bungeecord.StaffChatBungee
-author: Siebrenvde
-depend: [Spicord]
