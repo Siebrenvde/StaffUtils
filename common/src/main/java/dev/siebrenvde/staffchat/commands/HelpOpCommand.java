@@ -46,7 +46,7 @@ public class HelpOpCommand extends BaseCommand {
             Messages.helpOp().serverFromServer(sender, message),
             Permissions.RECEIVE_HELPOP
         );
-        StaffChat.getAddon().sendMessage(Messages.helpOp().discordFromServer(sender, message));
+        StaffChat.getSpicord().sendMessage(Messages.helpOp().discordFromServer(sender, message));
     }
 
 }

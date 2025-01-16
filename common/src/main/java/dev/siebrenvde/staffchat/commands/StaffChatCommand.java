@@ -72,7 +72,7 @@ public class StaffChatCommand extends BaseCommand {
             Messages.staffChat().serverFromServer(sender, message),
             Permissions.RECEIVE_STAFFCHAT
         );
-        StaffChat.getAddon().sendMessage(Messages.staffChat().discordFromServer(sender, message));
+        StaffChat.getSpicord().sendMessage(Messages.staffChat().discordFromServer(sender, message));
     }
 
 }

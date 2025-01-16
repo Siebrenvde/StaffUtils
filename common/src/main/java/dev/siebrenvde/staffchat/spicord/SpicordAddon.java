@@ -6,12 +6,12 @@ import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
 import org.spicord.api.addon.SimpleAddon;
 import org.spicord.bot.DiscordBot;
 
-public class Addon extends SimpleAddon {
+public class SpicordAddon extends SimpleAddon {
 
     private boolean isReady = false;
     private TextChannel staffChannel;
 
-    public Addon() {
+    public SpicordAddon() {
         super("StaffChat", "staffchat", "Siebrenvde");
     }
 

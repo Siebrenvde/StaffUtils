@@ -11,9 +11,9 @@ import org.jetbrains.annotations.NotNull;
 
 public class MessageListener extends ListenerAdapter {
 
-    private final Addon addon;
+    private final SpicordAddon addon;
 
-    public MessageListener(Addon addon) {
+    public MessageListener(SpicordAddon addon) {
         this.addon = addon;
     }
 

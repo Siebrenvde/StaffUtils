@@ -8,7 +8,7 @@ import dev.siebrenvde.staffchat.messages.Messages;
 import dev.siebrenvde.staffchat.api.command.CommandManager;
 import dev.siebrenvde.staffchat.api.ServerPlatform;
 import dev.siebrenvde.staffchat.commands.StaffChatCommand;
-import dev.siebrenvde.staffchat.spicord.Addon;
+import dev.siebrenvde.staffchat.spicord.SpicordAddon;
 import dev.siebrenvde.staffchat.util.Logger;
 import org.spicord.SpicordLoader;
 
@@ -20,16 +20,16 @@ public class StaffChat {
 
     private static ServerPlatform platform;
     private static CommonServer server;
-    private static Addon addon;
+    private static SpicordAddon spicordAddon;
 
     public StaffChat(Path dataDirectory, ServerPlatform serverPlatform, CommonServer globalServer, Logger logger) {
         Config.load(dataDirectory);
         LOGGER = logger;
         platform = serverPlatform;
         server = globalServer;
-        addon = new Addon();
+        spicordAddon = new SpicordAddon();
         SpicordLoader.addStartupListener(spicord -> {
-            spicord.getAddonManager().registerAddon(addon);
+            spicord.getAddonManager().registerAddon(spicordAddon);
         });
         new Messages();
     }
@@ -44,6 +44,6 @@ public class StaffChat {
 
     public static ServerPlatform getPlatform() { return platform; }
     public static CommonServer getServer() { return server; }
-    public static Addon getAddon() { return addon; }
+    public static SpicordAddon getSpicord() { return spicordAddon; }
 
 }

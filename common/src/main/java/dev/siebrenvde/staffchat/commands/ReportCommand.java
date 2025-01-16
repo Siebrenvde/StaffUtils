@@ -67,7 +67,7 @@ public class ReportCommand extends BaseCommand {
                 Messages.report().serverFromServer(sender, player, reason),
                 Permissions.RECEIVE_REPORT
             );
-            StaffChat.getAddon().sendMessage(Messages.report().discordFromServer(sender, player, reason));
+            StaffChat.getSpicord().sendMessage(Messages.report().discordFromServer(sender, player, reason));
         }, () -> sender.sendMessage(Messages.report().playerNotFound(playerName)));
     }
 
