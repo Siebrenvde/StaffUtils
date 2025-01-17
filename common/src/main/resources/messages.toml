@@ -13,6 +13,11 @@ permission_message = "<red>You don't have permission to execute this command</re
   # <displayname> - The player's displayname
   # <username> - The player's username
   # <message> - The sent message
+  # LuckPerms placeholders:
+  # <group_name> - The name of the player's primary group
+  # <group_displayname> - The display name of the player's primary group
+  # <prefix> - The player's prefix
+  # <suffix> - The player's suffix
   server_from_server = "<red>StaffChat <yellow><username></yellow>:</red> <green><message></green>"
 
   # The message shown to in-game staff when using the staffchat command
@@ -21,6 +26,11 @@ permission_message = "<red>You don't have permission to execute this command</re
   # <username> - The player's username
   # <server> - The server the player is connected to
   # <message> - The sent message
+  # LuckPerms placeholders:
+  # <group_name> - The name of the player's primary group
+  # <group_displayname> - The display name of the player's primary group
+  # <prefix> - The player's prefix
+  # <suffix> - The player's suffix
   proxy_from_proxy = "<red>StaffChat <yellow><username></yellow> <gold>(<server>)</gold>:</red> <green><message></green>"
 
   # The message shown to in-game staff when receiving a message from Discord
@@ -42,6 +52,11 @@ permission_message = "<red>You don't have permission to execute this command</re
   # <displayname> - The player's displayname
   # <username> - The player's username
   # <message> - The sent message
+  # LuckPerms placeholders:
+  # <group_name> - The name of the player's primary group
+  # <group_displayname> - The display name of the player's primary group
+  # <prefix> - The player's prefix
+  # <suffix> - The player's suffix
   discord_from_server = "**[StaffChat] <username>**: <message>"
 
   # The message shown in Discord when using the staffchat command
@@ -50,6 +65,11 @@ permission_message = "<red>You don't have permission to execute this command</re
   # <username> - The player's username
   # <server> - The server the player is connected to
   # <message> - The sent message
+  # LuckPerms placeholders:
+  # <group_name> - The name of the player's primary group
+  # <group_displayname> - The display name of the player's primary group
+  # <prefix> - The player's prefix
+  # <suffix> - The player's suffix
   discord_from_proxy = "**[StaffChat] <username> (<server>)**: <message>"
 
   # The message shown when a non-player tries to toggle StaffChat
@@ -71,6 +91,15 @@ permission_message = "<red>You don't have permission to execute this command</re
   # <reported_player_displayname> - The reported player's displayname
   # <reported_player_username> - The reported player's username
   # <reason> - The reason
+  # LuckPerms placeholders:
+  # <reporter_group_name> - The name of the reporter's primary group
+  # <reporter_group_displayname> - The display name of the reporter's primary group
+  # <reporter_prefix> - The reporter's prefix
+  # <reporter_suffix> - The reporter's suffix
+  # <reported_player_group_name> - The name of the reported player's primary group
+  # <reported_player_group_displayname> - The display name of the reported player's primary group
+  # <reported_player_prefix> - The reported player's prefix
+  # <reported_player_suffix> - The reported player's suffix
   server_from_server = "<red><reporter_username></red> reported <red><reported_player_username></red> for: <i><reason></i>"
 
   # The message shown to in-game staff when a player is reported
@@ -81,6 +110,15 @@ permission_message = "<red>You don't have permission to execute this command</re
   # <reported_player_username> - The reported player's username
   # <reporter_server> - The server the reported player is connected to
   # <reason> - The reason
+  # LuckPerms placeholders:
+  # <reporter_group_name> - The name of the reporter's primary group
+  # <reporter_group_displayname> - The display name of the reporter's primary group
+  # <reporter_prefix> - The reporter's prefix
+  # <reporter_suffix> - The reporter's suffix
+  # <reported_player_group_name> - The name of the reported player's primary group
+  # <reported_player_group_displayname> - The display name of the reported player's primary group
+  # <reported_player_prefix> - The reported player's prefix
+  # <reported_player_suffix> - The reported player's suffix
   proxy_from_proxy = "<red><reporter_username> (<reporter_server>)</red> reported <red><reported_player_username> (<reported_player_server>)</red> for: <i><reason></i>"
 
   # The message shown in Discord when a player is reported
@@ -91,6 +129,15 @@ permission_message = "<red>You don't have permission to execute this command</re
   # <reported_player_displayname> - The reported player's displayname
   # <reported_player_username> - The reported player's username
   # <reason> - The reason
+  # LuckPerms placeholders:
+  # <reporter_group_name> - The name of the reporter's primary group
+  # <reporter_group_displayname> - The display name of the reporter's primary group
+  # <reporter_prefix> - The reporter's prefix
+  # <reporter_suffix> - The reporter's suffix
+  # <reported_player_group_name> - The name of the reported player's primary group
+  # <reported_player_group_displayname> - The display name of the reported player's primary group
+  # <reported_player_prefix> - The reported player's prefix
+  # <reported_player_suffix> - The reported player's suffix
   discord_from_server = "**[Report] <reporter_username>** reported **<reported_player_username>** for: *<reason>*"
 
   # The message shown in Discord when a player is reported
@@ -101,6 +148,15 @@ permission_message = "<red>You don't have permission to execute this command</re
   # <reported_player_username> - The reported player's username
   # <reporter_server> - The server the reported player is connected to
   # <reason> - The reason
+  # LuckPerms placeholders:
+  # <reporter_group_name> - The name of the reporter's primary group
+  # <reporter_group_displayname> - The display name of the reporter's primary group
+  # <reporter_prefix> - The reporter's prefix
+  # <reporter_suffix> - The reporter's suffix
+  # <reported_player_group_name> - The name of the reported player's primary group
+  # <reported_player_group_displayname> - The display name of the reported player's primary group
+  # <reported_player_prefix> - The reported player's prefix
+  # <reported_player_suffix> - The reported player's suffix
   discord_from_proxy = "**[Report] <reporter_username> (<reporter_server>)** reported **<reported_player_username> (<reported_player_server>)** for: *<reason>*"
 
   # The message sent to the reporter after successfully reporting a player
@@ -125,6 +181,11 @@ permission_message = "<red>You don't have permission to execute this command</re
   # <displayname> - The player's displayname
   # <username> - The player's username
   # <message> - The sent message
+  # LuckPerms placeholders:
+  # <group_name> - The name of the player's primary group
+  # <group_displayname> - The display name of the player's primary group
+  # <prefix> - The player's prefix
+  # <suffix> - The player's suffix
   server_from_server = "<dark_red>HelpOp <yellow><username></yellow>:</dark_red> <green><message></green>"
 
   # The message shown to in-game staff when the helpop command is used
@@ -133,6 +194,11 @@ permission_message = "<red>You don't have permission to execute this command</re
   # <username> - The player's username
   # <server> - The server the player is connected to
   # <message> - The sent message
+  # LuckPerms placeholders:
+  # <group_name> - The name of the player's primary group
+  # <group_displayname> - The display name of the player's primary group
+  # <prefix> - The player's prefix
+  # <suffix> - The player's suffix
   proxy_from_proxy = "<dark_red>HelpOp <yellow><username></yellow> <gold>(<server>)</gold>:</dark_red> <green><message></green>"
 
   # The message shown in Discord when the helpop command is used
@@ -141,6 +207,11 @@ permission_message = "<red>You don't have permission to execute this command</re
   # <displayname> - The player's displayname
   # <username> - The player's username
   # <message> - The sent message
+  # LuckPerms placeholders:
+  # <group_name> - The name of the player's primary group
+  # <group_displayname> - The display name of the player's primary group
+  # <prefix> - The player's prefix
+  # <suffix> - The player's suffix
   discord_from_server = "**[HelpOp] <username>**: <message>"
 
   # The message shown in Discord when the helpop command is used
@@ -149,6 +220,11 @@ permission_message = "<red>You don't have permission to execute this command</re
   # <username> - The player's username
   # <server> - The server the player is connected to
   # <message> - The sent message
+  # LuckPerms placeholders:
+  # <group_name> - The name of the player's primary group
+  # <group_displayname> - The display name of the player's primary group
+  # <prefix> - The player's prefix
+  # <suffix> - The player's suffix
   discord_from_proxy = "**[HelpOp] <username> (<server>)**: <message>"
 
   # The message sent to the sender after successfully using the helpop command
