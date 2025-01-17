@@ -1,5 +1,6 @@
 package dev.siebrenvde.staffchat;
 
+import dev.siebrenvde.staffchat.addons.LuckPermsAddon;
 import dev.siebrenvde.staffchat.api.server.CommonServer;
 import dev.siebrenvde.staffchat.commands.HelpOpCommand;
 import dev.siebrenvde.staffchat.commands.ReportCommand;
@@ -27,11 +28,15 @@ public class StaffChat {
         LOGGER = logger;
         platform = serverPlatform;
         server = globalServer;
+    }
+
+    public void load() {
         spicordAddon = new SpicordAddon();
         SpicordLoader.addStartupListener(spicord -> {
             spicord.getAddonManager().registerAddon(spicordAddon);
         });
         new Messages();
+        new LuckPermsAddon();
     }
 
     public void registerCommands(CommandManager manager) {

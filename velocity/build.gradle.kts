@@ -16,5 +16,6 @@ velocityPluginJson {
     url = "https://github.com/Siebrenvde/StaffChat"
     authors.add("Siebrenvde")
     dependency("spicord")
+    dependency("luckperms", true)
     dependency("signedvelocity", true)
 }

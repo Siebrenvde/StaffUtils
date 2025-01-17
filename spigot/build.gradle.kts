@@ -17,4 +17,5 @@ bukkitPluginYaml {
     apiVersion = "1.21"
     website = "https://github.com/Siebrenvde/StaffChat"
     depend.add("Spicord")
+    softDepend.add("LuckPerms")
 }

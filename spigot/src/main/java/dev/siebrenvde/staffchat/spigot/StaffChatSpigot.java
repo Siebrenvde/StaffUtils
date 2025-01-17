@@ -21,6 +21,7 @@ public final class StaffChatSpigot extends JavaPlugin {
             new SpigotServer(),
             new SpigotLogger(getLogger())
         );
+        staffChat.load();
 
         SpigotEventListeners.register(this);
 

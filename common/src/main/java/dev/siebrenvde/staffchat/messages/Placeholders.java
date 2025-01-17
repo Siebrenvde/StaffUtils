@@ -1,17 +1,25 @@
 package dev.siebrenvde.staffchat.messages;
 
 import dev.siebrenvde.staffchat.StaffChat;
+import dev.siebrenvde.staffchat.addons.LuckPermsAddon;
 import dev.siebrenvde.staffchat.api.command.CommonCommandSender;
+import dev.siebrenvde.staffchat.api.player.CommonPlayer;
 import dev.siebrenvde.staffchat.api.player.ProxyPlayer;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Role;
+import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextColor;
 import net.kyori.adventure.text.minimessage.MiniMessage;
-import net.kyori.adventure.text.minimessage.tag.resolver.Placeholder;
 import net.kyori.adventure.text.minimessage.tag.resolver.TagResolver;
 import net.kyori.adventure.text.minimessage.tag.standard.StandardTags;
+import net.luckperms.api.model.group.Group;
 import org.intellij.lang.annotations.Subst;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import static net.kyori.adventure.text.minimessage.tag.resolver.Placeholder.*;
 
 public class Placeholders {
 
@@ -35,27 +43,51 @@ public class Placeholders {
 
     public static TagResolver sender(@Subst("sender") @Nullable String prefix, CommonCommandSender sender) {
         prefix = prefix != null ? prefix + "_" : "";
-        return TagResolver.resolver(
-            Placeholder.unparsed(prefix + "username", sender.getName()),
-            StaffChat.getPlatform().isProxy()
-                ? Placeholder.unparsed(prefix + "server",
-                    sender instanceof ProxyPlayer player
+        List<TagResolver> resolvers = new ArrayList<>();
+        resolvers.add(unparsed(prefix + "username", sender.getName()));
+
+        if(StaffChat.getPlatform().isProxy()) {
+            resolvers.add(unparsed(prefix + "server",
+                sender instanceof ProxyPlayer player
                     ? player.getServer().getName()
                     : "none"
-                )
-                : Placeholder.component(prefix + "displayname", sender.getDisplayName())
-        );
+            ));
+        } else {
+            resolvers.add(component(prefix + "displayname", sender.getDisplayName()));
+        }
+
+        if(LuckPermsAddon.get().isLoaded()) {
+            Group group = null;
+            Component playerPrefix = Component.empty();
+            Component playerSuffix = Component.empty();
+            if(sender instanceof CommonPlayer player) {
+                group = LuckPermsAddon.get().getPlayerGroup(player).orElse(null);
+                playerPrefix = LuckPermsAddon.get().getPlayerPrefix(player).orElse(Component.empty());
+                playerSuffix = LuckPermsAddon.get().getPlayerSuffix(player).orElse(Component.empty());
+            }
+            resolvers.add(unparsed(prefix + "luckperms_group_name", group != null ? group.getName() : "none"));
+            resolvers.add(unparsed(
+                prefix + "luckperms_group_displayname",
+                group != null
+                    ? group.getDisplayName() != null ? group.getDisplayName() : group.getName()
+                    : "none"
+            ));
+            resolvers.add(component(prefix + "luckperms_prefix", playerPrefix));
+            resolvers.add(component(prefix + "luckperms_suffix", playerSuffix));
+        }
+
+        return TagResolver.resolver(resolvers);
     }
 
     public static TagResolver discordMember(Member member) {
         Role role = member.getRoles().stream().findFirst().orElse(null);
         return TagResolver.resolver(
-            Placeholder.component("profile", Components.discordProfile(member)),
-            Placeholder.unparsed("displayname", member.getEffectiveName()),
-            Placeholder.unparsed("username", member.getUser().getName()),
-            Placeholder.unparsed("role", role != null ? role.getName() : ""),
-            Placeholder.styling("effective_colour", TextColor.color(member.getColorRaw())),
-            Placeholder.styling("role_colour", role != null
+            component("profile", Components.discordProfile(member)),
+            unparsed("displayname", member.getEffectiveName()),
+            unparsed("username", member.getUser().getName()),
+            unparsed("role", role != null ? role.getName() : ""),
+            styling("effective_colour", TextColor.color(member.getColorRaw())),
+            styling("role_colour", role != null
                 ? TextColor.color(role.getColorRaw())
                 : TextColor.color(Role.DEFAULT_COLOR_RAW)
             )
@@ -63,7 +95,7 @@ public class Placeholders {
     }
 
     public static TagResolver formattedMessage(String message) {
-        return Placeholder.component("message", COLOUR_DECORATION.deserialize(message));
+        return component("message", COLOUR_DECORATION.deserialize(message));
     }
 
 }

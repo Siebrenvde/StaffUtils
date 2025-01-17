@@ -31,6 +31,7 @@ public class StaffChatVelocity {
 
     @Subscribe
     public void onProxyInitialise(ProxyInitializeEvent event) {
+        staffChat.load();
         staffChat.registerCommands(new VelocityCommandManager(proxy.getCommandManager()));
         proxy.getEventManager().register(this, new VelocityEventListeners());
     }

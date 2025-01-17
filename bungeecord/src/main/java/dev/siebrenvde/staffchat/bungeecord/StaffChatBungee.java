@@ -19,6 +19,7 @@ public final class StaffChatBungee extends Plugin {
             new BungeeGlobalServer(),
             new BungeeLogger(getLogger())
         );
+        staffChat.load();
         staffChat.registerCommands(new BungeeCommandManager(getProxy().getPluginManager()));
         getProxy().getPluginManager().registerListener(this, new BungeeEventListeners());
     }

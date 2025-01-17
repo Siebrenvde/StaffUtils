@@ -14,4 +14,5 @@ bungeePluginYaml {
     //description = project.description
     author = "Siebrenvde"
     depends.add("Spicord")
+    softDepends.add("LuckPerms")
 }
