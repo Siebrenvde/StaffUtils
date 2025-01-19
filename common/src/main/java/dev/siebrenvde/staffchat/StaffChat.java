@@ -24,10 +24,10 @@ public class StaffChat {
     private static SpicordAddon spicordAddon;
 
     public StaffChat(Path dataDirectory, ServerPlatform serverPlatform, CommonServer globalServer, Logger logger) {
-        Config.load(dataDirectory);
         LOGGER = logger;
         platform = serverPlatform;
         server = globalServer;
+        Config.load(dataDirectory);
     }
 
     public void load() {

@@ -7,6 +7,8 @@ import dev.siebrenvde.configlib.libs.quilt.config.api.annotations.SerializedName
 import dev.siebrenvde.configlib.libs.quilt.config.api.metadata.NamingSchemes;
 import dev.siebrenvde.configlib.libs.quilt.config.api.values.TrackedValue;
 import dev.siebrenvde.configlib.metadata.ConfigComment;
+import dev.siebrenvde.staffchat.config.annotations.RequireNonProxy;
+import dev.siebrenvde.staffchat.config.annotations.RequireProxy;
 
 @ConfigComment("All in-game messages are formatted using MiniMessage")
 @ConfigComment("You can use the MiniMessage Viewer to preview and format your messages:")
@@ -26,7 +28,6 @@ public final class MessageConfig extends ReflectiveConfig {
     public final static class StaffChat extends Section {
 
         @Comment("The message shown to in-game staff when using the staffchat command")
-        @Comment("Applies to: Paper & Spigot")
         @Comment("Placeholders:")
         @Comment("<displayname> - The player's displayname")
         @Comment("<username> - The player's username")
@@ -36,10 +37,10 @@ public final class MessageConfig extends ReflectiveConfig {
         @Comment("<group_displayname> - The display name of the player's primary group")
         @Comment("<prefix> - The player's prefix")
         @Comment("<suffix> - The player's suffix")
+        @RequireNonProxy
         public final TrackedValue<String> serverFromServer = value("<red>StaffChat <yellow><username></yellow>:</red> <green><message></green>");
 
         @Comment("The message shown to in-game staff when using the staffchat command")
-        @Comment("Applies to: Velocity & BungeeCord")
         @Comment("Placeholders:")
         @Comment("<username> - The player's username")
         @Comment("<server> - The server the player is connected to")
@@ -49,6 +50,7 @@ public final class MessageConfig extends ReflectiveConfig {
         @Comment("<group_displayname> - The display name of the player's primary group")
         @Comment("<prefix> - The player's prefix")
         @Comment("<suffix> - The player's suffix")
+        @RequireProxy
         public final TrackedValue<String> proxyFromProxy = value("<red>StaffChat <yellow><username></yellow> <gold>(<server>)</gold>:</red> <green><message></green>");
 
         @Comment("The message shown to in-game staff when receiving a message from Discord")
@@ -64,7 +66,6 @@ public final class MessageConfig extends ReflectiveConfig {
         public final TrackedValue<String> gameFromDiscord = value("<blue>Discord</blue> <red>StaffChat <yellow><profile></yellow>:</red> <green><message></green>");
 
         @Comment("The message shown in Discord when using the staffchat command")
-        @Comment("Applies to: Paper & Spigot")
         @Comment("Placeholders:")
         @Comment("<displayname> - The player's displayname")
         @Comment("<username> - The player's username")
@@ -74,12 +75,12 @@ public final class MessageConfig extends ReflectiveConfig {
         @Comment("<group_displayname> - The display name of the player's primary group")
         @Comment("<prefix> - The player's prefix")
         @Comment("<suffix> - The player's suffix")
+        @RequireNonProxy
         public final TrackedValue<String> discordFromServer = value("**[StaffChat] <username>**: <message>");
 
         @Comment("The message shown in Discord when using the staffchat command")
 
         @Comment("Placeholders:")
-        @Comment("Applies to: Velocity & BungeeCord")
         @Comment("<username> - The player's username")
         @Comment("<server> - The server the player is connected to")
         @Comment("<message> - The sent message")
@@ -88,6 +89,7 @@ public final class MessageConfig extends ReflectiveConfig {
         @Comment("<group_displayname> - The display name of the player's primary group")
         @Comment("<prefix> - The player's prefix")
         @Comment("<suffix> - The player's suffix")
+        @RequireProxy
         public final TrackedValue<String> discordFromProxy = value("**[StaffChat] <username> (<server>)**: <message>");
 
         @Comment("The message shown when a non-player tries to toggle StaffChat")
@@ -104,7 +106,6 @@ public final class MessageConfig extends ReflectiveConfig {
     public final static class Report extends Section {
 
         @Comment("The message shown to in-game staff when a player is reported")
-        @Comment("Applies to: Paper & Spigot")
         @Comment("Placeholders:")
         @Comment("<reporter_displayname> - The reporter's displayname")
         @Comment("<reporter_username> - The reporter's username")
@@ -120,10 +121,10 @@ public final class MessageConfig extends ReflectiveConfig {
         @Comment("<reported_player_group_displayname> - The display name of the reported player's primary group")
         @Comment("<reported_player_prefix> - The reported player's prefix")
         @Comment("<reported_player_suffix> - The reported player's suffix")
+        @RequireNonProxy
         public final TrackedValue<String> serverFromServer = value("<red><reporter_username></red> reported <red><reported_player_username></red> for: <i><reason></i>");
 
         @Comment("The message shown to in-game staff when a player is reported")
-        @Comment("Applies to: Velocity & BungeeCord")
         @Comment("Placeholders:")
         @Comment("<reporter_username> - The reporter's username")
         @Comment("<reporter_server> - The server the reporter is connected to")
@@ -139,10 +140,10 @@ public final class MessageConfig extends ReflectiveConfig {
         @Comment("<reported_player_group_displayname> - The display name of the reported player's primary group")
         @Comment("<reported_player_prefix> - The reported player's prefix")
         @Comment("<reported_player_suffix> - The reported player's suffix")
+        @RequireProxy
         public final TrackedValue<String> proxyFromProxy = value("<red><reporter_username> (<reporter_server>)</red> reported <red><reported_player_username> (<reported_player_server>)</red> for: <i><reason></i>");
 
         @Comment("The message shown in Discord when a player is reported")
-        @Comment("Applies to: Paper & Spigot")
         @Comment("Placeholders:")
         @Comment("<reporter_displayname> - The reporter's displayname")
         @Comment("<reporter_username> - The reporter's username")
@@ -158,10 +159,10 @@ public final class MessageConfig extends ReflectiveConfig {
         @Comment("<reported_player_group_displayname> - The display name of the reported player's primary group")
         @Comment("<reported_player_prefix> - The reported player's prefix")
         @Comment("<reported_player_suffix> - The reported player's suffix")
+        @RequireNonProxy
         public final TrackedValue<String> discordFromServer = value("**[Report] <reporter_username>** reported **<reported_player_username>** for: *<reason>*");
 
         @Comment("The message shown in Discord when a player is reported")
-        @Comment("Applies to: Velocity & BungeeCord")
         @Comment("Placeholders:")
         @Comment("<reporter_username> - The reporter's username")
         @Comment("<reporter_server> - The server the reporter is connected to")
@@ -177,6 +178,7 @@ public final class MessageConfig extends ReflectiveConfig {
         @Comment("<reported_player_group_displayname> - The display name of the reported player's primary group")
         @Comment("<reported_player_prefix> - The reported player's prefix")
         @Comment("<reported_player_suffix> - The reported player's suffix")
+        @RequireProxy
         public final TrackedValue<String> discordFromProxy = value("**[Report] <reporter_username> (<reporter_server>)** reported **<reported_player_username> (<reported_player_server>)** for: *<reason>*") ;
 
         @Comment("The message sent to the reporter after successfully reporting a player")
@@ -198,7 +200,6 @@ public final class MessageConfig extends ReflectiveConfig {
     public final static class HelpOp extends Section {
 
         @Comment("The message shown to in-game staff when the helpop command is used")
-        @Comment("Applies to: Paper & Spigot")
         @Comment("Placeholders:")
         @Comment("<displayname> - The player's displayname")
         @Comment("<username> - The player's username")
@@ -208,10 +209,10 @@ public final class MessageConfig extends ReflectiveConfig {
         @Comment("<group_displayname> - The display name of the player's primary group")
         @Comment("<prefix> - The player's prefix")
         @Comment("<suffix> - The player's suffix")
+        @RequireNonProxy
         public final TrackedValue<String> serverFromServer = value("<dark_red>HelpOp <yellow><username></yellow>:</dark_red> <green><message></green>");
 
         @Comment("The message shown to in-game staff when the helpop command is used")
-        @Comment("Applies to: Velocity & BungeeCord")
         @Comment("Placeholders:")
         @Comment("<username> - The player's username")
         @Comment("<server> - The server the player is connected to")
@@ -221,10 +222,10 @@ public final class MessageConfig extends ReflectiveConfig {
         @Comment("<group_displayname> - The display name of the player's primary group")
         @Comment("<prefix> - The player's prefix")
         @Comment("<suffix> - The player's suffix")
+        @RequireProxy
         public final TrackedValue<String> proxyFromProxy = value("<dark_red>HelpOp <yellow><username></yellow> <gold>(<server>)</gold>:</dark_red> <green><message></green>");
 
         @Comment("The message shown in Discord when the helpop command is used")
-        @Comment("Applies to: Paper & Spigot")
         @Comment("Placeholders:")
         @Comment("<displayname> - The player's displayname")
         @Comment("<username> - The player's username")
@@ -234,10 +235,10 @@ public final class MessageConfig extends ReflectiveConfig {
         @Comment("<group_displayname> - The display name of the player's primary group")
         @Comment("<prefix> - The player's prefix")
         @Comment("<suffix> - The player's suffix")
+        @RequireNonProxy
         public final TrackedValue<String> discordFromServer = value("**[HelpOp] <username>**: <message>");
 
         @Comment("The message shown in Discord when the helpop command is used")
-        @Comment("Applies to: Velocity & BungeeCord")
         @Comment("Placeholders:")
         @Comment("<username> - The player's username")
         @Comment("<server> - The server the player is connected to")
@@ -247,6 +248,7 @@ public final class MessageConfig extends ReflectiveConfig {
         @Comment("<group_displayname> - The display name of the player's primary group")
         @Comment("<prefix> - The player's prefix")
         @Comment("<suffix> - The player's suffix")
+        @RequireProxy
         public final TrackedValue<String> discordFromProxy = value("**[HelpOp] <username> (<server>)**: <message>");
 
         @Comment("The message sent to the sender after successfully using the helpop command")
