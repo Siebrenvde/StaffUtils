@@ -36,10 +36,10 @@ public abstract class BaseCommand {
      * @param rootPermission the root permission of the command
      */
     public BaseCommand(CommandConfig.Command config, @Nullable String rootPermission) {
-        this.enabled = config.enabled().getRealValue();
-        this.name = config.name().getRealValue();
-        this.aliases = config.aliases().getRealValue().toArray(new String[0]);
-        this.description = config.description().getRealValue();
+        this.enabled = config.enabled.getRealValue();
+        this.name = config.name.getRealValue();
+        this.aliases = config.aliases.getRealValue().toArray(new String[0]);
+        this.description = config.description.getRealValue();
         this.rootPermission = rootPermission;
     }
 

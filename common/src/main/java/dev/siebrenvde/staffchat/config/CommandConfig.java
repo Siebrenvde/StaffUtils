@@ -10,52 +10,38 @@ import dev.siebrenvde.configlib.libs.quilt.config.api.values.ValueList;
 public class CommandConfig extends ReflectiveConfig {
 
     @SerializedName("staffchat")
-    public final Command staffChat = new StaffChat();
-    public final Command report = new Report();
+    public final Command staffChat = new Command(
+        true,
+        "staffchat",
+        new String[] {"sc", "schat"},
+        "Chat with other staff members"
+    );
+    public final Command report = new Command(
+        true,
+        "report",
+        null,
+        "Report a player"
+    );
     @SerializedName("helpop")
-    public final Command helpOp = new HelpOp();
+    public final Command helpOp = new Command(
+        true,
+        "helpop",
+        null,
+        "Ask staf for help"
+    );
 
-    private static class StaffChat extends Section implements Command {
-        private final TrackedValue<Boolean> enabled = value(true);
-        private final TrackedValue<String> name = value("staffchat");
-        private final TrackedValue<ValueList<String>> aliases = list("", "sc", "staffc");
-        private final TrackedValue<String> description = value("Chat with other staff members");
+    public static class Command extends Section {
+        public final TrackedValue<Boolean> enabled;
+        public final TrackedValue<String> name;
+        public final TrackedValue<ValueList<String>> aliases;
+        public final TrackedValue<String> description;
 
-        @Override public TrackedValue<Boolean> enabled() { return enabled; }
-        @Override public TrackedValue<String> name() { return name; }
-        @Override public TrackedValue<ValueList<String>> aliases() { return aliases; }
-        @Override public TrackedValue<String> description() { return description; }
-    }
-
-    private static class Report extends Section implements Command {
-        private final TrackedValue<Boolean> enabled = value(true);
-        private final TrackedValue<String> name = value("report");
-        private final TrackedValue<ValueList<String>> aliases = list("");
-        private final TrackedValue<String> description = value("Report a player");
-
-        @Override public TrackedValue<Boolean> enabled() { return enabled; }
-        @Override public TrackedValue<String> name() { return name; }
-        @Override public TrackedValue<ValueList<String>> aliases() { return aliases; }
-        @Override public TrackedValue<String> description() { return description; }
-    }
-
-    private static class HelpOp extends Section implements Command {
-        private final TrackedValue<Boolean> enabled = value(true);
-        private final TrackedValue<String> name = value("helpop");
-        private final TrackedValue<ValueList<String>> aliases = list("");
-        private final TrackedValue<String> description = value("Ask staff for help");
-
-        @Override public TrackedValue<Boolean> enabled() { return enabled; }
-        @Override public TrackedValue<String> name() { return name; }
-        @Override public TrackedValue<ValueList<String>> aliases() { return aliases; }
-        @Override public TrackedValue<String> description() { return description; }
-    }
-
-    public interface Command {
-        TrackedValue<Boolean> enabled();
-        TrackedValue<String> name();
-        TrackedValue<ValueList<String>> aliases();
-        TrackedValue<String> description();
+        public Command(boolean enabled, String name, String[] aliases, String description) {
+            this.enabled = value(enabled);
+            this.name = value(name);
+            this.aliases = list("", aliases != null ? aliases : new String[0]);
+            this.description = value(description != null ? description : "");
+        }
     }
 
 }
