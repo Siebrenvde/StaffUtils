@@ -32,6 +32,9 @@ allprojects {
         maven("https://jitpack.io/") {
             name = "jitpack"
         }
+        maven("https://files.siebrenvde.dev/repository/releases/") {
+            name = "siebrenvde"
+        }
     }
 }
 
@@ -60,5 +63,4 @@ tasks.withType(ShadowJar::class) {
 
     // Relocate dependencies
     // relocate("net.kyori", "dev.siebrenvde.staffchat.libs.kyori") - Breaks Velocity
-    relocate("com.electronwill.nightconfig", "dev.siebrenvde.staffchat.libs.nightconfig")
 }

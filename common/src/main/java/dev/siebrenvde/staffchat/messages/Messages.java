@@ -38,7 +38,7 @@ public class Messages {
     public static HelpOp helpOp() { return instance.helpOp; }
 
     public Component permissionMessage() {
-        return miniMessage().deserialize(config.permissionMessage);
+        return miniMessage().deserialize(config.permissionMessage.getRealValue());
     }
 
     public record StaffChat(MessageConfig.StaffChat config) {
@@ -52,8 +52,8 @@ public class Messages {
         public Component serverFromServer(CommonCommandSender sender, String message) {
             return miniMessage().deserialize(
                 getPlatform().isProxy()
-                    ? config().proxyFromProxy
-                    : config().serverFromServer,
+                    ? config().proxyFromProxy.getRealValue()
+                    : config().serverFromServer.getRealValue(),
                 Placeholders.sender(sender),
                 Placeholders.formattedMessage(message) // TODO: Add config option to disable parsing
             );
@@ -61,7 +61,7 @@ public class Messages {
 
         public Component serverFromDiscord(Member author, String message) {
             return miniMessage().deserialize(
-                config().gameFromDiscord,
+                config().gameFromDiscord.getRealValue(),
                 Placeholders.discordMember(author),
                 Placeholders.formattedMessage(message)
             );
@@ -71,17 +71,17 @@ public class Messages {
             return PlainTextComponentSerializer.plainText().serialize(
                 miniMessage().deserialize(
                     getPlatform().isProxy()
-                        ? config().discordFromProxy
-                        : config().discordFromServer,
+                        ? config().discordFromProxy.getRealValue()
+                        : config().discordFromServer.getRealValue(),
                     Placeholders.sender(sender),
                     Placeholders.formattedMessage(message)
                 )
             );
         }
 
-        public Component playerOnly() { return miniMessage().deserialize(config().playerOnly); }
-        public Component enabled() { return miniMessage().deserialize(config().enabled); }
-        public Component disabled() { return miniMessage().deserialize(config().disabled); }
+        public Component playerOnly() { return miniMessage().deserialize(config().playerOnly.getRealValue()); }
+        public Component enabled() { return miniMessage().deserialize(config().enabled.getRealValue()); }
+        public Component disabled() { return miniMessage().deserialize(config().disabled.getRealValue()); }
 
     }
 
@@ -90,8 +90,8 @@ public class Messages {
         public Component serverFromServer(CommonCommandSender reporter, CommonPlayer reportedPlayer, String message) {
             return miniMessage().deserialize(
                 getPlatform().isProxy()
-                    ? config().proxyFromProxy
-                    : config().serverFromServer,
+                    ? config().proxyFromProxy.getRealValue()
+                    : config().serverFromServer.getRealValue(),
                 Placeholders.sender("reporter", reporter),
                 Placeholders.sender("reported_player", reportedPlayer),
                 Placeholder.unparsed("reason", message)
@@ -102,8 +102,8 @@ public class Messages {
             return PlainTextComponentSerializer.plainText().serialize(
                 miniMessage().deserialize(
                     getPlatform().isProxy()
-                        ? config().discordFromProxy
-                        : config().discordFromServer,
+                        ? config().discordFromProxy.getRealValue()
+                        : config().discordFromServer.getRealValue(),
                     Placeholders.sender("reporter", reporter),
                     Placeholders.sender("reported_player", reportedPlayer),
                     Placeholder.unparsed("reason", reason)
@@ -113,20 +113,20 @@ public class Messages {
 
         public Component success(CommonPlayer reportedPlayer) {
             return miniMessage().deserialize(
-                config().success,
+                config().success.getRealValue(),
                 Placeholders.sender(reportedPlayer)
             );
         }
 
         public Component playerNotFound(String input) {
             return miniMessage().deserialize(
-                config().playerNotFound,
+                config().playerNotFound.getRealValue(),
                 Placeholder.unparsed("input", input)
             );
         }
 
         public Component usage() {
-            return miniMessage().deserialize(config().usage);
+            return miniMessage().deserialize(config().usage.getRealValue());
         }
 
     }
@@ -136,8 +136,8 @@ public class Messages {
         public Component serverFromServer(CommonCommandSender sender, String message) {
             return miniMessage().deserialize(
                 getPlatform().isProxy()
-                    ? config().proxyFromProxy
-                    : config().serverFromServer,
+                    ? config().proxyFromProxy.getRealValue()
+                    : config().serverFromServer.getRealValue(),
                 Placeholders.sender(sender),
                 Placeholder.unparsed("message", message)
             );
@@ -147,8 +147,8 @@ public class Messages {
             return PlainTextComponentSerializer.plainText().serialize(
                 miniMessage().deserialize(
                     getPlatform().isProxy()
-                        ? config().discordFromProxy
-                        : config().discordFromServer,
+                        ? config().discordFromProxy.getRealValue()
+                        : config().discordFromServer.getRealValue(),
                     Placeholders.sender(sender),
                     Placeholder.unparsed("message", message)
                 )
@@ -156,11 +156,11 @@ public class Messages {
         }
 
         public Component success() {
-            return miniMessage().deserialize(config().success);
+            return miniMessage().deserialize(config().success.getRealValue());
         }
 
         public Component usage() {
-            return miniMessage().deserialize(config().usage);
+            return miniMessage().deserialize(config().usage.getRealValue());
         }
 
     }

@@ -1,24 +1,18 @@
 package dev.siebrenvde.staffchat.config;
 
-import com.electronwill.nightconfig.core.serde.ObjectDeserializer;
-import com.electronwill.nightconfig.core.serde.annotations.SerdeKey;
-import dev.siebrenvde.staffchat.api.config.BaseConfig;
+import dev.siebrenvde.configlib.libs.quilt.config.api.ReflectiveConfig;
+import dev.siebrenvde.configlib.libs.quilt.config.api.annotations.Comment;
+import dev.siebrenvde.configlib.libs.quilt.config.api.annotations.SerializedNameConvention;
+import dev.siebrenvde.configlib.libs.quilt.config.api.metadata.NamingSchemes;
+import dev.siebrenvde.configlib.libs.quilt.config.api.values.TrackedValue;
 
-import java.nio.file.Path;
+@SerializedNameConvention(NamingSchemes.SNAKE_CASE)
+public class MainConfig extends ReflectiveConfig {
 
-public class MainConfig extends BaseConfig {
+    @Comment("The id of the staff channel")
+    public final TrackedValue<String> staffChannel = value("");
 
-    public static MainConfig load(Path path) {
-        return ObjectDeserializer.standard().deserializeFields(load(path, "config.toml"), MainConfig::new);
-    }
-
-    @SerdeKey("config_version")
-    public int configVersion;
-
-    @SerdeKey("staff_channel")
-    public String staffChannel;
-
-    @SerdeKey("verbose_logging")
-    public boolean verboseLogging;
+    @Comment("For debug purposes")
+    public final TrackedValue<Boolean> verboseLogging = value(false);
 
 }

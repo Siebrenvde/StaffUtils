@@ -1,5 +1,7 @@
 package dev.siebrenvde.staffchat.config;
 
+import dev.siebrenvde.configlib.ConfigLib;
+
 import java.nio.file.Path;
 
 public class Config {
@@ -9,9 +11,9 @@ public class Config {
     public static CommandConfig COMMANDS;
 
     public static void load(Path path) {
-        CONFIG = MainConfig.load(path);
-        MESSAGES = MessageConfig.load(path);
-        COMMANDS = CommandConfig.load(path);
+        CONFIG = ConfigLib.toml(path, "config", MainConfig.class);
+        MESSAGES = ConfigLib.toml(path, "messages", MessageConfig.class);
+        COMMANDS = ConfigLib.toml(path, "commands", CommandConfig.class);
     }
 
 }

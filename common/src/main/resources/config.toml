@@ -1,8 +1,0 @@
-# Do not change this
-config_version = 1
-
-# The id of the staff channel
-staff_channel = ""
-
-# For debug purposes
-verbose_logging = false

@@ -18,8 +18,8 @@ public class SpicordAddon extends SimpleAddon {
     @Override
     public void onReady(DiscordBot bot) {
         JDA jda = bot.getJda();
-        if(Config.CONFIG.staffChannel.isEmpty()) throw new RuntimeException("Staff channel is empty");
-        staffChannel = jda.getTextChannelById(Config.CONFIG.staffChannel);
+        if(Config.CONFIG.staffChannel.getRealValue().isEmpty()) throw new RuntimeException("Staff channel is empty");
+        staffChannel = jda.getTextChannelById(Config.CONFIG.staffChannel.getRealValue());
         jda.addEventListener(new MessageListener(this));
         isReady = true;
     }

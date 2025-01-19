@@ -9,7 +9,7 @@ public interface Logger {
      * @param message the message to log
      */
     default void optional(String message) {
-        if(Config.CONFIG.verboseLogging) info(message);
+        if(Config.CONFIG.verboseLogging.getRealValue()) info(message);
     }
 
     /**
