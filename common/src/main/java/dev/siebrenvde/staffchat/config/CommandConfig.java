@@ -1,10 +1,10 @@
 package dev.siebrenvde.staffchat.config;
 
-import dev.siebrenvde.configlib.NoOptionSpacing;
 import dev.siebrenvde.configlib.libs.quilt.config.api.ReflectiveConfig;
 import dev.siebrenvde.configlib.libs.quilt.config.api.annotations.SerializedName;
 import dev.siebrenvde.configlib.libs.quilt.config.api.values.TrackedValue;
 import dev.siebrenvde.configlib.libs.quilt.config.api.values.ValueList;
+import dev.siebrenvde.configlib.metadata.NoOptionSpacing;
 
 @NoOptionSpacing
 public class CommandConfig extends ReflectiveConfig {
