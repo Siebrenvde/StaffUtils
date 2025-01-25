@@ -2,15 +2,26 @@ package dev.siebrenvde.staffchat.api;
 
 import dev.siebrenvde.staffchat.api.command.CommonCommandSender;
 import dev.siebrenvde.staffchat.api.player.CommonPlayer;
+import net.kyori.adventure.text.Component;
 
 import java.util.Optional;
 
 public interface ServerPlatform {
 
     enum ServerType {
-        SPIGOT,
-        VELOCITY,
-        BUNGEECORD
+        SPIGOT("Spigot"),
+        VELOCITY("Velocity"),
+        BUNGEECORD("BungeeCord");
+
+        private final String displayName;
+
+        ServerType(String displayName) {
+            this.displayName = displayName;
+        }
+
+        public Component displayName() {
+            return Component.text(displayName);
+        }
     }
 
     /**
