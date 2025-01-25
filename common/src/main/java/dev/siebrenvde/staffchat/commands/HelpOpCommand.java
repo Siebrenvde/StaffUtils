@@ -10,6 +10,8 @@ import dev.siebrenvde.staffchat.config.Config;
 import dev.siebrenvde.staffchat.messages.Messages;
 import dev.siebrenvde.staffchat.util.Permissions;
 
+import static dev.siebrenvde.staffchat.util.BrigadierUtils.withSender;
+
 public class HelpOpCommand extends BaseCommand {
 
     public HelpOpCommand() {
@@ -20,13 +22,12 @@ public class HelpOpCommand extends BaseCommand {
     public <C> LiteralCommandNode<C> brigadier(BrigadierCommandManager<C> manager) {
         return manager.literal(getName())
             .then(manager.argument("message", StringArgumentType.greedyString())
-                .executes(ctx -> {
+                .executes(withSender((ctx, sender) -> {
                     executeHelpOp(
-                        CommonCommandSender.of(ctx.getSource()),
+                        sender,
                         StringArgumentType.getString(ctx, "message")
                     );
-                    return 1;
-                })
+                }))
             )
             .build();
     }

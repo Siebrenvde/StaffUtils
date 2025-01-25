@@ -15,6 +15,8 @@ import eu.mcdb.util.ArrayUtils;
 
 import java.util.List;
 
+import static dev.siebrenvde.staffchat.util.BrigadierUtils.withSender;
+
 public class ReportCommand extends BaseCommand {
 
     public ReportCommand() {
@@ -33,14 +35,13 @@ public class ReportCommand extends BaseCommand {
                     return builder.buildFuture();
                 })
                 .then(manager.argument("reason", StringArgumentType.greedyString())
-                    .executes(ctx -> {
+                    .executes(withSender((ctx, sender) -> {
                         executeReport(
-                            CommonCommandSender.of(ctx.getSource()),
+                            sender,
                             StringArgumentType.getString(ctx, "player"),
                             StringArgumentType.getString(ctx, "reason")
                         );
-                        return 1;
-                    })
+                    }))
                 )
             ).build();
     }

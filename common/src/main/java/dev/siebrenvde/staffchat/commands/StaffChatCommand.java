@@ -16,6 +16,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import static dev.siebrenvde.staffchat.util.BrigadierUtils.hasPermission;
+import static dev.siebrenvde.staffchat.util.BrigadierUtils.withSender;
+
 public class StaffChatCommand extends BaseCommand {
 
     public static final List<UUID> ENABLED_PLAYERS = new ArrayList<>();
@@ -27,19 +30,15 @@ public class StaffChatCommand extends BaseCommand {
     @Override
     public <C> LiteralCommandNode<C> brigadier(BrigadierCommandManager<C> manager) {
         return manager.literal(getName())
-            .requires(sender -> CommonCommandSender.of(sender).hasPermission(getRootPermission()))
-            .executes(ctx -> {
-                executeToggle(CommonCommandSender.of(ctx.getSource()));
-                return 1;
-            })
+            .requires(hasPermission(getRootPermission()))
+            .executes(withSender((ctx, sender) -> executeToggle(sender)))
             .then(manager.argument("message", StringArgumentType.greedyString())
-                .executes(ctx -> {
+                .executes(withSender((ctx, sender) -> {
                     executeSendMessage(
-                        CommonCommandSender.of(ctx.getSource()),
+                        sender,
                         StringArgumentType.getString(ctx, "message")
                     );
-                    return 1;
-                })
+                }))
             )
             .build();
     }
