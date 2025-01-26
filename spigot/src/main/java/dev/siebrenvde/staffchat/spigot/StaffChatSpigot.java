@@ -32,6 +32,11 @@ public final class StaffChatSpigot extends JavaPlugin {
             StaffChat.LOGGER.optional("Registering commands using Spigot's outdated system");
             staffChat.registerCommands(new SpigotCommandManager());
         }
+
+        if(!PaperCompat.isPaper()) {
+            StaffChat.LOGGER.info("It looks like you're using Spigot");
+            StaffChat.LOGGER.info("This plugin works better using Paper");
+        }
     }
 
     @Override

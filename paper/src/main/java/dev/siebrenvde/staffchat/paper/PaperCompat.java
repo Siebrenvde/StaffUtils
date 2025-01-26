@@ -14,6 +14,10 @@ public class PaperCompat {
         }
     }
 
+    public static boolean isPaper() {
+        return hasClass("com.destroystokyo.paper.PaperConfig") || hasClass("io.papermc.paper.configuration.Configuration");
+    }
+
     public static boolean hasBrigadier() {
         return hasClass("io.papermc.paper.command.brigadier.Commands");
     }
