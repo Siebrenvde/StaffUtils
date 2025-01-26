@@ -9,6 +9,7 @@ import java.util.Optional;
 public interface ServerPlatform {
 
     enum ServerType {
+        PAPER("Paper"),
         SPIGOT("Spigot"),
         VELOCITY("Velocity"),
         BUNGEECORD("BungeeCord");

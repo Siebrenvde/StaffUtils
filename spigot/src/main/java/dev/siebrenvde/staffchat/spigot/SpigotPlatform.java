@@ -15,7 +15,9 @@ public class SpigotPlatform implements ServerPlatform {
 
     @Override
     public ServerType getServerType() {
-        return ServerType.SPIGOT;
+        return PaperCompat.isPaper()
+            ? ServerType.PAPER
+            : ServerType.SPIGOT;
     }
 
     @Override
