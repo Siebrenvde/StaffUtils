@@ -2,8 +2,8 @@ package dev.siebrenvde.staffutils.messages;
 
 import dev.siebrenvde.staffutils.StaffUtils;
 import dev.siebrenvde.staffutils.addons.LuckPermsAddon;
-import dev.siebrenvde.staffutils.api.command.CommonCommandSender;
-import dev.siebrenvde.staffutils.api.player.CommonPlayer;
+import dev.siebrenvde.staffutils.api.command.CommandSender;
+import dev.siebrenvde.staffutils.api.player.Player;
 import dev.siebrenvde.staffutils.api.player.ProxyPlayer;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Role;
@@ -37,11 +37,11 @@ public class Placeholders {
             )
             .build();
 
-    public static TagResolver sender(CommonCommandSender sender) {
+    public static TagResolver sender(CommandSender sender) {
         return sender(null, sender);
     }
 
-    public static TagResolver sender(@Subst("sender") @Nullable String prefix, CommonCommandSender sender) {
+    public static TagResolver sender(@Subst("sender") @Nullable String prefix, CommandSender sender) {
         prefix = prefix != null ? prefix + "_" : "";
         List<TagResolver> resolvers = new ArrayList<>();
         resolvers.add(unparsed(prefix + "username", sender.getName()));
@@ -60,7 +60,7 @@ public class Placeholders {
             Group group = null;
             Component playerPrefix = Component.empty();
             Component playerSuffix = Component.empty();
-            if(sender instanceof CommonPlayer player) {
+            if(sender instanceof Player player) {
                 group = LuckPermsAddon.get().getPlayerGroup(player).orElse(null);
                 playerPrefix = LuckPermsAddon.get().getPlayerPrefix(player).orElse(Component.empty());
                 playerSuffix = LuckPermsAddon.get().getPlayerSuffix(player).orElse(Component.empty());

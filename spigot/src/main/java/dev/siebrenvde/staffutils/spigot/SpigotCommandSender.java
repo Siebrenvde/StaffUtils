@@ -1,14 +1,13 @@
 package dev.siebrenvde.staffutils.spigot;
 
-import dev.siebrenvde.staffutils.api.command.CommonCommandSender;
+import dev.siebrenvde.staffutils.api.command.CommandSender;
 import net.kyori.adventure.text.Component;
-import org.bukkit.command.CommandSender;
 
-public class SpigotCommandSender implements CommonCommandSender {
+public class SpigotCommandSender implements CommandSender {
 
-    private final CommandSender sender;
+    private final org.bukkit.command.CommandSender sender;
 
-    public SpigotCommandSender(CommandSender sender) {
+    public SpigotCommandSender(org.bukkit.command.CommandSender sender) {
         this.sender = sender;
     }
 

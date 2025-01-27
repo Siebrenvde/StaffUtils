@@ -1,12 +1,12 @@
 package dev.siebrenvde.staffutils.api.player;
 
 import dev.siebrenvde.staffutils.StaffUtils;
-import dev.siebrenvde.staffutils.api.command.CommonCommandSender;
+import dev.siebrenvde.staffutils.api.command.CommandSender;
 
 import java.util.Optional;
 import java.util.UUID;
 
-public interface CommonPlayer extends CommonCommandSender {
+public interface Player extends CommandSender {
 
     /**
      * Converts the server software's player to a CommonPlayer
@@ -14,7 +14,7 @@ public interface CommonPlayer extends CommonCommandSender {
      * @param <P> the server software's player class
      * @return a new player instance
      */
-    static <P> CommonPlayer of(P player) {
+    static <P> Player of(P player) {
         return StaffUtils.getPlatform().getPlayer(player);
     }
 
@@ -23,7 +23,7 @@ public interface CommonPlayer extends CommonCommandSender {
      * @param name the name of the player
      * @return an optional player instance
      */
-    static Optional<CommonPlayer> byName(String name) { return StaffUtils.getPlatform().getPlayerByName(name); }
+    static Optional<Player> byName(String name) { return StaffUtils.getPlatform().getPlayerByName(name); }
 
     /**
      * {@return the player's UUID}

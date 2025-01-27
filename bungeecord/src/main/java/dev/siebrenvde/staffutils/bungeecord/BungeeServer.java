@@ -1,13 +1,13 @@
 package dev.siebrenvde.staffutils.bungeecord;
 
-import dev.siebrenvde.staffutils.api.player.CommonPlayer;
-import dev.siebrenvde.staffutils.api.server.CommonServer;
+import dev.siebrenvde.staffutils.api.player.Player;
+import dev.siebrenvde.staffutils.api.server.Server;
 import net.md_5.bungee.api.config.ServerInfo;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class BungeeServer implements CommonServer {
+public class BungeeServer implements Server {
 
     private final ServerInfo serverInfo;
 
@@ -21,7 +21,7 @@ public class BungeeServer implements CommonServer {
     }
 
     @Override
-    public List<CommonPlayer> getPlayers() {
+    public List<Player> getPlayers() {
         return serverInfo.getPlayers().stream()
             .map(BungeePlayer::new)
             .collect(Collectors.toList());

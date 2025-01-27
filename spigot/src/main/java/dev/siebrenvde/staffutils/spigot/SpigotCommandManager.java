@@ -2,7 +2,7 @@ package dev.siebrenvde.staffutils.spigot;
 
 import dev.siebrenvde.staffutils.api.command.CommandManager;
 import dev.siebrenvde.staffutils.api.command.BaseCommand;
-import dev.siebrenvde.staffutils.api.command.CommonCommandSender;
+import dev.siebrenvde.staffutils.api.command.CommandSender;
 import org.bukkit.Bukkit;
 import org.bukkit.command.*;
 import org.bukkit.plugin.Plugin;
@@ -45,18 +45,18 @@ public class SpigotCommandManager implements CommandManager {
     private record SpigotCommand(BaseCommand command) implements TabExecutor {
 
         @Override
-            public boolean onCommand(@NotNull CommandSender sender, @NotNull Command cmd, @NotNull String label, @NotNull String[] args) {
+            public boolean onCommand(@NotNull org.bukkit.command.CommandSender sender, @NotNull Command cmd, @NotNull String label, @NotNull String[] args) {
                 command.simple(
-                    CommonCommandSender.of(sender),
+                    CommandSender.of(sender),
                     args
                 );
                 return true;
             }
 
         @Override
-        public List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command cmd, @NotNull String label, @NotNull String[] args) {
+        public List<String> onTabComplete(@NotNull org.bukkit.command.CommandSender sender, @NotNull Command cmd, @NotNull String label, @NotNull String[] args) {
             return command.suggestions(
-                CommonCommandSender.of(sender),
+                CommandSender.of(sender),
                 args
             );
         }

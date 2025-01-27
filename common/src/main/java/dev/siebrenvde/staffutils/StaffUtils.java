@@ -1,7 +1,7 @@
 package dev.siebrenvde.staffutils;
 
 import dev.siebrenvde.staffutils.addons.LuckPermsAddon;
-import dev.siebrenvde.staffutils.api.server.CommonServer;
+import dev.siebrenvde.staffutils.api.server.Server;
 import dev.siebrenvde.staffutils.commands.HelpOpCommand;
 import dev.siebrenvde.staffutils.commands.ReportCommand;
 import dev.siebrenvde.staffutils.config.Config;
@@ -20,10 +20,10 @@ public class StaffUtils {
     public static Logger LOGGER;
 
     private static ServerPlatform platform;
-    private static CommonServer server;
+    private static Server server;
     private static SpicordAddon spicordAddon;
 
-    public StaffUtils(Path dataDirectory, ServerPlatform serverPlatform, CommonServer globalServer, Logger logger) {
+    public StaffUtils(Path dataDirectory, ServerPlatform serverPlatform, Server globalServer, Logger logger) {
         LOGGER = logger;
         platform = serverPlatform;
         server = globalServer;
@@ -48,7 +48,7 @@ public class StaffUtils {
     }
 
     public static ServerPlatform getPlatform() { return platform; }
-    public static CommonServer getServer() { return server; }
+    public static Server getServer() { return server; }
     public static SpicordAddon getSpicord() { return spicordAddon; }
 
 }

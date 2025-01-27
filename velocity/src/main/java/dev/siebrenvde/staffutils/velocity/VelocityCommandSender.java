@@ -2,10 +2,10 @@ package dev.siebrenvde.staffutils.velocity;
 
 import com.velocitypowered.api.command.CommandSource;
 import com.velocitypowered.api.proxy.ConsoleCommandSource;
-import dev.siebrenvde.staffutils.api.command.CommonCommandSender;
+import dev.siebrenvde.staffutils.api.command.CommandSender;
 import net.kyori.adventure.text.Component;
 
-public class VelocityCommandSender implements CommonCommandSender {
+public class VelocityCommandSender implements CommandSender {
 
     private final CommandSource source;
 

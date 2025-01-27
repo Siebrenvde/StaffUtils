@@ -3,14 +3,14 @@ package dev.siebrenvde.staffutils.api.command;
 import dev.siebrenvde.staffutils.StaffUtils;
 import net.kyori.adventure.text.Component;
 
-public interface CommonCommandSender {
+public interface CommandSender {
 
     /**
      * {@return a new CommandSender instance}
      * @param sender the command sender
      * @param <C> the server software's command sender
      */
-    static <C> CommonCommandSender of(C sender) {
+    static <C> CommandSender of(C sender) {
         return StaffUtils.getPlatform().getCommandSender(sender);
     }
 

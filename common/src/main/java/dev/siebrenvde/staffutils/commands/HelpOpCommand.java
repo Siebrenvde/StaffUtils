@@ -5,7 +5,7 @@ import com.mojang.brigadier.tree.LiteralCommandNode;
 import dev.siebrenvde.staffutils.StaffUtils;
 import dev.siebrenvde.staffutils.api.command.BaseCommand;
 import dev.siebrenvde.staffutils.api.command.BrigadierCommandManager;
-import dev.siebrenvde.staffutils.api.command.CommonCommandSender;
+import dev.siebrenvde.staffutils.api.command.CommandSender;
 import dev.siebrenvde.staffutils.config.Config;
 import dev.siebrenvde.staffutils.messages.Messages;
 import dev.siebrenvde.staffutils.util.Permissions;
@@ -33,7 +33,7 @@ public class HelpOpCommand extends BaseCommand {
     }
 
     @Override
-    public void simple(CommonCommandSender sender, String[] args) {
+    public void simple(CommandSender sender, String[] args) {
         if(args.length == 0) {
             sender.sendMessage(Messages.helpOp().usage());
             return;
@@ -41,7 +41,7 @@ public class HelpOpCommand extends BaseCommand {
         executeHelpOp(sender, String.join(" ", args));
     }
 
-    private void executeHelpOp(CommonCommandSender sender, String message) {
+    private void executeHelpOp(CommandSender sender, String message) {
         sender.sendMessage(Messages.helpOp().success());
         StaffUtils.getServer().broadcast(
             Messages.helpOp().serverFromServer(sender, message),

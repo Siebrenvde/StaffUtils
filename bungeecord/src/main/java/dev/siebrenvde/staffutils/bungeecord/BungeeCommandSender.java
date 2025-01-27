@@ -1,14 +1,13 @@
 package dev.siebrenvde.staffutils.bungeecord;
 
-import dev.siebrenvde.staffutils.api.command.CommonCommandSender;
+import dev.siebrenvde.staffutils.api.command.CommandSender;
 import net.kyori.adventure.text.Component;
-import net.md_5.bungee.api.CommandSender;
 
-public class BungeeCommandSender implements CommonCommandSender {
+public class BungeeCommandSender implements CommandSender {
 
-    private final CommandSender sender;
+    private final net.md_5.bungee.api.CommandSender sender;
 
-    public BungeeCommandSender(CommandSender sender) {
+    public BungeeCommandSender(net.md_5.bungee.api.CommandSender sender) {
         this.sender = sender;
     }
 

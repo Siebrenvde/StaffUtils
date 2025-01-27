@@ -1,14 +1,14 @@
 package dev.siebrenvde.staffutils.velocity;
 
 import com.velocitypowered.api.proxy.ServerConnection;
-import dev.siebrenvde.staffutils.api.player.CommonPlayer;
-import dev.siebrenvde.staffutils.api.server.CommonServer;
+import dev.siebrenvde.staffutils.api.player.Player;
+import dev.siebrenvde.staffutils.api.server.Server;
 
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class VelocityServer extends VelocityGlobalServer implements CommonServer {
+public class VelocityServer extends VelocityGlobalServer implements Server {
 
     private final ServerConnection connection;
 
@@ -24,7 +24,7 @@ public class VelocityServer extends VelocityGlobalServer implements CommonServer
     }
 
     @Override
-    public List<CommonPlayer> getPlayers() {
+    public List<Player> getPlayers() {
         return connection != null
             ? connection.getServer().getPlayersConnected().stream()
                 .map(VelocityPlayer::new)

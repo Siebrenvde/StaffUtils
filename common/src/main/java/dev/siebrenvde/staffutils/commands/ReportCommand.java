@@ -5,8 +5,8 @@ import com.mojang.brigadier.tree.LiteralCommandNode;
 import dev.siebrenvde.staffutils.StaffUtils;
 import dev.siebrenvde.staffutils.api.command.BaseCommand;
 import dev.siebrenvde.staffutils.api.command.BrigadierCommandManager;
-import dev.siebrenvde.staffutils.api.command.CommonCommandSender;
-import dev.siebrenvde.staffutils.api.player.CommonPlayer;
+import dev.siebrenvde.staffutils.api.command.CommandSender;
+import dev.siebrenvde.staffutils.api.player.Player;
 import dev.siebrenvde.staffutils.api.player.ProxyPlayer;
 import dev.siebrenvde.staffutils.config.Config;
 import dev.siebrenvde.staffutils.messages.Messages;
@@ -29,7 +29,7 @@ public class ReportCommand extends BaseCommand {
             .then(manager.argument("player", StringArgumentType.word())
                 .suggests((ctx, builder) -> {
                     playerSuggestions(
-                        CommonCommandSender.of(ctx.getSource()),
+                        CommandSender.of(ctx.getSource()),
                         builder.getRemaining().toLowerCase()
                     ).forEach(builder::suggest);
                     return builder.buildFuture();
@@ -47,7 +47,7 @@ public class ReportCommand extends BaseCommand {
     }
 
     @Override
-    public void simple(CommonCommandSender sender, String[] args) {
+    public void simple(CommandSender sender, String[] args) {
         if(args.length < 2) {
             sender.sendMessage(Messages.report().usage());
             return;
@@ -56,13 +56,13 @@ public class ReportCommand extends BaseCommand {
     }
 
     @Override
-    public List<String> suggestions(CommonCommandSender sender, String[] args) {
+    public List<String> suggestions(CommandSender sender, String[] args) {
         if(args.length != 1) return List.of();
         return playerSuggestions(sender, args[0].toLowerCase());
     }
 
-    private void executeReport(CommonCommandSender sender, String playerName, String reason) {
-        CommonPlayer.byName(playerName).ifPresentOrElse(player -> {
+    private void executeReport(CommandSender sender, String playerName, String reason) {
+        Player.byName(playerName).ifPresentOrElse(player -> {
             sender.sendMessage(Messages.report().success(player));
             StaffUtils.getServer().broadcast(
                 Messages.report().serverFromServer(sender, player, reason),
@@ -72,13 +72,13 @@ public class ReportCommand extends BaseCommand {
         }, () -> sender.sendMessage(Messages.report().playerNotFound(playerName)));
     }
 
-    private List<String> playerSuggestions(CommonCommandSender sender, String arg) {
+    private List<String> playerSuggestions(CommandSender sender, String arg) {
         // TODO: Proxy global players config option
-        List<CommonPlayer> players = sender instanceof ProxyPlayer player
+        List<Player> players = sender instanceof ProxyPlayer player
             ? player.getServer().getPlayers()
             : StaffUtils.getServer().getPlayers();
         return players.stream()
-            .map(CommonPlayer::getName)
+            .map(Player::getName)
             .filter(name -> name.toLowerCase().startsWith(arg))
             .toList();
     }

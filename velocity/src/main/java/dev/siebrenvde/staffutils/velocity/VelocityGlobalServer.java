@@ -1,12 +1,12 @@
 package dev.siebrenvde.staffutils.velocity;
 
-import dev.siebrenvde.staffutils.api.player.CommonPlayer;
-import dev.siebrenvde.staffutils.api.server.CommonServer;
+import dev.siebrenvde.staffutils.api.player.Player;
+import dev.siebrenvde.staffutils.api.server.Server;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class VelocityGlobalServer implements CommonServer {
+public class VelocityGlobalServer implements Server {
 
     @Override
     public String getName() {
@@ -14,7 +14,7 @@ public class VelocityGlobalServer implements CommonServer {
     }
 
     @Override
-    public List<CommonPlayer> getPlayers() {
+    public List<Player> getPlayers() {
         return StaffUtilsVelocity.getProxy().getAllPlayers().stream()
             .map(VelocityPlayer::new)
             .collect(Collectors.toList());

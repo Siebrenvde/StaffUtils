@@ -1,9 +1,9 @@
 package dev.siebrenvde.staffutils.api.player;
 
 import dev.siebrenvde.staffutils.StaffUtils;
-import dev.siebrenvde.staffutils.api.server.CommonServer;
+import dev.siebrenvde.staffutils.api.server.Server;
 
-public interface ProxyPlayer extends CommonPlayer {
+public interface ProxyPlayer extends Player {
 
     /**
      * {@return a new ProxyPlayer instance}
@@ -17,7 +17,7 @@ public interface ProxyPlayer extends CommonPlayer {
     /**
      * {@return the server the player is connected to}
      */
-    CommonServer getServer();
+    Server getServer();
 
     /**
      * {@return the protocol version of the player}

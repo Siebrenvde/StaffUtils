@@ -1,11 +1,11 @@
 package dev.siebrenvde.staffutils.api.server;
 
-import dev.siebrenvde.staffutils.api.player.CommonPlayer;
+import dev.siebrenvde.staffutils.api.player.Player;
 import net.kyori.adventure.text.Component;
 
 import java.util.List;
 
-public interface CommonServer {
+public interface Server {
 
     /**
      * Broadcasts a message to all online players with the specified permission
@@ -28,6 +28,6 @@ public interface CommonServer {
     /**
      * {@return a list of connected players}
      */
-    List<CommonPlayer> getPlayers();
+    List<Player> getPlayers();
 
 }

@@ -1,7 +1,7 @@
 package dev.siebrenvde.staffutils.addons;
 
 import dev.siebrenvde.staffutils.StaffUtils;
-import dev.siebrenvde.staffutils.api.player.CommonPlayer;
+import dev.siebrenvde.staffutils.api.player.Player;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import net.luckperms.api.LuckPerms;
@@ -29,21 +29,21 @@ public class LuckPermsAddon {
         }
     }
 
-    private Optional<User> getUser(CommonPlayer player) {
+    private Optional<User> getUser(Player player) {
         return Optional.ofNullable(api.getUserManager().getUser(player.getUniqueId()));
     }
 
-    public Optional<Group> getPlayerGroup(CommonPlayer player) {
+    public Optional<Group> getPlayerGroup(Player player) {
         return getUser(player).map(value -> api.getGroupManager().getGroup(value.getPrimaryGroup()));
     }
 
-    public Optional<Component> getPlayerPrefix(CommonPlayer player) {
+    public Optional<Component> getPlayerPrefix(Player player) {
         return getUser(player)
             .map(user -> user.getCachedData().getMetaData().getPrefix())
             .map(prefix -> LegacyComponentSerializer.legacyAmpersand().deserialize(prefix));
     }
 
-    public Optional<Component> getPlayerSuffix(CommonPlayer player) {
+    public Optional<Component> getPlayerSuffix(Player player) {
         return getUser(player)
             .map(user -> user.getCachedData().getMetaData().getSuffix())
             .map(suffix -> LegacyComponentSerializer.legacyAmpersand().deserialize(suffix));

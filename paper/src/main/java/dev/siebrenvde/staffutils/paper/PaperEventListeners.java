@@ -1,6 +1,6 @@
 package dev.siebrenvde.staffutils.paper;
 
-import dev.siebrenvde.staffutils.api.player.CommonPlayer;
+import dev.siebrenvde.staffutils.api.player.Player;
 import dev.siebrenvde.staffutils.listeners.EventListeners;
 import io.papermc.paper.event.player.AsyncChatEvent;
 import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer;
@@ -14,7 +14,7 @@ public class PaperEventListeners {
         public void onChat(AsyncChatEvent event) {
             event.setCancelled(
                 EventListeners.chatListener(
-                    CommonPlayer.of(event.getPlayer()),
+                    Player.of(event.getPlayer()),
                     PlainTextComponentSerializer.plainText().serialize(event.message())
                 )
             );

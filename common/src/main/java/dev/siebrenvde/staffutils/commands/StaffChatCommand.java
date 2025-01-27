@@ -7,8 +7,8 @@ import dev.siebrenvde.staffutils.config.Config;
 import dev.siebrenvde.staffutils.messages.Messages;
 import dev.siebrenvde.staffutils.api.command.BaseCommand;
 import dev.siebrenvde.staffutils.api.command.BrigadierCommandManager;
-import dev.siebrenvde.staffutils.api.command.CommonCommandSender;
-import dev.siebrenvde.staffutils.api.player.CommonPlayer;
+import dev.siebrenvde.staffutils.api.command.CommandSender;
+import dev.siebrenvde.staffutils.api.player.Player;
 import dev.siebrenvde.staffutils.util.Permissions;
 import dev.siebrenvde.staffutils.util.SignedMessageCompat;
 
@@ -44,14 +44,14 @@ public class StaffChatCommand extends BaseCommand {
     }
 
     @Override
-    public void simple(CommonCommandSender sender, String[] args) {
+    public void simple(CommandSender sender, String[] args) {
         if(!checkPermission(sender, getRootPermission())) return;
         if(args.length == 0) executeToggle(sender);
         else executeSendMessage(sender, String.join(" ", args));
     }
 
-    private void executeToggle(CommonCommandSender sender) {
-        if(!(sender instanceof CommonPlayer player)) {
+    private void executeToggle(CommandSender sender) {
+        if(!(sender instanceof Player player)) {
             sender.sendMessage(Messages.staffChat().playerOnly());
             return;
         }
@@ -66,7 +66,7 @@ public class StaffChatCommand extends BaseCommand {
         }
     }
 
-    public static void executeSendMessage(CommonCommandSender sender, String message) {
+    public static void executeSendMessage(CommandSender sender, String message) {
         StaffUtils.getServer().broadcast(
             Messages.staffChat().serverFromServer(sender, message),
             Permissions.RECEIVE_STAFFCHAT

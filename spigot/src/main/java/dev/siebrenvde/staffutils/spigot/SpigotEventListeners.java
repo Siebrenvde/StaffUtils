@@ -1,7 +1,7 @@
 package dev.siebrenvde.staffutils.spigot;
 
 import dev.siebrenvde.staffutils.StaffUtils;
-import dev.siebrenvde.staffutils.api.player.CommonPlayer;
+import dev.siebrenvde.staffutils.api.player.Player;
 import dev.siebrenvde.staffutils.listeners.EventListeners;
 import dev.siebrenvde.staffutils.paper.PaperCompat;
 import dev.siebrenvde.staffutils.paper.PaperEventListeners;
@@ -30,7 +30,7 @@ public class SpigotEventListeners extends EventListeners implements Listener {
 
     @EventHandler
     public void onPlayerQuit(PlayerQuitEvent event) {
-        disconnectListener(CommonPlayer.of(event.getPlayer()));
+        disconnectListener(Player.of(event.getPlayer()));
     }
 
     public static class ChatListener implements Listener {
@@ -38,7 +38,7 @@ public class SpigotEventListeners extends EventListeners implements Listener {
         public void onChat(AsyncPlayerChatEvent event) {
             event.setCancelled(
                 EventListeners.chatListener(
-                    CommonPlayer.of(event.getPlayer()),
+                    Player.of(event.getPlayer()),
                     event.getMessage()
                 )
             );

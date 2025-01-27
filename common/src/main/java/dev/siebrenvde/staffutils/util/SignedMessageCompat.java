@@ -1,7 +1,7 @@
 package dev.siebrenvde.staffutils.util;
 
 import dev.siebrenvde.staffutils.StaffUtils;
-import dev.siebrenvde.staffutils.api.player.CommonPlayer;
+import dev.siebrenvde.staffutils.api.player.Player;
 import dev.siebrenvde.staffutils.api.player.ProxyPlayer;
 import dev.siebrenvde.staffutils.api.ServerPlatform;
 import net.kyori.adventure.text.Component;
@@ -19,7 +19,7 @@ public class SignedMessageCompat {
      * {@return whether signed messages can be edited or canceled}
      * @param player the player whose protocol version to check
      */
-    public static boolean isSupported(CommonPlayer player) {
+    public static boolean isSupported(Player player) {
         if(!StaffUtils.getPlatform().isProxy()) return true;
         if(((ProxyPlayer) player).getProtocolVersion() < V1_19_1) return true;
 

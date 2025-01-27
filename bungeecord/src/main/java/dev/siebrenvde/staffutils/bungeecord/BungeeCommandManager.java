@@ -2,8 +2,7 @@ package dev.siebrenvde.staffutils.bungeecord;
 
 import dev.siebrenvde.staffutils.api.command.CommandManager;
 import dev.siebrenvde.staffutils.api.command.BaseCommand;
-import dev.siebrenvde.staffutils.api.command.CommonCommandSender;
-import net.md_5.bungee.api.CommandSender;
+import dev.siebrenvde.staffutils.api.command.CommandSender;
 import net.md_5.bungee.api.plugin.Command;
 import net.md_5.bungee.api.plugin.PluginManager;
 import net.md_5.bungee.api.plugin.TabExecutor;
@@ -31,17 +30,17 @@ public class BungeeCommandManager implements CommandManager {
         }
 
         @Override
-        public void execute(CommandSender sender, String[] args) {
+        public void execute(net.md_5.bungee.api.CommandSender sender, String[] args) {
             command.simple(
-                CommonCommandSender.of(sender),
+                CommandSender.of(sender),
                 args
             );
         }
 
         @Override
-        public Iterable<String> onTabComplete(CommandSender sender, String[] args) {
+        public Iterable<String> onTabComplete(net.md_5.bungee.api.CommandSender sender, String[] args) {
             return command.suggestions(
-                CommonCommandSender.of(sender),
+                CommandSender.of(sender),
                 args
             );
         }

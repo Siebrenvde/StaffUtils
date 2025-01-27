@@ -1,10 +1,9 @@
 package dev.siebrenvde.staffutils.velocity;
 
 import com.velocitypowered.api.command.CommandSource;
-import com.velocitypowered.api.proxy.Player;
-import dev.siebrenvde.staffutils.api.command.CommonCommandSender;
+import dev.siebrenvde.staffutils.api.command.CommandSender;
 import dev.siebrenvde.staffutils.api.ServerPlatform;
-import dev.siebrenvde.staffutils.api.player.CommonPlayer;
+import dev.siebrenvde.staffutils.api.player.Player;
 
 import java.util.Optional;
 
@@ -16,18 +15,18 @@ public class VelocityPlatform implements ServerPlatform {
     }
 
     @Override
-    public <C> CommonCommandSender getCommandSender(C sender) {
-        if(sender instanceof Player player) return getPlayer(player);
+    public <C> CommandSender getCommandSender(C sender) {
+        if(sender instanceof com.velocitypowered.api.proxy.Player player) return getPlayer(player);
         return new VelocityCommandSender((CommandSource) sender);
     }
 
     @Override
-    public <P> CommonPlayer getPlayer(P player) {
-        return new VelocityPlayer((Player) player);
+    public <P> Player getPlayer(P player) {
+        return new VelocityPlayer((com.velocitypowered.api.proxy.Player) player);
     }
 
     @Override
-    public Optional<CommonPlayer> getPlayerByName(String name) {
+    public Optional<Player> getPlayerByName(String name) {
         return StaffUtilsVelocity.getProxy().getPlayer(name).map(VelocityPlayer::new);
     }
 

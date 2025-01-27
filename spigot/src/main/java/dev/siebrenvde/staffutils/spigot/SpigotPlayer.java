@@ -1,17 +1,16 @@
 package dev.siebrenvde.staffutils.spigot;
 
-import dev.siebrenvde.staffutils.api.player.CommonPlayer;
+import dev.siebrenvde.staffutils.api.player.Player;
 import dev.siebrenvde.staffutils.paper.PaperCompat;
 import net.kyori.adventure.text.Component;
-import org.bukkit.entity.Player;
 
 import java.util.UUID;
 
-public class SpigotPlayer extends SpigotCommandSender implements CommonPlayer {
+public class SpigotPlayer extends SpigotCommandSender implements Player {
 
-    private final Player player;
+    private final org.bukkit.entity.Player player;
 
-    public SpigotPlayer(Player player) {
+    public SpigotPlayer(org.bukkit.entity.Player player) {
         super(player);
         this.player = player;
     }

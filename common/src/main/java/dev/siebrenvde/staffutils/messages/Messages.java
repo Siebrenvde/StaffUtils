@@ -1,9 +1,9 @@
 package dev.siebrenvde.staffutils.messages;
 
-import dev.siebrenvde.staffutils.api.player.CommonPlayer;
+import dev.siebrenvde.staffutils.api.player.Player;
 import dev.siebrenvde.staffutils.config.Config;
 import dev.siebrenvde.staffutils.config.MessageConfig;
-import dev.siebrenvde.staffutils.api.command.CommonCommandSender;
+import dev.siebrenvde.staffutils.api.command.CommandSender;
 import net.dv8tion.jda.api.entities.Member;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.tag.resolver.Placeholder;
@@ -49,7 +49,7 @@ public class Messages {
          * @param message the message
          * @return the message parsed as a Component
          */
-        public Component serverFromServer(CommonCommandSender sender, String message) {
+        public Component serverFromServer(CommandSender sender, String message) {
             return miniMessage().deserialize(
                 getPlatform().isProxy()
                     ? config().proxyFromProxy.getRealValue()
@@ -67,7 +67,7 @@ public class Messages {
             );
         }
 
-        public String discordFromServer(CommonCommandSender sender, String message) {
+        public String discordFromServer(CommandSender sender, String message) {
             return PlainTextComponentSerializer.plainText().serialize(
                 miniMessage().deserialize(
                     getPlatform().isProxy()
@@ -87,7 +87,7 @@ public class Messages {
 
     public record Report(MessageConfig.Report config) {
 
-        public Component serverFromServer(CommonCommandSender reporter, CommonPlayer reportedPlayer, String message) {
+        public Component serverFromServer(CommandSender reporter, Player reportedPlayer, String message) {
             return miniMessage().deserialize(
                 getPlatform().isProxy()
                     ? config().proxyFromProxy.getRealValue()
@@ -98,7 +98,7 @@ public class Messages {
             );
         }
 
-        public String discordFromServer(CommonCommandSender reporter, CommonPlayer reportedPlayer, String reason) {
+        public String discordFromServer(CommandSender reporter, Player reportedPlayer, String reason) {
             return PlainTextComponentSerializer.plainText().serialize(
                 miniMessage().deserialize(
                     getPlatform().isProxy()
@@ -111,7 +111,7 @@ public class Messages {
             );
         }
 
-        public Component success(CommonPlayer reportedPlayer) {
+        public Component success(Player reportedPlayer) {
             return miniMessage().deserialize(
                 config().success.getRealValue(),
                 Placeholders.sender(reportedPlayer)
@@ -133,7 +133,7 @@ public class Messages {
 
     public record HelpOp(MessageConfig.HelpOp config) {
 
-        public Component serverFromServer(CommonCommandSender sender, String message) {
+        public Component serverFromServer(CommandSender sender, String message) {
             return miniMessage().deserialize(
                 getPlatform().isProxy()
                     ? config().proxyFromProxy.getRealValue()
@@ -143,7 +143,7 @@ public class Messages {
             );
         }
 
-        public String discordFromServer(CommonCommandSender sender, String message) {
+        public String discordFromServer(CommandSender sender, String message) {
             return PlainTextComponentSerializer.plainText().serialize(
                 miniMessage().deserialize(
                     getPlatform().isProxy()

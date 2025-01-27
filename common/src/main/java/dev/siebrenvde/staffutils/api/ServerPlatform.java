@@ -1,7 +1,7 @@
 package dev.siebrenvde.staffutils.api;
 
-import dev.siebrenvde.staffutils.api.command.CommonCommandSender;
-import dev.siebrenvde.staffutils.api.player.CommonPlayer;
+import dev.siebrenvde.staffutils.api.command.CommandSender;
+import dev.siebrenvde.staffutils.api.player.Player;
 import net.kyori.adventure.text.Component;
 
 import java.util.Optional;
@@ -31,27 +31,27 @@ public interface ServerPlatform {
     ServerType getServerType();
 
     /**
-     * Returns an instance of {@link CommonCommandSender} corresponding to the provided command sender
+     * Returns an instance of {@link CommandSender} corresponding to the provided command sender
      * @param sender The command sender
-     * @return An instance of {@link CommonCommandSender}
+     * @return An instance of {@link CommandSender}
      * @param <C> The server software's command sender
      */
-    <C> CommonCommandSender getCommandSender(C sender);
+    <C> CommandSender getCommandSender(C sender);
 
     /**
-     * Returns an instance of {@link CommonPlayer} corresponding to the provided player
+     * Returns an instance of {@link Player} corresponding to the provided player
      * @param player the player
-     * @return an instance of {@link CommonPlayer}
+     * @return an instance of {@link Player}
      * @param <P> the server software's player
      */
-    <P> CommonPlayer getPlayer(P player);
+    <P> Player getPlayer(P player);
 
     /**
-     * Returns an optional instance of {@link CommonPlayer} for the provided name
+     * Returns an optional instance of {@link Player} for the provided name
      * @param name the name of the player
-     * @return an optional instance of {@link CommonPlayer}
+     * @return an optional instance of {@link Player}
      */
-    Optional<CommonPlayer> getPlayerByName(String name);
+    Optional<Player> getPlayerByName(String name);
 
     /**
      * Returns whether the current server is a proxy server
