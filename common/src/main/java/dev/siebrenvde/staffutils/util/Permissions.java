@@ -2,10 +2,10 @@ package dev.siebrenvde.staffutils.util;
 
 public class Permissions {
 
-    public static String COMMAND_STAFFCHAT = "staffchat.command.staffchat";
+    public static final String COMMAND_STAFFCHAT = "staffutils.command.staffchat";
 
-    public static String RECEIVE_STAFFCHAT = "staffchat.receive.staffchat";
-    public static String RECEIVE_REPORT = "staffchat.receive.report";
-    public static String RECEIVE_HELPOP = "staffchat.receive.helpop";
+    public static final String RECEIVE_STAFFCHAT = "staffutils.receive.staffchat";
+    public static final String RECEIVE_REPORT = "staffutils.receive.report";
+    public static final String RECEIVE_HELPOP = "staffutils.receive.helpop";
 
 }
