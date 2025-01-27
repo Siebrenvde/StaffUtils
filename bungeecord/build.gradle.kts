@@ -9,7 +9,7 @@ dependencies {
 }
 
 bungeePluginYaml {
-    main = "dev.siebrenvde.staffchat.bungeecord.StaffChatBungee"
+    main = "dev.siebrenvde.staffutils.bungeecord.StaffUtilsBungee"
     name = rootProject.name
     //description = project.description
     author = "Siebrenvde"

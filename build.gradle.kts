@@ -62,5 +62,5 @@ tasks.withType(ShadowJar::class) {
     archiveClassifier.set("")
 
     // Relocate dependencies
-    // relocate("net.kyori", "dev.siebrenvde.staffchat.libs.kyori") - Breaks Velocity
+    // relocate("net.kyori", "dev.siebrenvde.staffutils.libs.kyori") - Breaks Velocity
 }

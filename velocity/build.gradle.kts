@@ -9,11 +9,11 @@ dependencies {
 }
 
 velocityPluginJson {
-    main = "dev.siebrenvde.staffchat.velocity.StaffChatVelocity"
+    main = "dev.siebrenvde.staffutils.velocity.StaffUtilsVelocity"
     id = rootProject.name.lowercase()
     name = rootProject.name
     //description = project.description
-    url = "https://github.com/Siebrenvde/StaffChat"
+    url = "https://github.com/Siebrenvde/StaffUtils"
     authors.add("Siebrenvde")
     dependency("spicord")
     dependency("luckperms", true)

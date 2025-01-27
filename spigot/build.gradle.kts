@@ -10,12 +10,12 @@ dependencies {
 }
 
 bukkitPluginYaml {
-    main = "dev.siebrenvde.staffchat.spigot.StaffChatSpigot"
+    main = "dev.siebrenvde.staffutils.spigot.StaffUtilsSpigot"
     name = rootProject.name
     //description = project.description
     author = "Siebrenvde"
     apiVersion = "1.21"
-    website = "https://github.com/Siebrenvde/StaffChat"
+    website = "https://github.com/Siebrenvde/StaffUtils"
     depend.add("Spicord")
     softDepend.add("LuckPerms")
 }
