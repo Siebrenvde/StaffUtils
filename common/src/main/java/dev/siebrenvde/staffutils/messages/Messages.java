@@ -23,6 +23,7 @@ public class Messages {
     private final StaffChat staffChat;
     private final Report report;
     private final HelpOp helpOp;
+    private final MsgStaffUtils staffUtils;
 
     public Messages() {
         instance = this;
@@ -30,12 +31,14 @@ public class Messages {
         staffChat = new StaffChat(config.staffChat);
         report = new Report(config.report);
         helpOp = new HelpOp(config.helpOp);
+        staffUtils = new MsgStaffUtils(config.staffUtils);
     }
 
     public static Messages messages() { return instance; }
     public static StaffChat staffChat() { return instance.staffChat; }
     public static Report report() { return instance.report; }
     public static HelpOp helpOp() { return instance.helpOp; }
+    public static MsgStaffUtils staffUtils() { return instance.staffUtils; }
 
     public Component permissionMessage() {
         return miniMessage().deserialize(config.permissionMessage.getRealValue());
@@ -161,6 +164,14 @@ public class Messages {
 
         public Component usage() {
             return miniMessage().deserialize(config().usage.getRealValue());
+        }
+
+    }
+
+    public record MsgStaffUtils(MessageConfig.MsgStaffUtils config) {
+
+        public Component reloadedConfigs() {
+            return miniMessage().deserialize(config().reloadedConfigs.getRealValue());
         }
 
     }

@@ -4,6 +4,7 @@ import dev.siebrenvde.staffutils.addons.LuckPermsAddon;
 import dev.siebrenvde.staffutils.api.server.Server;
 import dev.siebrenvde.staffutils.commands.HelpOpCommand;
 import dev.siebrenvde.staffutils.commands.ReportCommand;
+import dev.siebrenvde.staffutils.commands.StaffUtilsCommand;
 import dev.siebrenvde.staffutils.config.Config;
 import dev.siebrenvde.staffutils.messages.Messages;
 import dev.siebrenvde.staffutils.api.command.CommandManager;
@@ -43,7 +44,8 @@ public class StaffUtils {
         manager.registerAll(
             new StaffChatCommand(),
             new ReportCommand(),
-            new HelpOpCommand()
+            new HelpOpCommand(),
+            new StaffUtilsCommand()
         );
     }
 

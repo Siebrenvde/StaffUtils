@@ -9,6 +9,13 @@ import dev.siebrenvde.configlib.metadata.NoOptionSpacing;
 @NoOptionSpacing
 public class CommandConfig extends ReflectiveConfig {
 
+    @SerializedName("staffutils")
+    public final Command staffUtils = new Command(
+        true,
+        "staffutils",
+        new String[] {"su"},
+        "The StaffUtils command"
+    );
     @SerializedName("staffchat")
     public final Command staffChat = new Command(
         true,

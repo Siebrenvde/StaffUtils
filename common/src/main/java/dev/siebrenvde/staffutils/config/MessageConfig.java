@@ -24,6 +24,8 @@ public final class MessageConfig extends ReflectiveConfig {
     public final Report report = new Report();
     @SerializedName("helpop")
     public final HelpOp helpOp = new HelpOp();
+    @SerializedName("staffutils")
+    public final MsgStaffUtils staffUtils = new MsgStaffUtils();
 
     public final static class StaffChat extends Section {
 
@@ -256,6 +258,13 @@ public final class MessageConfig extends ReflectiveConfig {
 
         @Comment("The message sent to the sender when no message is entered")
         public final TrackedValue<String> usage = value("<red>Usage: /helpop <message></red>");
+
+    }
+
+    public final static class MsgStaffUtils extends Section {
+
+        @Comment("The message sent to the sender when reloading the config files")
+        public final TrackedValue<String> reloadedConfigs = value("<aqua>Reloaded config files");
 
     }
 
