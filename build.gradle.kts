@@ -62,5 +62,7 @@ tasks.withType(ShadowJar::class) {
     archiveClassifier.set("")
 
     // Relocate dependencies
-    // relocate("net.kyori", "dev.siebrenvde.staffutils.libs.kyori") - Breaks Velocity
+    val libsPackage = "dev.siebrenvde.staffutils.libs"
+    // relocateLib("net.kyori", "$libsPackage.kyori") - Breaks Velocity
+    relocate("org.bstats", "$libsPackage.bstats")
 }

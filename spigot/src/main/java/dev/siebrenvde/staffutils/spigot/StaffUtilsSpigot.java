@@ -4,6 +4,7 @@ import dev.siebrenvde.staffutils.StaffUtils;
 import dev.siebrenvde.staffutils.paper.PaperCompat;
 import dev.siebrenvde.staffutils.paper.StaffUtilsPaper;
 import net.kyori.adventure.platform.bukkit.BukkitAudiences;
+import org.bstats.bukkit.Metrics;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class StaffUtilsSpigot extends JavaPlugin {
@@ -13,6 +14,7 @@ public final class StaffUtilsSpigot extends JavaPlugin {
 
     @Override
     public void onEnable() {
+        new Metrics(this, 24627);
         instance = this;
         adventure = BukkitAudiences.create(this);
         StaffUtils staffUtils = new StaffUtils(

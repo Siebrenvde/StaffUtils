@@ -3,6 +3,7 @@ package dev.siebrenvde.staffutils.bungeecord;
 import dev.siebrenvde.staffutils.StaffUtils;
 import net.kyori.adventure.platform.bungeecord.BungeeAudiences;
 import net.md_5.bungee.api.plugin.Plugin;
+import org.bstats.bungeecord.Metrics;
 
 public final class StaffUtilsBungee extends Plugin {
 
@@ -11,6 +12,7 @@ public final class StaffUtilsBungee extends Plugin {
 
     @Override
     public void onEnable() {
+        new Metrics(this, 24629);
         instance = this;
         adventure = BungeeAudiences.create(this);
         StaffUtils staffUtils = new StaffUtils(
