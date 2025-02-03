@@ -17,13 +17,13 @@ public class SpigotCommandManager implements CommandManager {
 
     @Override
     public void register(BaseCommand command) {
-        SimpleCommandMap commandMap;
+        CommandMap commandMap;
         PluginCommand pluginCommand;
 
         try {
             Field bukkitCommandMap = Bukkit.getServer().getClass().getDeclaredField("commandMap");
             bukkitCommandMap.setAccessible(true);
-            commandMap = (SimpleCommandMap) bukkitCommandMap.get(Bukkit.getServer());
+            commandMap = (CommandMap) bukkitCommandMap.get(Bukkit.getServer());
 
             Constructor<PluginCommand> constructor = PluginCommand.class.getDeclaredConstructor(String.class, Plugin.class);
             constructor.setAccessible(true);
@@ -39,19 +39,19 @@ public class SpigotCommandManager implements CommandManager {
         pluginCommand.setExecutor(spigotCommand);
         pluginCommand.setTabCompleter(spigotCommand);
 
-        commandMap.register(command.getName(), "staffchat", pluginCommand);
+        commandMap.register(command.getName(), "staffutils", pluginCommand);
     }
 
     private record SpigotCommand(BaseCommand command) implements TabExecutor {
 
         @Override
-            public boolean onCommand(@NotNull org.bukkit.command.CommandSender sender, @NotNull Command cmd, @NotNull String label, @NotNull String[] args) {
-                command.simple(
-                    CommandSender.of(sender),
-                    args
-                );
-                return true;
-            }
+        public boolean onCommand(@NotNull org.bukkit.command.CommandSender sender, @NotNull Command cmd, @NotNull String label, @NotNull String[] args) {
+            command.simple(
+                CommandSender.of(sender),
+                args
+            );
+            return true;
+        }
 
         @Override
         public List<String> onTabComplete(@NotNull org.bukkit.command.CommandSender sender, @NotNull Command cmd, @NotNull String label, @NotNull String[] args) {
