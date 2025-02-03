@@ -36,6 +36,8 @@ public class StaffUtilsCommand extends BaseCommand {
         if(!checkPermission(sender, getRootPermission())) return;
         if(args.length == 1 && args[0].equals("reload") && checkPermission(sender, Permissions.COMMAND_STAFFUTILS_RELOAD)) {
             executeReload(sender);
+        } else {
+            sender.sendMessage(Messages.staffUtils().usage());
         }
     }
 

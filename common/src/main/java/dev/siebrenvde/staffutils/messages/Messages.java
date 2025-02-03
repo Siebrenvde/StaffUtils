@@ -174,6 +174,10 @@ public class Messages {
             return miniMessage().deserialize(config().reloadedConfigs.getRealValue());
         }
 
+        public Component usage() {
+            return miniMessage().deserialize(config().usage.getRealValue());
+        }
+
     }
 
 }

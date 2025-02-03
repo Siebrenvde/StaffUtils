@@ -266,6 +266,8 @@ public final class MessageConfig extends ReflectiveConfig {
         @Comment("The message sent to the sender when reloading the config files")
         public final TrackedValue<String> reloadedConfigs = value("<aqua>Reloaded config files");
 
+        public final TrackedValue<String> usage = value("<red>Usage: /staffutils reload");
+
     }
 
 }
