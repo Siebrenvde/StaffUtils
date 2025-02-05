@@ -34,7 +34,7 @@ public class CommandConfig extends ReflectiveConfig {
         true,
         "helpop",
         null,
-        "Ask staf for help"
+        "Ask staff for help"
     );
 
     public static class Command extends Section {
