@@ -85,6 +85,7 @@ public class Messages {
         public Component playerOnly() { return miniMessage().deserialize(config().playerOnly.getRealValue()); }
         public Component enabled() { return miniMessage().deserialize(config().enabled.getRealValue()); }
         public Component disabled() { return miniMessage().deserialize(config().disabled.getRealValue()); }
+        public Component signedToggleFail() { return miniMessage().deserialize(config().signedToggleFail.getRealValue()); }
 
     }
 

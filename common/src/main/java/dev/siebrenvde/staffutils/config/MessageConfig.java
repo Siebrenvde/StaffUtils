@@ -103,6 +103,12 @@ public final class MessageConfig extends ReflectiveConfig {
         @Comment("The message shown when a player disables StaffChat")
         public final TrackedValue<String> disabled = value("<red>Disabled StaffChat</red>");
 
+        @Comment("Shown when trying to toggle staff chat on a proxied 1.19.1+ server")
+        @Comment("Can be fixed on Velocity by installing SignedVelocity on the proxy and all servers")
+        @Comment("You can download SignedVelocity at https://modrinth.com/plugin/signedvelocity")
+        @RequireProxy
+        public final TrackedValue<String> signedToggleFail = value("<red>Toggling staff chat is not supported on this server");
+
     }
 
     public final static class Report extends Section {

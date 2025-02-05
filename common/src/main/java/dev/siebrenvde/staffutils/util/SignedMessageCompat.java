@@ -4,9 +4,7 @@ import dev.siebrenvde.staffutils.StaffUtils;
 import dev.siebrenvde.staffutils.api.player.Player;
 import dev.siebrenvde.staffutils.api.player.ProxyPlayer;
 import dev.siebrenvde.staffutils.api.ServerPlatform;
-import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.TextComponent;
-import net.kyori.adventure.text.format.NamedTextColor;
+import dev.siebrenvde.staffutils.messages.Messages;
 
 public class SignedMessageCompat {
 
@@ -32,14 +30,7 @@ public class SignedMessageCompat {
             } catch (ClassNotFoundException ignored) {}
         }
 
-        TextComponent.Builder playerMessage = Component.text();
-        playerMessage.color(NamedTextColor.RED);
-        playerMessage.content("Toggling staff chat is not supported on this server");
-        if(serverType == ServerPlatform.ServerType.VELOCITY) {
-            playerMessage.appendNewline();
-            playerMessage.append(Component.text("Contact your server administrator"));
-        }
-        player.sendMessage(playerMessage.build());
+        player.sendMessage(Messages.staffChat().signedToggleFail());
 
         StaffUtils.LOGGER.warn("Toggling staff chat is not supported when using a 1.19.1+ server through a proxy");
         if(serverType == ServerPlatform.ServerType.VELOCITY) {
