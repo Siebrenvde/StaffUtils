@@ -11,8 +11,8 @@ import dev.siebrenvde.staffutils.api.player.ProxyPlayer;
 import dev.siebrenvde.staffutils.config.Config;
 import dev.siebrenvde.staffutils.messages.Messages;
 import dev.siebrenvde.staffutils.util.Permissions;
-import eu.mcdb.util.ArrayUtils;
 
+import java.util.Arrays;
 import java.util.List;
 
 import static dev.siebrenvde.staffutils.util.BrigadierUtils.withSender;
@@ -52,7 +52,7 @@ public class ReportCommand extends BaseCommand {
             sender.sendMessage(Messages.report().usage());
             return;
         }
-        executeReport(sender, args[0], String.join(" ", ArrayUtils.shift(args)));
+        executeReport(sender, args[0], String.join(" ", Arrays.copyOfRange(args, 1, args.length)));
     }
 
     @Override
