@@ -58,7 +58,9 @@ public class Messages {
                     ? config().proxyFromProxy.getRealValue()
                     : config().serverFromServer.getRealValue(),
                 Placeholders.sender(sender),
-                Placeholders.formattedMessage(message) // TODO: Add config option to disable parsing
+                Config.CONFIG.staffChat.allowMiniMessage.getRealValue()
+                    ? Placeholders.formattedMessage(message)
+                    : Placeholder.unparsed("message", message)
             );
         }
 
@@ -66,7 +68,9 @@ public class Messages {
             return miniMessage().deserialize(
                 config().gameFromDiscord.getRealValue(),
                 Placeholders.discordMember(author),
-                Placeholders.formattedMessage(message)
+                Config.CONFIG.staffChat.allowMiniMessage.getRealValue()
+                    ? Placeholders.formattedMessage(message)
+                    : Placeholder.unparsed("message", message)
             );
         }
 
@@ -77,7 +81,9 @@ public class Messages {
                         ? config().discordFromProxy.getRealValue()
                         : config().discordFromServer.getRealValue(),
                     Placeholders.sender(sender),
-                    Placeholders.formattedMessage(message)
+                    Config.CONFIG.staffChat.allowMiniMessage.getRealValue()
+                        ? Placeholders.formattedMessage(message)
+                        : Placeholder.unparsed("message", message)
                 )
             );
         }
