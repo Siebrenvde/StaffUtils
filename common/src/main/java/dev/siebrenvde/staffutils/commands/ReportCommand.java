@@ -14,6 +14,7 @@ import dev.siebrenvde.staffutils.util.Permissions;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 import static dev.siebrenvde.staffutils.util.BrigadierUtils.withSender;
 
@@ -62,7 +63,13 @@ public class ReportCommand extends BaseCommand {
     }
 
     private void executeReport(CommandSender sender, String playerName, String reason) {
-        Player.byName(playerName).ifPresentOrElse(player -> {
+        Optional<Player> optionalPlayer = sender instanceof ProxyPlayer proxyPlayer && !allowGlobal()
+            ? proxyPlayer.getServer().getPlayers().stream()
+                .filter(player -> player.getName().equalsIgnoreCase(playerName))
+                .findFirst()
+            : Player.byName(playerName);
+
+        optionalPlayer.ifPresentOrElse(player -> {
             sender.sendMessage(Messages.report().success(player));
             StaffUtils.getServer().broadcast(
                 Messages.report().serverFromServer(sender, player, reason),
@@ -73,14 +80,18 @@ public class ReportCommand extends BaseCommand {
     }
 
     private List<String> playerSuggestions(CommandSender sender, String arg) {
-        // TODO: Proxy global players config option
-        List<Player> players = sender instanceof ProxyPlayer player
+        List<Player> players = sender instanceof ProxyPlayer player && !allowGlobal()
             ? player.getServer().getPlayers()
             : StaffUtils.getServer().getPlayers();
         return players.stream()
             .map(Player::getName)
             .filter(name -> name.toLowerCase().startsWith(arg))
             .toList();
+    }
+
+    @SuppressWarnings("BooleanMethodIsAlwaysInverted")
+    private boolean allowGlobal() {
+        return Config.CONFIG.report.allowGlobal.getRealValue();
     }
 
 }
