@@ -24,6 +24,12 @@ public class SpicordAddon extends SimpleAddon {
         isReady = true;
     }
 
+    @Override
+    public void onShutdown(DiscordBot bot) {
+        staffChannel = null;
+        isReady = false;
+    }
+
     public void sendMessage(String message) {
         if(isReady) staffChannel.sendMessage(message).queue();
     }
