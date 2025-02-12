@@ -2,6 +2,7 @@ package dev.siebrenvde.staffutils.config;
 
 import dev.siebrenvde.configlib.libs.quilt.config.api.ReflectiveConfig;
 import dev.siebrenvde.configlib.libs.quilt.config.api.annotations.Comment;
+import dev.siebrenvde.configlib.libs.quilt.config.api.annotations.DisplayNameConvention;
 import dev.siebrenvde.configlib.libs.quilt.config.api.annotations.SerializedName;
 import dev.siebrenvde.configlib.libs.quilt.config.api.annotations.SerializedNameConvention;
 import dev.siebrenvde.configlib.libs.quilt.config.api.metadata.NamingSchemes;
@@ -13,6 +14,7 @@ import dev.siebrenvde.staffutils.config.annotations.RequireProxy;
 @ConfigComment("All in-game messages are formatted using MiniMessage")
 @ConfigComment("You can use the MiniMessage Viewer to preview and format your messages:")
 @ConfigComment("https://webui.advntr.dev")
+@DisplayNameConvention(NamingSchemes.TITLE_CASE)
 @SerializedNameConvention(NamingSchemes.SNAKE_CASE)
 public final class MessageConfig extends ReflectiveConfig {
 

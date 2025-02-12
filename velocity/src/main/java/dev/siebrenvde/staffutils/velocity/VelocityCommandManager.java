@@ -1,13 +1,16 @@
 package dev.siebrenvde.staffutils.velocity;
 
+import com.mojang.brigadier.Message;
 import com.mojang.brigadier.arguments.ArgumentType;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import com.mojang.brigadier.builder.RequiredArgumentBuilder;
 import com.velocitypowered.api.command.BrigadierCommand;
 import com.velocitypowered.api.command.CommandManager;
 import com.velocitypowered.api.command.CommandSource;
+import com.velocitypowered.api.command.VelocityBrigadierMessage;
 import dev.siebrenvde.staffutils.api.command.BrigadierCommandManager;
 import dev.siebrenvde.staffutils.api.command.BaseCommand;
+import net.kyori.adventure.text.Component;
 
 public class VelocityCommandManager implements BrigadierCommandManager<CommandSource> {
 
@@ -36,6 +39,11 @@ public class VelocityCommandManager implements BrigadierCommandManager<CommandSo
     @Override
     public <T> RequiredArgumentBuilder<CommandSource, T> argument(String name, ArgumentType<T> type) {
         return BrigadierCommand.requiredArgumentBuilder(name, type);
+    }
+
+    @Override
+    public Message message(String message) {
+        return VelocityBrigadierMessage.tooltip(Component.text(message));
     }
 
 }

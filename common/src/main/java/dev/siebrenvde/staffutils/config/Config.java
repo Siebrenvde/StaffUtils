@@ -2,22 +2,25 @@ package dev.siebrenvde.staffutils.config;
 
 import dev.siebrenvde.configlib.ConfigLib;
 import dev.siebrenvde.configlib.libs.quilt.config.api.ReflectiveConfig;
-import dev.siebrenvde.configlib.libs.quilt.config.impl.ConfigFieldAnnotationProcessors;
 import dev.siebrenvde.configlib.serialisers.TomlSerialiser;
 import dev.siebrenvde.staffutils.config.annotations.RequireNonProxy;
 import dev.siebrenvde.staffutils.config.annotations.RequireProxy;
+import dev.siebrenvde.staffutils.config.annotations.WordString;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+
+import static dev.siebrenvde.configlib.libs.quilt.config.impl.ConfigFieldAnnotationProcessors.register;
 
 public class Config {
 
     private static Path configPath;
 
     static {
-        ConfigFieldAnnotationProcessors.register(RequireProxy.class, new RequireProxy.Processor());
-        ConfigFieldAnnotationProcessors.register(RequireNonProxy.class, new RequireNonProxy.Processor());
+        register(RequireProxy.class, new RequireProxy.Processor());
+        register(RequireNonProxy.class, new RequireNonProxy.Processor());
+        register(WordString.class, new WordString.Processor());
     }
 
     public static MainConfig CONFIG;

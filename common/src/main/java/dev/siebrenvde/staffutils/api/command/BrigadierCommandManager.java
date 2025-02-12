@@ -1,5 +1,7 @@
 package dev.siebrenvde.staffutils.api.command;
 
+import com.mojang.brigadier.LiteralMessage;
+import com.mojang.brigadier.Message;
 import com.mojang.brigadier.arguments.ArgumentType;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import com.mojang.brigadier.builder.RequiredArgumentBuilder;
@@ -26,5 +28,9 @@ public interface BrigadierCommandManager<C> extends CommandManager {
      * @param <T> the type of the ArgumentType
      */
     <T> RequiredArgumentBuilder<C, T> argument(String name, ArgumentType<T> type);
+
+    default Message message(String message) {
+        return new LiteralMessage(message);
+    }
 
 }
