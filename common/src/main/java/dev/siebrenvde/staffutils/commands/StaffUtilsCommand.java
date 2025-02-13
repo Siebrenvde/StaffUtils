@@ -126,8 +126,8 @@ public class StaffUtilsCommand extends BaseCommand {
                         .then(manager.argument("index", IntegerArgumentType.integer(0))
                             .suggests((ctx, suggestions) -> {
                                 int index = 0;
-                                for(Object obj : (ValueList<?>) value.getRealValue()) {
-                                    if(suggestions.getRemaining().isEmpty() || suggestions.getRemaining().startsWith(String.valueOf(index))) {
+                                for(Object obj : list.values()) {
+                                    if(String.valueOf(index).startsWith(suggestions.getRemaining())) {
                                         suggestions.suggest(index, manager.message(asString(obj)));
                                     }
                                     index++;
