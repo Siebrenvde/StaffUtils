@@ -16,6 +16,7 @@ import dev.siebrenvde.staffutils.config.Config;
 import dev.siebrenvde.staffutils.config.annotations.WordString;
 import dev.siebrenvde.staffutils.messages.Messages;
 import dev.siebrenvde.staffutils.util.Permissions;
+import net.kyori.adventure.text.format.TextDecoration;
 import org.jspecify.annotations.NullMarked;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.JoinConfiguration;
@@ -155,13 +156,53 @@ public class StaffUtilsCommand extends BaseCommand {
 
                 } else if(value.getRealValue() instanceof ValueMap<?> map) {
 
-                    // TODO: Implement
+                    ArgumentType<?> type = asArgumentType(map.getDefaultValue(), value);
 
-                    nodeLiteral.then(manager.literal("put"));
+                    nodeLiteral.then(manager.literal("put")
+                        .then(manager.argument("key", StringArgumentType.word())
+                            .then(manager.argument("value", type)
+                                .executes(withSender((ctx, sender) -> {
+                                    String key = StringArgumentType.getString(ctx, "key");
+                                    Object input = fromArgumentType(ctx, "value", type);
+                                    putValueInMap(map, key, input);
+                                    sender.sendMessage(
+                                        text()
+                                            .append(text(key))
+                                            .append(text(" = "))
+                                            .append(asComponent(input))
+                                            .build()
+                                    );
+                                }))
+                            )
+                        )
+                    );
 
-                    nodeLiteral.then(manager.literal("remove"));
+                    nodeLiteral.then(manager.literal("remove")
+                        .then(manager.argument("key", StringArgumentType.word())
+                            .suggests((ctx, suggestions) -> {
+                                map.keySet().forEach(key -> {
+                                    if(key.startsWith(suggestions.getRemaining())) suggestions.suggest(key);
+                                });
+                                return suggestions.buildFuture();
+                            })
+                            .executes(withSender((ctx, sender) -> {
+                                String key = StringArgumentType.getString(ctx, "key");
+                                if(!map.containsKey(key)) {
+                                    sender.sendMessage(text("Invalid key"));
+                                    return;
+                                }
+                                sender.sendMessage(asComponent(map.get(key)));
+                                map.remove(key);
+                            }))
+                        )
+                    );
 
-                    nodeLiteral.then(manager.literal("clear"));
+                    nodeLiteral.then(manager.literal("clear")
+                        .executes(withSender((ctx, sender) -> {
+                            map.clear();
+                            sender.sendMessage(text("Cleared"));
+                        }))
+                    );
 
                 } else {
 
@@ -196,6 +237,7 @@ public class StaffUtilsCommand extends BaseCommand {
     private Component asComponent(Object value) {
         switch (value) {
             case ValueMap<?> map -> {
+                if(map.isEmpty()) return text("no values").decorate(TextDecoration.ITALIC);
                 List<Component> values = new ArrayList<>();
                 map.forEach((key, mapValue) -> {
                     values.add(text(key + " = ").append(asComponent(mapValue)));
@@ -275,6 +317,7 @@ public class StaffUtilsCommand extends BaseCommand {
         return StringArgumentType.word();
     }
 
+    @SuppressWarnings("SameParameterValue")
     private <C> Object fromArgumentType(CommandContext<C> ctx, String name, ArgumentType<?> type) {
         return switch (type) {
             case StringArgumentType ignored -> StringArgumentType.getString(ctx, name);
@@ -322,6 +365,11 @@ public class StaffUtilsCommand extends BaseCommand {
     @SuppressWarnings("unchecked")
     private <T> void addValueToList(ValueList<T> list, Object value) {
         list.add((T) value);
+    }
+
+    @SuppressWarnings("unchecked")
+    private <T> void putValueInMap(ValueMap<T> map, String key, Object value) {
+        map.put(key, (T) value);
     }
 
     private <T> void resetValue(TrackedValue<T> value) {
