@@ -192,108 +192,108 @@ public class StaffUtilsCommand extends BaseCommand {
     }
 
     private Component asComponent(Object value) {
-        if(value instanceof ValueMap<?> map) {
-            List<Component> values = new ArrayList<>();
-            map.forEach((key, mapValue) -> {
-                values.add(text(key + " = ").append(asComponent(mapValue)));
-            });
-            return newline().append(join(
-                JoinConfiguration.newlines(),
-                values
-            ));
-        } else if(value instanceof ValueList<?> list) {
-            return join(
-                JoinConfiguration.arrayLike(),
-                list.stream().map(this::asComponent).toList()
-            );
-        } else if(value instanceof ConfigSerializableObject<?> obj) {
-            return asComponent(obj.getRepresentation());
-        } else if(value instanceof String string) {
-            return text("\"" + string + "\"");
-        } else if(value instanceof Enum<?> enumValue) {
-            return text("\"" + enumValue.name() + "\"");
-        } else if(value instanceof Number || value instanceof Boolean) {
-            return text(value.toString());
+        switch (value) {
+            case ValueMap<?> map -> {
+                List<Component> values = new ArrayList<>();
+                map.forEach((key, mapValue) -> {
+                    values.add(text(key + " = ").append(asComponent(mapValue)));
+                });
+                return newline().append(join(
+                    JoinConfiguration.newlines(),
+                    values
+                ));
+            }
+            case ValueList<?> list -> {
+                return join(
+                    JoinConfiguration.arrayLike(),
+                    list.stream().map(this::asComponent).toList()
+                );
+            }
+            case ConfigSerializableObject<?> obj -> { return asComponent(obj.getRepresentation()); }
+            case String string -> { return text("\"" + string + "\""); }
+            case Enum<?> enumValue -> { return text("\"" + enumValue.name() + "\""); }
+            case Number number -> { return text(number.toString()); }
+            case Boolean bool -> { return text(bool.toString()); }
+            default -> {}
         }
         return Component.empty();
     }
 
     private ArgumentType<?> asArgumentType(Object value, TrackedValue<?> trackedValue) {
-        if(value instanceof ConfigSerializableObject<?> obj) {
-            return asArgumentType(obj.getRepresentation(), trackedValue);
-        }
-        if(value instanceof String) {
-            return trackedValue.hasMetadata(WordString.TYPE)
-                ? StringArgumentType.word()
-                : StringArgumentType.greedyString();
-        } else if(value instanceof Enum<?>) {
-            return StringArgumentType.word();
-        } else if(value instanceof Boolean) {
-            return BoolArgumentType.bool();
-        } else if(value instanceof Number) {
-            boolean hasRange = false;
-            Object min = null;
-            Object max = null;
+        switch (value) {
+            case ConfigSerializableObject<?> obj -> {
+                return asArgumentType(obj.getRepresentation(), trackedValue);
+            }
+            case String ignored -> {
+                return trackedValue.hasMetadata(WordString.TYPE)
+                    ? StringArgumentType.word()
+                    : StringArgumentType.greedyString();
+            }
+            case Enum<?> ignored -> {
+                return StringArgumentType.word();
+            }
+            case Boolean ignored -> {
+                return BoolArgumentType.bool();
+            }
+            case Number ignored -> {
+                boolean hasRange = false;
+                Object min = null;
+                Object max = null;
 
-            for (Constraint<?> constraint : trackedValue.constraints()) {
-                if (constraint instanceof Constraint.Range<?> range) {
-                    hasRange = true;
-                    min = range.min();
-                    max = range.max();
+                for (Constraint<?> constraint : trackedValue.constraints()) {
+                    if (constraint instanceof Constraint.Range<?> range) {
+                        hasRange = true;
+                        min = range.min();
+                        max = range.max();
+                    }
+                }
+
+                switch (value) {
+                    case Integer ignored1 -> {
+                        if (hasRange) return IntegerArgumentType.integer((int) min, (int) max);
+                        return IntegerArgumentType.integer();
+                    }
+                    case Double ignored1 -> {
+                        if (hasRange) return DoubleArgumentType.doubleArg((double) min, (double) max);
+                        return DoubleArgumentType.doubleArg();
+                    }
+                    case Float ignored1 -> {
+                        if (hasRange) return FloatArgumentType.floatArg((float) min, (float) max);
+                        return FloatArgumentType.floatArg();
+                    }
+                    case Long ignored1 -> {
+                        if (hasRange) return LongArgumentType.longArg((long) min, (long) max);
+                        return LongArgumentType.longArg();
+                    }
+                    default -> {}
                 }
             }
-
-            switch (value) {
-                case Integer i -> {
-                    if(hasRange) return IntegerArgumentType.integer((int) min, (int) max);
-                    return IntegerArgumentType.integer();
-                }
-                case Double d -> {
-                    if(hasRange) return DoubleArgumentType.doubleArg((double) min, (double) max);
-                    return DoubleArgumentType.doubleArg();
-                }
-                case Float f -> {
-                    if(hasRange) return FloatArgumentType.floatArg((float) min, (float) max);
-                    return FloatArgumentType.floatArg();
-                }
-                case Long l -> {
-                    if(hasRange) return LongArgumentType.longArg((long) min, (long) max);
-                    return LongArgumentType.longArg();
-                }
-                default -> {}
-            }
+            default -> {}
         }
         return StringArgumentType.word();
     }
 
     private <C> Object fromArgumentType(CommandContext<C> ctx, String name, ArgumentType<?> type) {
-        if(type instanceof StringArgumentType string) {
-            return StringArgumentType.getString(ctx, name);
-        } else if(type instanceof BoolArgumentType bool) {
-            return BoolArgumentType.getBool(ctx, name);
-        } else if(type instanceof IntegerArgumentType integer) {
-            return IntegerArgumentType.getInteger(ctx, name);
-        } else if(type instanceof DoubleArgumentType doubleArg) {
-            return DoubleArgumentType.getDouble(ctx, name);
-        } else if(type instanceof FloatArgumentType floatArg) {
-            return FloatArgumentType.getFloat(ctx, name);
-        } else if(type instanceof LongArgumentType longArg) {
-            return LongArgumentType.getLong(ctx, name);
-        }
-        throw new IllegalArgumentException("Unknown argument type: " + type);
+        return switch (type) {
+            case StringArgumentType ignored -> StringArgumentType.getString(ctx, name);
+            case BoolArgumentType ignored -> BoolArgumentType.getBool(ctx, name);
+            case IntegerArgumentType ignored -> IntegerArgumentType.getInteger(ctx, name);
+            case DoubleArgumentType ignored -> DoubleArgumentType.getDouble(ctx, name);
+            case FloatArgumentType ignored -> FloatArgumentType.getFloat(ctx, name);
+            case LongArgumentType ignored -> LongArgumentType.getLong(ctx, name);
+            default -> throw new IllegalArgumentException("Unknown argument type: " + type);
+        };
     }
 
     private String asString(Object value) {
-        if(value instanceof ConfigSerializableObject<?> obj) {
-            return asString(obj.getRepresentation());
-        } else if(value instanceof String string) {
-            return string;
-        } else if(value instanceof Enum<?> enumValue) {
-            return enumValue.name();
-        } else if(value instanceof Number || value instanceof Boolean) {
-            return value.toString();
-        }
-        return "";
+        return switch (value) {
+            case ConfigSerializableObject<?> obj -> asString(obj.getRepresentation());
+            case String string -> string;
+            case Enum<?> enumValue -> enumValue.name();
+            case Number number -> number.toString();
+            case Boolean bool -> bool.toString();
+            default -> "";
+        };
     }
 
     private Component valueComponent(ValueTreeNode node) {
