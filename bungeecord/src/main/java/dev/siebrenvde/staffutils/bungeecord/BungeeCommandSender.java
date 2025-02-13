@@ -2,7 +2,9 @@ package dev.siebrenvde.staffutils.bungeecord;
 
 import dev.siebrenvde.staffutils.api.command.CommandSender;
 import net.kyori.adventure.text.Component;
+import org.jspecify.annotations.NullMarked;
 
+@NullMarked
 public class BungeeCommandSender implements CommandSender {
 
     private final net.md_5.bungee.api.CommandSender sender;

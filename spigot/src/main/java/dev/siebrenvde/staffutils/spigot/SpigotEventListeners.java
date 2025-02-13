@@ -11,7 +11,9 @@ import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.jspecify.annotations.NullMarked;
 
+@NullMarked
 public class SpigotEventListeners extends EventListeners implements Listener {
 
     public static void register(JavaPlugin plugin) {
@@ -20,10 +22,10 @@ public class SpigotEventListeners extends EventListeners implements Listener {
         manager.registerEvents(new SpigotEventListeners(), plugin);
 
         if(PaperCompat.hasAsyncChatEvent()) {
-            StaffUtils.LOGGER.optional("Using Paper's AsyncChatEvent");
+            StaffUtils.logger().optional("Using Paper's AsyncChatEvent");
             manager.registerEvents(new PaperEventListeners.ChatListener(), plugin);
         } else {
-            StaffUtils.LOGGER.optional("Using Spigot's AsyncPlayerChatEvent");
+            StaffUtils.logger().optional("Using Spigot's AsyncPlayerChatEvent");
             manager.registerEvents(new ChatListener(), plugin);
         }
     }

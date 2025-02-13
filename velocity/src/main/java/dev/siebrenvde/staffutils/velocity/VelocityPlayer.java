@@ -2,9 +2,11 @@ package dev.siebrenvde.staffutils.velocity;
 
 import com.velocitypowered.api.proxy.Player;
 import dev.siebrenvde.staffutils.api.player.ProxyPlayer;
+import org.jspecify.annotations.NullMarked;
 
 import java.util.UUID;
 
+@NullMarked
 public class VelocityPlayer extends VelocityCommandSender implements ProxyPlayer {
 
     private final Player player;

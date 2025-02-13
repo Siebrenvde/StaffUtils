@@ -2,7 +2,9 @@ package dev.siebrenvde.staffutils.api.command;
 
 import dev.siebrenvde.staffutils.StaffUtils;
 import net.kyori.adventure.text.Component;
+import org.jspecify.annotations.NullMarked;
 
+@NullMarked
 public interface CommandSender {
 
     /**

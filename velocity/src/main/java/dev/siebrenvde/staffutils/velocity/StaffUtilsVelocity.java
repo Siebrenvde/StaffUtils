@@ -7,17 +7,21 @@ import com.velocitypowered.api.plugin.annotation.DataDirectory;
 import com.velocitypowered.api.proxy.ProxyServer;
 import dev.siebrenvde.staffutils.StaffUtils;
 import org.bstats.velocity.Metrics;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 
 import java.nio.file.Path;
+import java.util.Objects;
 
+@NullMarked
 public class StaffUtilsVelocity {
 
     private final StaffUtils staffUtils;
     private final Metrics.Factory metricsFactory;
 
-    private static StaffUtilsVelocity instance;
-    private static ProxyServer proxy;
+    @Nullable private static StaffUtilsVelocity instance;
+    @Nullable private static ProxyServer proxy;
 
     @Inject
     public StaffUtilsVelocity(ProxyServer server, Logger logger, @DataDirectory Path dataDirectory, Metrics.Factory metricsFactory) {
@@ -36,11 +40,11 @@ public class StaffUtilsVelocity {
     public void onProxyInitialise(ProxyInitializeEvent event) {
         metricsFactory.make(this, 24628);
         staffUtils.load();
-        staffUtils.registerCommands(new VelocityCommandManager(proxy.getCommandManager()));
-        proxy.getEventManager().register(this, new VelocityEventListeners());
+        staffUtils.registerCommands(new VelocityCommandManager(getProxy().getCommandManager()));
+        getProxy().getEventManager().register(this, new VelocityEventListeners());
     }
 
-    public static StaffUtilsVelocity getInstance() { return instance; }
-    public static ProxyServer getProxy() { return proxy; }
+    public static StaffUtilsVelocity getInstance() { return Objects.requireNonNull(instance); }
+    public static ProxyServer getProxy() { return Objects.requireNonNull(proxy); }
 
 }

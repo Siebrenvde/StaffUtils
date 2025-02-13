@@ -10,8 +10,10 @@ import com.velocitypowered.api.command.CommandSource;
 import com.velocitypowered.api.command.VelocityBrigadierMessage;
 import dev.siebrenvde.staffutils.api.command.BrigadierCommandManager;
 import dev.siebrenvde.staffutils.api.command.BaseCommand;
+import org.jspecify.annotations.NullMarked;
 import net.kyori.adventure.text.Component;
 
+@NullMarked
 public class VelocityCommandManager implements BrigadierCommandManager<CommandSource> {
 
     private final CommandManager manager;

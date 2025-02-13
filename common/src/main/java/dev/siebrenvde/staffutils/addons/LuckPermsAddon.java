@@ -8,32 +8,38 @@ import net.luckperms.api.LuckPerms;
 import net.luckperms.api.LuckPermsProvider;
 import net.luckperms.api.model.group.Group;
 import net.luckperms.api.model.user.User;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 
+import java.util.Objects;
 import java.util.Optional;
 
+@NullMarked
 public class LuckPermsAddon {
 
-    private static LuckPermsAddon instance;
-    private LuckPerms api = null;
+    @Nullable private static LuckPermsAddon instance;
+    @Nullable private LuckPerms api = null;
 
     public LuckPermsAddon() {
         instance = this;
         try {
             api = LuckPermsProvider.get();
-            StaffUtils.LOGGER.optional("Loaded LuckPermsAddon");
+            StaffUtils.logger().optional("Loaded LuckPermsAddon");
         } catch(IllegalStateException e) {
-            StaffUtils.LOGGER.error("LuckPerms was found but failed to load addon");
-            StaffUtils.LOGGER.error(e.getMessage());
+            StaffUtils.logger().error("LuckPerms was found but failed to load addon");
+            StaffUtils.logger().error(e.getMessage());
         } catch(NoClassDefFoundError ignored) {
-            StaffUtils.LOGGER.optional("LuckPerms was not found, addon will not be loaded");
+            StaffUtils.logger().optional("LuckPerms was not found, addon will not be loaded");
         }
     }
 
     private Optional<User> getUser(Player player) {
+        if(api == null) return Optional.empty();
         return Optional.ofNullable(api.getUserManager().getUser(player.getUniqueId()));
     }
 
     public Optional<Group> getPlayerGroup(Player player) {
+        if(api == null) return Optional.empty();
         return getUser(player).map(value -> api.getGroupManager().getGroup(value.getPrimaryGroup()));
     }
 
@@ -49,7 +55,7 @@ public class LuckPermsAddon {
             .map(suffix -> LegacyComponentSerializer.legacyAmpersand().deserialize(suffix));
     }
 
-    public static LuckPermsAddon get() { return instance; }
+    public static LuckPermsAddon get() { return Objects.requireNonNull(instance); }
     public boolean isLoaded() { return api != null; }
 
 }

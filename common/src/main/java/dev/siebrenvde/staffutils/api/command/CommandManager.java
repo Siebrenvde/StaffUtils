@@ -1,10 +1,13 @@
 package dev.siebrenvde.staffutils.api.command;
 
+import org.jspecify.annotations.NullMarked;
+
 import java.util.Arrays;
 
 /**
  * A command manager for simple commands
  */
+@NullMarked
 public interface CommandManager {
 
     /**

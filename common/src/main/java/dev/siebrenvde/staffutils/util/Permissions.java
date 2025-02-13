@@ -1,5 +1,8 @@
 package dev.siebrenvde.staffutils.util;
 
+import org.jspecify.annotations.NullMarked;
+
+@NullMarked
 public class Permissions {
 
     public static final String COMMAND_STAFFUTILS = "staffutils.command.staffutils";

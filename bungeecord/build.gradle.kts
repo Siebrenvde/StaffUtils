@@ -7,6 +7,7 @@ dependencies {
     compileOnly("net.md-5:bungeecord-api:1.21-R0.1-SNAPSHOT")
     implementation("net.kyori:adventure-platform-bungeecord:4.3.4")
     implementation("org.bstats:bstats-bungeecord:3.1.0")
+    implementation("org.jspecify:jspecify:1.0.0")
 }
 
 bungeePluginYaml {

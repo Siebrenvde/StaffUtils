@@ -1,7 +1,9 @@
 package dev.siebrenvde.staffutils.bungeecord;
 
 import dev.siebrenvde.staffutils.util.Logger;
+import org.jspecify.annotations.NullMarked;
 
+@NullMarked
 public class BungeeLogger implements Logger {
 
     private final java.util.logging.Logger logger;

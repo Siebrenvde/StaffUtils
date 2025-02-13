@@ -12,17 +12,21 @@ import dev.siebrenvde.staffutils.api.ServerPlatform;
 import dev.siebrenvde.staffutils.commands.StaffChatCommand;
 import dev.siebrenvde.staffutils.spicord.SpicordAddon;
 import dev.siebrenvde.staffutils.util.Logger;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 import org.spicord.SpicordLoader;
 
 import java.nio.file.Path;
+import java.util.Objects;
 
+@NullMarked
 public class StaffUtils {
 
-    public static Logger LOGGER;
+    @Nullable private static Logger LOGGER;
 
-    private static ServerPlatform platform;
-    private static Server server;
-    private static SpicordAddon spicordAddon;
+    @Nullable private static ServerPlatform platform;
+    @Nullable private static Server server;
+    @Nullable private static SpicordAddon spicordAddon;
 
     public StaffUtils(Path dataDirectory, ServerPlatform serverPlatform, Server globalServer, Logger logger) {
         LOGGER = logger;
@@ -49,8 +53,9 @@ public class StaffUtils {
         );
     }
 
-    public static ServerPlatform getPlatform() { return platform; }
-    public static Server getServer() { return server; }
-    public static SpicordAddon getSpicord() { return spicordAddon; }
+    public static Logger logger() { return Objects.requireNonNull(LOGGER); }
+    public static ServerPlatform getPlatform() { return Objects.requireNonNull(platform); }
+    public static Server getServer() { return Objects.requireNonNull(server); }
+    public static SpicordAddon getSpicord() { return Objects.requireNonNull(spicordAddon); }
 
 }

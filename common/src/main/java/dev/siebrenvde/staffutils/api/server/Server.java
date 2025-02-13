@@ -2,9 +2,11 @@ package dev.siebrenvde.staffutils.api.server;
 
 import dev.siebrenvde.staffutils.api.player.Player;
 import net.kyori.adventure.text.Component;
+import org.jspecify.annotations.NullMarked;
 
 import java.util.List;
 
+@NullMarked
 public interface Server {
 
     /**

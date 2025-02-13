@@ -1,12 +1,15 @@
 package dev.siebrenvde.staffutils.bungeecord;
 
+import dev.siebrenvde.staffutils.api.ServerType;
 import dev.siebrenvde.staffutils.api.command.CommandSender;
 import dev.siebrenvde.staffutils.api.player.Player;
 import dev.siebrenvde.staffutils.api.ServerPlatform;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
+import org.jspecify.annotations.NullMarked;
 
 import java.util.Optional;
 
+@NullMarked
 public class BungeePlatform implements ServerPlatform {
 
     @Override

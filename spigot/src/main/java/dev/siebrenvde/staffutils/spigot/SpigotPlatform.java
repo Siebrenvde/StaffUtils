@@ -1,14 +1,17 @@
 package dev.siebrenvde.staffutils.spigot;
 
+import dev.siebrenvde.staffutils.api.ServerType;
 import dev.siebrenvde.staffutils.api.command.CommandSender;
 import dev.siebrenvde.staffutils.api.ServerPlatform;
 import dev.siebrenvde.staffutils.api.player.Player;
 import dev.siebrenvde.staffutils.paper.PaperCompat;
 import dev.siebrenvde.staffutils.paper.StaffUtilsPaper;
 import org.bukkit.Bukkit;
+import org.jspecify.annotations.NullMarked;
 
 import java.util.Optional;
 
+@NullMarked
 public class SpigotPlatform implements ServerPlatform {
 
     @Override

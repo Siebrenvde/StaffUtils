@@ -1,7 +1,9 @@
 package dev.siebrenvde.staffutils.util;
 
 import dev.siebrenvde.staffutils.config.Config;
+import org.jspecify.annotations.NullMarked;
 
+@NullMarked
 public interface Logger {
 
     /**
@@ -9,7 +11,7 @@ public interface Logger {
      * @param message the message to log
      */
     default void optional(String message) {
-        if(Config.CONFIG.verboseLogging.getRealValue()) info(message);
+        if(Config.config().verboseLogging.getRealValue()) info(message);
     }
 
     /**

@@ -16,6 +16,7 @@ import dev.siebrenvde.staffutils.config.Config;
 import dev.siebrenvde.staffutils.config.annotations.WordString;
 import dev.siebrenvde.staffutils.messages.Messages;
 import dev.siebrenvde.staffutils.util.Permissions;
+import org.jspecify.annotations.NullMarked;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.JoinConfiguration;
 import net.kyori.adventure.text.TextComponent;
@@ -31,10 +32,11 @@ import static dev.siebrenvde.staffutils.util.BrigadierUtils.hasPermission;
 import static dev.siebrenvde.staffutils.util.BrigadierUtils.withSender;
 import static net.kyori.adventure.text.Component.*;
 
+@NullMarked
 public class StaffUtilsCommand extends BaseCommand {
 
     public StaffUtilsCommand() {
-        super(Config.COMMANDS.staffUtils, Permissions.COMMAND_STAFFUTILS);
+        super(Config.commands().staffUtils, Permissions.COMMAND_STAFFUTILS);
     }
 
     @Override
@@ -46,9 +48,9 @@ public class StaffUtilsCommand extends BaseCommand {
                     executeReload(sender);
                 }))
             )
-            .then(configLiteral(manager, Config.CONFIG))
-            .then(configLiteral(manager, Config.MESSAGES))
-            .then(configLiteral(manager, Config.COMMANDS))
+            .then(configLiteral(manager, Config.config()))
+            .then(configLiteral(manager, Config.config()))
+            .then(configLiteral(manager, Config.config()))
             .build();
     }
 

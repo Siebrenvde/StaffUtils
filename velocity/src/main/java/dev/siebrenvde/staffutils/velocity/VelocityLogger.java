@@ -1,7 +1,9 @@
 package dev.siebrenvde.staffutils.velocity;
 
 import dev.siebrenvde.staffutils.util.Logger;
+import org.jspecify.annotations.NullMarked;
 
+@NullMarked
 public class VelocityLogger implements Logger {
 
     private final org.slf4j.Logger logger;

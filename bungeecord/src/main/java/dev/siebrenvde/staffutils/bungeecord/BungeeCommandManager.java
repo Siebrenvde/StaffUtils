@@ -6,7 +6,9 @@ import dev.siebrenvde.staffutils.api.command.CommandSender;
 import net.md_5.bungee.api.plugin.Command;
 import net.md_5.bungee.api.plugin.PluginManager;
 import net.md_5.bungee.api.plugin.TabExecutor;
+import org.jspecify.annotations.NullMarked;
 
+@NullMarked
 public class BungeeCommandManager implements CommandManager {
 
     private final PluginManager manager;

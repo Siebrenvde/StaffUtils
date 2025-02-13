@@ -1,12 +1,15 @@
 package dev.siebrenvde.staffutils.velocity;
 
 import com.velocitypowered.api.command.CommandSource;
+import dev.siebrenvde.staffutils.api.ServerType;
 import dev.siebrenvde.staffutils.api.command.CommandSender;
 import dev.siebrenvde.staffutils.api.ServerPlatform;
 import dev.siebrenvde.staffutils.api.player.Player;
+import org.jspecify.annotations.NullMarked;
 
 import java.util.Optional;
 
+@NullMarked
 public class VelocityPlatform implements ServerPlatform {
 
     @Override

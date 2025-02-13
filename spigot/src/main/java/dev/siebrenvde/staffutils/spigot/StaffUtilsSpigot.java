@@ -6,11 +6,16 @@ import dev.siebrenvde.staffutils.paper.StaffUtilsPaper;
 import net.kyori.adventure.platform.bukkit.BukkitAudiences;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 
+import java.util.Objects;
+
+@NullMarked
 public final class StaffUtilsSpigot extends JavaPlugin {
 
-    private static StaffUtilsSpigot instance;
-    private static BukkitAudiences adventure;
+    @Nullable private static StaffUtilsSpigot instance;
+    @Nullable private static BukkitAudiences adventure;
 
     @Override
     public void onEnable() {
@@ -28,25 +33,25 @@ public final class StaffUtilsSpigot extends JavaPlugin {
         SpigotEventListeners.register(this);
 
         if(PaperCompat.hasBrigadier()) {
-            StaffUtils.LOGGER.optional("Registering commands using Brigadier");
+            StaffUtils.logger().optional("Registering commands using Brigadier");
             StaffUtilsPaper.registerCommands(this, staffUtils);
         } else {
-            StaffUtils.LOGGER.optional("Registering commands using Spigot's outdated system");
+            StaffUtils.logger().optional("Registering commands using Spigot's outdated system");
             staffUtils.registerCommands(new SpigotCommandManager());
         }
 
         if(!PaperCompat.isPaper()) {
-            StaffUtils.LOGGER.info("It looks like you're using Spigot");
-            StaffUtils.LOGGER.info("This plugin works better using Paper");
+            StaffUtils.logger().info("It looks like you're using Spigot");
+            StaffUtils.logger().info("This plugin works better using Paper");
         }
     }
 
     @Override
     public void onDisable() {
-        adventure.close();
+        if(adventure != null) adventure.close();
     }
 
-    public static StaffUtilsSpigot getInstance() { return instance; }
-    public static BukkitAudiences adventure() { return adventure; }
+    public static StaffUtilsSpigot getInstance() { return Objects.requireNonNull(instance); }
+    public static BukkitAudiences adventure() { return Objects.requireNonNull(adventure); }
 
 }

@@ -10,12 +10,14 @@ import dev.siebrenvde.configlib.libs.quilt.config.api.values.TrackedValue;
 import dev.siebrenvde.configlib.metadata.ConfigComment;
 import dev.siebrenvde.staffutils.config.annotations.RequireNonProxy;
 import dev.siebrenvde.staffutils.config.annotations.RequireProxy;
+import org.jspecify.annotations.NullMarked;
 
 @ConfigComment("All in-game messages are formatted using MiniMessage")
 @ConfigComment("You can use the MiniMessage Viewer to preview and format your messages:")
 @ConfigComment("https://webui.advntr.dev")
 @DisplayNameConvention(NamingSchemes.TITLE_CASE)
 @SerializedNameConvention(NamingSchemes.SNAKE_CASE)
+@NullMarked
 public final class MessageConfig extends ReflectiveConfig {
 
     @Comment("The message sent to players when they don't have permission to execute a command")

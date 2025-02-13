@@ -7,9 +7,11 @@ import net.kyori.adventure.text.TextComponent;
 import net.kyori.adventure.text.event.HoverEvent;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextColor;
+import org.jspecify.annotations.NullMarked;
 
 import static net.kyori.adventure.text.Component.text;
 
+@NullMarked
 public class Components {
 
     public static Component discordProfile(Member member) {

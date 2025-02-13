@@ -4,7 +4,9 @@ import dev.siebrenvde.staffutils.StaffUtils;
 import io.papermc.paper.command.brigadier.CommandSourceStack;
 import io.papermc.paper.plugin.lifecycle.event.types.LifecycleEvents;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.jspecify.annotations.NullMarked;
 
+@NullMarked
 public class StaffUtilsPaper {
 
     @SuppressWarnings("UnstableApiUsage")

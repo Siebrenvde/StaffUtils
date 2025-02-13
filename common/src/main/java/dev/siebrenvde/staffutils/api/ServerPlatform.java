@@ -2,28 +2,12 @@ package dev.siebrenvde.staffutils.api;
 
 import dev.siebrenvde.staffutils.api.command.CommandSender;
 import dev.siebrenvde.staffutils.api.player.Player;
-import net.kyori.adventure.text.Component;
+import org.jspecify.annotations.NullMarked;
 
 import java.util.Optional;
 
+@NullMarked
 public interface ServerPlatform {
-
-    enum ServerType {
-        PAPER("Paper"),
-        SPIGOT("Spigot"),
-        VELOCITY("Velocity"),
-        BUNGEECORD("BungeeCord");
-
-        private final String displayName;
-
-        ServerType(String displayName) {
-            this.displayName = displayName;
-        }
-
-        public Component displayName() {
-            return Component.text(displayName);
-        }
-    }
 
     /**
      * {@return the type of the server implementation}

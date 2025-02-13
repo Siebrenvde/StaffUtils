@@ -2,7 +2,9 @@ package dev.siebrenvde.staffutils.paper;
 
 import net.kyori.adventure.text.Component;
 import org.bukkit.entity.Player;
+import org.jspecify.annotations.NullMarked;
 
+@NullMarked
 public class PaperCompat {
 
     @SuppressWarnings("deprecation")

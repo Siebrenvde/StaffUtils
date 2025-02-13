@@ -3,16 +3,18 @@ package dev.siebrenvde.staffutils.api.command;
 import com.mojang.brigadier.tree.LiteralCommandNode;
 import dev.siebrenvde.staffutils.config.CommandConfig;
 import dev.siebrenvde.staffutils.messages.Messages;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 
 import java.util.List;
 
+@NullMarked
 public abstract class BaseCommand {
 
     private final boolean enabled;
     private final String name;
-    @Nullable private final String[] aliases;
-    @Nullable private final String description;
+    private final String[] aliases;
+    private final String description;
     @Nullable private final String rootPermission;
 
     /**
@@ -22,11 +24,11 @@ public abstract class BaseCommand {
      * @param description the description of the command
      * @param rootPermission the root permission of the command
      */
-    public BaseCommand(String name, @Nullable String[] aliases, @Nullable String description, @Nullable String rootPermission) {
+    public BaseCommand(String name, String @Nullable[] aliases, @Nullable String description, @Nullable String rootPermission) {
         enabled = true;
         this.name = name;
-        this.aliases = aliases;
-        this.description = description;
+        this.aliases = aliases != null ? aliases : new String[0];
+        this.description = description != null ? description : "";
         this.rootPermission = rootPermission;
     }
 
@@ -81,12 +83,12 @@ public abstract class BaseCommand {
     /**
      * {@return the aliases of the command}
      */
-    public String[] getAliases() { return aliases != null ? aliases : new String[0]; }
+    public String[] getAliases() { return aliases; }
 
     /**
      * {@return the description of the command}
      */
-    public @Nullable String getDescription() { return description; }
+    public String getDescription() { return description; }
 
     /**
      * {@return the root permission of the command}
@@ -101,7 +103,7 @@ public abstract class BaseCommand {
      * @param permission the permission to check
      * @return {@code true} if the command sender has the given permission
      */
-    public boolean checkPermission(CommandSender sender, String permission) {
+    public boolean checkPermission(CommandSender sender, @Nullable String permission) {
         if(permission == null || sender.hasPermission(permission)) return true;
         sender.sendMessage(Messages.messages().permissionMessage());
         return false;

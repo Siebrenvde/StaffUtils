@@ -5,7 +5,9 @@ import com.velocitypowered.api.event.connection.DisconnectEvent;
 import com.velocitypowered.api.event.player.PlayerChatEvent;
 import dev.siebrenvde.staffutils.api.player.Player;
 import dev.siebrenvde.staffutils.listeners.EventListeners;
+import org.jspecify.annotations.NullMarked;
 
+@NullMarked
 public class VelocityEventListeners extends EventListeners {
 
     @SuppressWarnings("deprecation")

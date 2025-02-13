@@ -11,6 +11,7 @@ import dev.siebrenvde.staffutils.api.player.ProxyPlayer;
 import dev.siebrenvde.staffutils.config.Config;
 import dev.siebrenvde.staffutils.messages.Messages;
 import dev.siebrenvde.staffutils.util.Permissions;
+import org.jspecify.annotations.NullMarked;
 
 import java.util.Arrays;
 import java.util.List;
@@ -18,10 +19,11 @@ import java.util.Optional;
 
 import static dev.siebrenvde.staffutils.util.BrigadierUtils.withSender;
 
+@NullMarked
 public class ReportCommand extends BaseCommand {
 
     public ReportCommand() {
-        super(Config.COMMANDS.report, null);
+        super(Config.commands().report, null);
     }
 
     @Override
@@ -91,7 +93,7 @@ public class ReportCommand extends BaseCommand {
 
     @SuppressWarnings("BooleanMethodIsAlwaysInverted")
     private boolean allowGlobal() {
-        return Config.CONFIG.report.allowGlobal.getRealValue();
+        return Config.config().report.allowGlobal.getRealValue();
     }
 
 }

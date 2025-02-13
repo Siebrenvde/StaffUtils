@@ -8,6 +8,7 @@ dependencies {
     compileOnly("org.spigotmc:spigot-api:1.21.1-R0.1-SNAPSHOT")
     implementation("net.kyori:adventure-platform-bukkit:4.3.4")
     implementation("org.bstats:bstats-bukkit:3.1.0")
+    implementation("org.jspecify:jspecify:1.0.0")
 }
 
 bukkitPluginYaml {
