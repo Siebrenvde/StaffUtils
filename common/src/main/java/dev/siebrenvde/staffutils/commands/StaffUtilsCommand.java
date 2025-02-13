@@ -102,6 +102,12 @@ public class StaffUtilsCommand extends BaseCommand {
                     }))
                 );
 
+                nodeLiteral.then(manager.literal("reset")
+                    .executes(withSender((ctx, sender) -> {
+                        resetValue(value);
+                    }))
+                );
+
                 if(value.getRealValue() instanceof ValueList<?> list) {
 
                     ArgumentType<?> type = asArgumentType(list.getType(), value);
@@ -178,12 +184,6 @@ public class StaffUtilsCommand extends BaseCommand {
                     );
 
                 }
-
-                nodeLiteral.then(manager.literal("reset")
-                    .executes(withSender((ctx, sender) -> {
-                        resetValue(value);
-                    }))
-                );
 
             } else {
                 createCommandNodes(manager, nodeLiteral, (ValueTreeNode.Section) node);
