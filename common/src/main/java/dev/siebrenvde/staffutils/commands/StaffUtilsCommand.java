@@ -110,7 +110,7 @@ public class StaffUtilsCommand extends BaseCommand {
 
                 if(value.getRealValue() instanceof ValueList<?> list) {
 
-                    ArgumentType<?> type = asArgumentType(list.getType(), value);
+                    ArgumentType<?> type = asArgumentType(list.getDefaultValue(), value);
 
                     nodeLiteral.then(manager.literal("add")
                         .then(manager.argument("value", type)
