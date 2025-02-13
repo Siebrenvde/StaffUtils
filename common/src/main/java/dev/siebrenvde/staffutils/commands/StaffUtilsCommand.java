@@ -92,11 +92,13 @@ public class StaffUtilsCommand extends BaseCommand {
 
                 nodeLiteral.then(manager.literal("get")
                     .executes(withSender((ctx, sender) -> {
-                        TextComponent.Builder text = text();
-                        text.append(valueComponent(value));
-                        text.append(text(": "));
-                        text.append(asComponent(value.getRealValue()).color(NamedTextColor.YELLOW));
-                        sender.sendMessage(text.build());
+                        sender.sendMessage(
+                            text()
+                                .append(valueComponent(value))
+                                .append(text(": "))
+                                .append(asComponent(value.getRealValue()).color(NamedTextColor.YELLOW))
+                                .build()
+                        );
                     }))
                 );
 
