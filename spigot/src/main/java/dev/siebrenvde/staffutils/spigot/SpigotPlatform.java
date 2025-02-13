@@ -1,5 +1,6 @@
 package dev.siebrenvde.staffutils.spigot;
 
+import dev.siebrenvde.staffutils.api.ServerType;
 import dev.siebrenvde.staffutils.api.command.CommandSender;
 import dev.siebrenvde.staffutils.api.ServerPlatform;
 import dev.siebrenvde.staffutils.api.player.Player;
