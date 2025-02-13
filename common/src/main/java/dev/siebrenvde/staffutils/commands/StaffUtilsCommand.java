@@ -49,8 +49,8 @@ public class StaffUtilsCommand extends BaseCommand {
                 }))
             )
             .then(configLiteral(manager, Config.config()))
-            .then(configLiteral(manager, Config.config()))
-            .then(configLiteral(manager, Config.config()))
+            .then(configLiteral(manager, Config.messages()))
+            .then(configLiteral(manager, Config.commands()))
             .build();
     }
 
