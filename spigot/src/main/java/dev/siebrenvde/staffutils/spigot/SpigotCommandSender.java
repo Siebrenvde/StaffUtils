@@ -2,7 +2,9 @@ package dev.siebrenvde.staffutils.spigot;
 
 import dev.siebrenvde.staffutils.api.command.CommandSender;
 import net.kyori.adventure.text.Component;
+import org.jspecify.annotations.NullMarked;
 
+@NullMarked
 public class SpigotCommandSender implements CommandSender {
 
     private final org.bukkit.command.CommandSender sender;

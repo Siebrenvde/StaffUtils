@@ -6,7 +6,9 @@ import net.md_5.bungee.api.event.ChatEvent;
 import net.md_5.bungee.api.event.PlayerDisconnectEvent;
 import net.md_5.bungee.api.plugin.Listener;
 import net.md_5.bungee.event.EventHandler;
+import org.jspecify.annotations.NullMarked;
 
+@NullMarked
 public class BungeeEventListeners extends EventListeners implements Listener {
 
     @EventHandler

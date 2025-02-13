@@ -3,12 +3,14 @@ package dev.siebrenvde.staffutils.spicord;
 import dev.siebrenvde.staffutils.StaffUtils;
 import dev.siebrenvde.staffutils.messages.Messages;
 import dev.siebrenvde.staffutils.util.Permissions;
-import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NullMarked;
 
+import java.util.Objects;
+
+@NullMarked
 public class MessageListener extends ListenerAdapter {
 
     private final SpicordAddon addon;
@@ -18,24 +20,20 @@ public class MessageListener extends ListenerAdapter {
     }
 
     @Override
-    public void onMessageReceived(@NotNull MessageReceivedEvent event) {
-
-        User author = event.getAuthor();
-
+    public void onMessageReceived(MessageReceivedEvent event) {
         if(
             !(event.getChannel() instanceof TextChannel channel)
             || !channel.equals(addon.getStaffChannel())
-            || author.isBot()
+            || event.getAuthor().isBot()
         ) return;
 
         StaffUtils.getServer().broadcast(
             Messages.staffChat().serverFromDiscord(
-                addon.getStaffChannel().getGuild().getMember(author),
+                Objects.requireNonNull(event.getMember()),
                 event.getMessage().getContentStripped()
             ),
             Permissions.RECEIVE_STAFFCHAT
         );
-
     }
 
 }

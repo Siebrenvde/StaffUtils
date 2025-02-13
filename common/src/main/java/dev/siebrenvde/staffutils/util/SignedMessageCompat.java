@@ -5,7 +5,9 @@ import dev.siebrenvde.staffutils.api.ServerType;
 import dev.siebrenvde.staffutils.api.player.Player;
 import dev.siebrenvde.staffutils.api.player.ProxyPlayer;
 import dev.siebrenvde.staffutils.messages.Messages;
+import org.jspecify.annotations.NullMarked;
 
+@NullMarked
 public class SignedMessageCompat {
 
     /**
@@ -32,10 +34,10 @@ public class SignedMessageCompat {
 
         player.sendMessage(Messages.staffChat().signedToggleFail());
 
-        StaffUtils.LOGGER.warn("Toggling staff chat is not supported when using a 1.19.1+ server through a proxy");
+        StaffUtils.logger().warn("Toggling staff chat is not supported when using a 1.19.1+ server through a proxy");
         if(serverType == ServerType.VELOCITY) {
-            StaffUtils.LOGGER.warn("On Velocity you can fix this by installing SignedVelocity on the proxy and all servers");
-            StaffUtils.LOGGER.warn("You can download SignedVelocity at https://modrinth.com/plugin/signedvelocity");
+            StaffUtils.logger().warn("On Velocity you can fix this by installing SignedVelocity on the proxy and all servers");
+            StaffUtils.logger().warn("You can download SignedVelocity at https://modrinth.com/plugin/signedvelocity");
         }
 
         return false;

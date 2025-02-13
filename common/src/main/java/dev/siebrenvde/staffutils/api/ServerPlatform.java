@@ -2,9 +2,11 @@ package dev.siebrenvde.staffutils.api;
 
 import dev.siebrenvde.staffutils.api.command.CommandSender;
 import dev.siebrenvde.staffutils.api.player.Player;
+import org.jspecify.annotations.NullMarked;
 
 import java.util.Optional;
 
+@NullMarked
 public interface ServerPlatform {
 
     /**

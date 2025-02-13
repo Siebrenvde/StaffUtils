@@ -3,11 +3,13 @@ package dev.siebrenvde.staffutils.api.command;
 import com.mojang.brigadier.arguments.ArgumentType;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import com.mojang.brigadier.builder.RequiredArgumentBuilder;
+import org.jspecify.annotations.NullMarked;
 
 /**
  * A command manager for Brigadier commands
  * @param <C> The server software's command sender
  */
+@NullMarked
 public interface BrigadierCommandManager<C> extends CommandManager {
 
     @Override

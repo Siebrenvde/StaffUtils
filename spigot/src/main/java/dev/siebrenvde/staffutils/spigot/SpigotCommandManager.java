@@ -6,13 +6,14 @@ import dev.siebrenvde.staffutils.api.command.CommandSender;
 import org.bukkit.Bukkit;
 import org.bukkit.command.*;
 import org.bukkit.plugin.Plugin;
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NullMarked;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.util.Arrays;
 import java.util.List;
 
+@NullMarked
 public class SpigotCommandManager implements CommandManager {
 
     @Override
@@ -33,7 +34,7 @@ public class SpigotCommandManager implements CommandManager {
         }
 
         pluginCommand.setAliases(Arrays.asList(command.getAliases()));
-        if(command.getDescription() != null) pluginCommand.setDescription(command.getDescription());
+        pluginCommand.setDescription(command.getDescription());
 
         SpigotCommand spigotCommand = new SpigotCommand(command);
         pluginCommand.setExecutor(spigotCommand);
@@ -45,7 +46,7 @@ public class SpigotCommandManager implements CommandManager {
     private record SpigotCommand(BaseCommand command) implements TabExecutor {
 
         @Override
-        public boolean onCommand(@NotNull org.bukkit.command.CommandSender sender, @NotNull Command cmd, @NotNull String label, @NotNull String[] args) {
+        public boolean onCommand(org.bukkit.command.CommandSender sender, Command cmd, String label, String[] args) {
             command.simple(
                 CommandSender.of(sender),
                 args
@@ -54,7 +55,7 @@ public class SpigotCommandManager implements CommandManager {
         }
 
         @Override
-        public List<String> onTabComplete(@NotNull org.bukkit.command.CommandSender sender, @NotNull Command cmd, @NotNull String label, @NotNull String[] args) {
+        public List<String> onTabComplete(org.bukkit.command.CommandSender sender, Command cmd, String label, String[] args) {
             return command.suggestions(
                 CommandSender.of(sender),
                 args

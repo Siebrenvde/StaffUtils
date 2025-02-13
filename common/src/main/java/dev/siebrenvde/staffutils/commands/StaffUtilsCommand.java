@@ -7,16 +7,18 @@ import dev.siebrenvde.staffutils.api.command.CommandSender;
 import dev.siebrenvde.staffutils.config.Config;
 import dev.siebrenvde.staffutils.messages.Messages;
 import dev.siebrenvde.staffutils.util.Permissions;
+import org.jspecify.annotations.NullMarked;
 
 import java.util.List;
 
 import static dev.siebrenvde.staffutils.util.BrigadierUtils.hasPermission;
 import static dev.siebrenvde.staffutils.util.BrigadierUtils.withSender;
 
+@NullMarked
 public class StaffUtilsCommand extends BaseCommand {
 
     public StaffUtilsCommand() {
-        super(Config.COMMANDS.staffUtils, Permissions.COMMAND_STAFFUTILS);
+        super(Config.commands().staffUtils, Permissions.COMMAND_STAFFUTILS);
     }
 
     @Override

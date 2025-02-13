@@ -2,7 +2,9 @@ package dev.siebrenvde.staffutils.listeners;
 
 import dev.siebrenvde.staffutils.api.player.Player;
 import dev.siebrenvde.staffutils.commands.StaffChatCommand;
+import org.jspecify.annotations.NullMarked;
 
+@NullMarked
 public class EventListeners {
 
     public static boolean chatListener(Player player, String message) {

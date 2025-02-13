@@ -2,7 +2,9 @@ package dev.siebrenvde.staffutils.api.player;
 
 import dev.siebrenvde.staffutils.StaffUtils;
 import dev.siebrenvde.staffutils.api.server.Server;
+import org.jspecify.annotations.NullMarked;
 
+@NullMarked
 public interface ProxyPlayer extends Player {
 
     /**

@@ -4,7 +4,9 @@ import com.velocitypowered.api.command.CommandSource;
 import com.velocitypowered.api.proxy.ConsoleCommandSource;
 import dev.siebrenvde.staffutils.api.command.CommandSender;
 import net.kyori.adventure.text.Component;
+import org.jspecify.annotations.NullMarked;
 
+@NullMarked
 public class VelocityCommandSender implements CommandSender {
 
     private final CommandSource source;

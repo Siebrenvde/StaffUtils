@@ -1,7 +1,9 @@
 package dev.siebrenvde.staffutils.spigot;
 
 import dev.siebrenvde.staffutils.util.Logger;
+import org.jspecify.annotations.NullMarked;
 
+@NullMarked
 public class SpigotLogger implements Logger {
 
     private final java.util.logging.Logger logger;

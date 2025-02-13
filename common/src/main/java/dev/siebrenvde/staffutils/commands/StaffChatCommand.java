@@ -11,6 +11,7 @@ import dev.siebrenvde.staffutils.api.command.CommandSender;
 import dev.siebrenvde.staffutils.api.player.Player;
 import dev.siebrenvde.staffutils.util.Permissions;
 import dev.siebrenvde.staffutils.util.SignedMessageCompat;
+import org.jspecify.annotations.NullMarked;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,12 +20,13 @@ import java.util.UUID;
 import static dev.siebrenvde.staffutils.util.BrigadierUtils.hasPermission;
 import static dev.siebrenvde.staffutils.util.BrigadierUtils.withSender;
 
+@NullMarked
 public class StaffChatCommand extends BaseCommand {
 
     public static final List<UUID> ENABLED_PLAYERS = new ArrayList<>();
 
     public StaffChatCommand() {
-        super(Config.COMMANDS.staffChat, Permissions.COMMAND_STAFFCHAT);
+        super(Config.commands().staffChat, Permissions.COMMAND_STAFFCHAT);
     }
 
     @Override

@@ -7,9 +7,11 @@ import dev.siebrenvde.staffutils.api.player.Player;
 import dev.siebrenvde.staffutils.paper.PaperCompat;
 import dev.siebrenvde.staffutils.paper.StaffUtilsPaper;
 import org.bukkit.Bukkit;
+import org.jspecify.annotations.NullMarked;
 
 import java.util.Optional;
 
+@NullMarked
 public class SpigotPlatform implements ServerPlatform {
 
     @Override

@@ -5,8 +5,11 @@ import dev.siebrenvde.configlib.libs.quilt.config.api.annotations.SerializedName
 import dev.siebrenvde.configlib.libs.quilt.config.api.values.TrackedValue;
 import dev.siebrenvde.configlib.libs.quilt.config.api.values.ValueList;
 import dev.siebrenvde.configlib.metadata.NoOptionSpacing;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 
 @NoOptionSpacing
+@NullMarked
 public class CommandConfig extends ReflectiveConfig {
 
     @SerializedName("staffutils")
@@ -43,7 +46,7 @@ public class CommandConfig extends ReflectiveConfig {
         public final TrackedValue<ValueList<String>> aliases;
         public final TrackedValue<String> description;
 
-        public Command(boolean enabled, String name, String[] aliases, String description) {
+        public Command(boolean enabled, String name, String @Nullable [] aliases, @Nullable String description) {
             this.enabled = value(enabled);
             this.name = value(name);
             this.aliases = list("", aliases != null ? aliases : new String[0]);

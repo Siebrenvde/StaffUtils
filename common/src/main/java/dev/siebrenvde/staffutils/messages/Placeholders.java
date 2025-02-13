@@ -14,13 +14,15 @@ import net.kyori.adventure.text.minimessage.tag.resolver.TagResolver;
 import net.kyori.adventure.text.minimessage.tag.standard.StandardTags;
 import net.luckperms.api.model.group.Group;
 import org.intellij.lang.annotations.Subst;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static net.kyori.adventure.text.minimessage.tag.resolver.Placeholder.*;
 
+@NullMarked
 public class Placeholders {
 
     private static final MiniMessage COLOUR_DECORATION =

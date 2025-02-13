@@ -4,11 +4,16 @@ import dev.siebrenvde.staffutils.StaffUtils;
 import net.kyori.adventure.platform.bungeecord.BungeeAudiences;
 import net.md_5.bungee.api.plugin.Plugin;
 import org.bstats.bungeecord.Metrics;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 
+import java.util.Objects;
+
+@NullMarked
 public final class StaffUtilsBungee extends Plugin {
 
-    private static StaffUtilsBungee instance;
-    private static BungeeAudiences adventure;
+    @Nullable private static StaffUtilsBungee instance;
+    @Nullable private static BungeeAudiences adventure;
 
     @Override
     public void onEnable() {
@@ -31,7 +36,7 @@ public final class StaffUtilsBungee extends Plugin {
         if(adventure != null) adventure.close();
     }
 
-    public static StaffUtilsBungee getInstance() { return instance; }
-    public static BungeeAudiences adventure() { return adventure; }
+    public static StaffUtilsBungee getInstance() { return Objects.requireNonNull(instance); }
+    public static BungeeAudiences adventure() { return Objects.requireNonNull(adventure); }
 
 }

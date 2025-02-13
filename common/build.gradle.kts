@@ -8,4 +8,5 @@ dependencies {
     implementation("net.kyori:adventure-text-minimessage:4.18.0")
     implementation("net.kyori:adventure-text-serializer-plain:4.18.0")
     implementation("net.kyori:adventure-text-serializer-legacy:4.18.0")
+    implementation("org.jspecify:jspecify:1.0.0")
 }

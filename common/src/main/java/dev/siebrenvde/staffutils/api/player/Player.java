@@ -2,10 +2,12 @@ package dev.siebrenvde.staffutils.api.player;
 
 import dev.siebrenvde.staffutils.StaffUtils;
 import dev.siebrenvde.staffutils.api.command.CommandSender;
+import org.jspecify.annotations.NullMarked;
 
 import java.util.Optional;
 import java.util.UUID;
 
+@NullMarked
 public interface Player extends CommandSender {
 
     /**

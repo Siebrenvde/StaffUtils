@@ -8,6 +8,10 @@ import net.dv8tion.jda.api.entities.Member;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.tag.resolver.Placeholder;
 import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
+
+import java.util.Objects;
 
 import static dev.siebrenvde.staffutils.StaffUtils.getPlatform;
 import static net.kyori.adventure.text.minimessage.MiniMessage.miniMessage;
@@ -15,11 +19,12 @@ import static net.kyori.adventure.text.minimessage.MiniMessage.miniMessage;
 /**
  * Parses MiniMessage messages from the config
  */
+@NullMarked
 public class Messages {
 
     private final MessageConfig config;
 
-    private static Messages instance;
+    @Nullable private static Messages instance;
     private final StaffChat staffChat;
     private final Report report;
     private final HelpOp helpOp;
@@ -27,18 +32,18 @@ public class Messages {
 
     public Messages() {
         instance = this;
-        config = Config.MESSAGES;
+        config = Config.messages();
         staffChat = new StaffChat(config.staffChat);
         report = new Report(config.report);
         helpOp = new HelpOp(config.helpOp);
         staffUtils = new MsgStaffUtils(config.staffUtils);
     }
 
-    public static Messages messages() { return instance; }
-    public static StaffChat staffChat() { return instance.staffChat; }
-    public static Report report() { return instance.report; }
-    public static HelpOp helpOp() { return instance.helpOp; }
-    public static MsgStaffUtils staffUtils() { return instance.staffUtils; }
+    public static Messages messages() { return Objects.requireNonNull(instance); }
+    public static StaffChat staffChat() { return messages().staffChat; }
+    public static Report report() { return messages().report; }
+    public static HelpOp helpOp() { return messages().helpOp; }
+    public static MsgStaffUtils staffUtils() { return messages().staffUtils; }
 
     public Component permissionMessage() {
         return miniMessage().deserialize(config.permissionMessage.getRealValue());
@@ -58,7 +63,7 @@ public class Messages {
                     ? config().proxyFromProxy.getRealValue()
                     : config().serverFromServer.getRealValue(),
                 Placeholders.sender(sender),
-                Config.CONFIG.staffChat.allowMiniMessage.getRealValue()
+                Config.config().staffChat.allowMiniMessage.getRealValue()
                     ? Placeholders.formattedMessage(message)
                     : Placeholder.unparsed("message", message)
             );
@@ -68,7 +73,7 @@ public class Messages {
             return miniMessage().deserialize(
                 config().gameFromDiscord.getRealValue(),
                 Placeholders.discordMember(author),
-                Config.CONFIG.staffChat.allowMiniMessage.getRealValue()
+                Config.config().staffChat.allowMiniMessage.getRealValue()
                     ? Placeholders.formattedMessage(message)
                     : Placeholder.unparsed("message", message)
             );
@@ -81,7 +86,7 @@ public class Messages {
                         ? config().discordFromProxy.getRealValue()
                         : config().discordFromServer.getRealValue(),
                     Placeholders.sender(sender),
-                    Config.CONFIG.staffChat.allowMiniMessage.getRealValue()
+                    Config.config().staffChat.allowMiniMessage.getRealValue()
                         ? Placeholders.formattedMessage(message)
                         : Placeholder.unparsed("message", message)
                 )

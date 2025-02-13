@@ -7,8 +7,10 @@ import dev.siebrenvde.configlib.libs.quilt.config.api.annotations.SerializedName
 import dev.siebrenvde.configlib.libs.quilt.config.api.metadata.NamingSchemes;
 import dev.siebrenvde.configlib.libs.quilt.config.api.values.TrackedValue;
 import dev.siebrenvde.staffutils.config.annotations.RequireProxy;
+import org.jspecify.annotations.NullMarked;
 
 @SerializedNameConvention(NamingSchemes.SNAKE_CASE)
+@NullMarked
 public class MainConfig extends ReflectiveConfig {
 
     @Comment("The id of the staff channel")

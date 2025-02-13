@@ -9,13 +9,15 @@ import dev.siebrenvde.staffutils.api.command.CommandSender;
 import dev.siebrenvde.staffutils.config.Config;
 import dev.siebrenvde.staffutils.messages.Messages;
 import dev.siebrenvde.staffutils.util.Permissions;
+import org.jspecify.annotations.NullMarked;
 
 import static dev.siebrenvde.staffutils.util.BrigadierUtils.withSender;
 
+@NullMarked
 public class HelpOpCommand extends BaseCommand {
 
     public HelpOpCommand() {
-        super(Config.COMMANDS.helpOp, null);
+        super(Config.commands().helpOp, null);
     }
 
     @Override
