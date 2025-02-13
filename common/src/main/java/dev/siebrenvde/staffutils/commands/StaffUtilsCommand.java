@@ -102,12 +102,6 @@ public class StaffUtilsCommand extends BaseCommand {
                     }))
                 );
 
-                nodeLiteral.then(manager.literal("reset")
-                    .executes(withSender((ctx, sender) -> {
-                        resetValue(value);
-                    }))
-                );
-
                 if(value.getRealValue() instanceof ValueList<?> list) {
 
                     ArgumentType<?> type = asArgumentType(list.getDefaultValue(), value);
@@ -181,6 +175,12 @@ public class StaffUtilsCommand extends BaseCommand {
                                 sender.sendMessage(asComponent(input));
                             }))
                         )
+                    );
+
+                    nodeLiteral.then(manager.literal("reset")
+                        .executes(withSender((ctx, sender) -> {
+                            resetValue(value);
+                        }))
                     );
 
                 }
