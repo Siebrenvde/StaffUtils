@@ -20,8 +20,8 @@ import org.jspecify.annotations.NullMarked;
 @NullMarked
 public final class MessageConfig extends ReflectiveConfig {
 
-    @Comment("The message sent to players when they don't have permission to execute a command")
-    public final TrackedValue<String> permissionMessage = value("<red>You don't have permission to execute this command</red>");
+    @Comment("Generic command messages")
+    public final MsgCommands commands = new MsgCommands();
 
     @SerializedName("staffchat")
     public final StaffChat staffChat = new StaffChat();
@@ -30,6 +30,19 @@ public final class MessageConfig extends ReflectiveConfig {
     public final HelpOp helpOp = new HelpOp();
     @SerializedName("staffutils")
     public final MsgStaffUtils staffUtils = new MsgStaffUtils();
+
+    public final static class MsgCommands extends Section {
+
+        @Comment("The message sent to players when they don't have permission to execute a command")
+        public final TrackedValue<String> permissionMessage = value("<red>You don't have permission to execute this command</red>");
+
+        @Comment("The usage message")
+        public final TrackedValue<String> usage = value("<red>Usage: <usage>");
+
+        @Comment("The usage message when there are multiple possible usages ")
+        public final TrackedValue<String> multilineUsage = value("<red>Usages:<br><usage>");
+
+    }
 
     public final static class StaffChat extends Section {
 
@@ -204,9 +217,6 @@ public final class MessageConfig extends ReflectiveConfig {
         @Comment("<input> - The name entered by the reporter")
         public final TrackedValue<String> playerNotFound = value("<red>Player '<input>' was not found</red>");
 
-        @Comment("The message sent to the reporter when no player or reason is entered")
-        public final TrackedValue<String> usage = value("<red>Usage: /report <player> <reason></red>");
-
     }
 
     public final static class HelpOp extends Section {
@@ -266,17 +276,12 @@ public final class MessageConfig extends ReflectiveConfig {
         @Comment("The message sent to the sender after successfully using the helpop command")
         public final TrackedValue<String> success = value("Successfully requested help");
 
-        @Comment("The message sent to the sender when no message is entered")
-        public final TrackedValue<String> usage = value("<red>Usage: /helpop <message></red>");
-
     }
 
     public final static class MsgStaffUtils extends Section {
 
         @Comment("The message sent to the sender when reloading the config files")
         public final TrackedValue<String> reloadedConfigs = value("<aqua>Reloaded config files");
-
-        public final TrackedValue<String> usage = value("<red>Usage: /staffutils reload");
 
     }
 

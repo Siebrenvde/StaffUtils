@@ -1,12 +1,9 @@
 package dev.siebrenvde.staffutils.api.command;
 
-import com.mojang.brigadier.tree.LiteralCommandNode;
+import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import dev.siebrenvde.staffutils.config.CommandConfig;
-import dev.siebrenvde.staffutils.messages.Messages;
 import org.jspecify.annotations.NullMarked;
 import org.jspecify.annotations.Nullable;
-
-import java.util.List;
 
 @NullMarked
 public abstract class BaseCommand {
@@ -48,27 +45,10 @@ public abstract class BaseCommand {
     /**
      * The Brigadier implementation of the command
      * @param manager the Brigadier command manager
-     * @return a new LiteralCommandNode
+     * @return a new LiteralArgumentBuilder
      * @param <C> the server software's command sender
      */
-    public abstract <C> LiteralCommandNode<C> brigadier(BrigadierCommandManager<C> manager);
-
-    /**
-     * The simple implementation of the command
-     * @param sender the command sender
-     * @param args the command arguments
-     */
-    public abstract void simple(CommandSender sender, String[] args);
-
-    /**
-     * The suggestions for the simple command
-     * @param sender the command sender
-     * @param args the command arguments
-     * @return a list of strings to suggest
-     */
-    public List<String> suggestions(CommandSender sender, String[] args) {
-        return List.of();
-    }
+    public abstract <C> LiteralArgumentBuilder<C> brigadier(CommandManager<C> manager);
 
     /**
      * {@return whether the command is enabled}
@@ -94,19 +74,5 @@ public abstract class BaseCommand {
      * {@return the root permission of the command}
      */
     public @Nullable String getRootPermission() { return rootPermission; }
-
-    /**
-     * Checks whether the command sender has the given permission
-     * <br>
-     * If {@code false}, sends them a permission message
-     * @param sender the command sender
-     * @param permission the permission to check
-     * @return {@code true} if the command sender has the given permission
-     */
-    public boolean checkPermission(CommandSender sender, @Nullable String permission) {
-        if(permission == null || sender.hasPermission(permission)) return true;
-        sender.sendMessage(Messages.messages().permissionMessage());
-        return false;
-    }
 
 }

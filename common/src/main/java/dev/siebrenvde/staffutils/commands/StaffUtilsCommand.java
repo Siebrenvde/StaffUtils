@@ -3,14 +3,13 @@ package dev.siebrenvde.staffutils.commands;
 import com.mojang.brigadier.arguments.*;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import com.mojang.brigadier.context.CommandContext;
-import com.mojang.brigadier.tree.LiteralCommandNode;
 import dev.siebrenvde.configlib.libs.quilt.config.api.Constraint;
 import dev.siebrenvde.configlib.libs.quilt.config.api.ReflectiveConfig;
 import dev.siebrenvde.configlib.libs.quilt.config.api.annotations.Comment;
 import dev.siebrenvde.configlib.libs.quilt.config.api.values.*;
 import dev.siebrenvde.configlib.metadata.SkipWrite;
 import dev.siebrenvde.staffutils.api.command.BaseCommand;
-import dev.siebrenvde.staffutils.api.command.BrigadierCommandManager;
+import dev.siebrenvde.staffutils.api.command.CommandManager;
 import dev.siebrenvde.staffutils.api.command.CommandSender;
 import dev.siebrenvde.staffutils.config.Config;
 import dev.siebrenvde.staffutils.config.annotations.WordString;
@@ -41,7 +40,7 @@ public class StaffUtilsCommand extends BaseCommand {
     }
 
     @Override
-    public <C> LiteralCommandNode<C> brigadier(BrigadierCommandManager<C> manager) {
+    public <C> LiteralArgumentBuilder<C> brigadier(CommandManager<C> manager) {
         return manager.literal(getName())
             .then(manager.literal("reload")
                 .requires(hasPermission(Permissions.COMMAND_STAFFUTILS_RELOAD))
@@ -51,24 +50,7 @@ public class StaffUtilsCommand extends BaseCommand {
             )
             .then(configLiteral(manager, Config.config()))
             .then(configLiteral(manager, Config.messages()))
-            .then(configLiteral(manager, Config.commands()))
-            .build();
-    }
-
-    @Override
-    public void simple(CommandSender sender, String[] args) {
-        if(!checkPermission(sender, getRootPermission())) return;
-        if(args.length == 1 && args[0].equals("reload") && checkPermission(sender, Permissions.COMMAND_STAFFUTILS_RELOAD)) {
-            executeReload(sender);
-        } else {
-            sender.sendMessage(Messages.staffUtils().usage());
-        }
-    }
-
-    @Override
-    public List<String> suggestions(CommandSender sender, String[] args) {
-        if(args.length == 1 && "reload".startsWith(args[0].toLowerCase())) return List.of("reload");
-        return List.of();
+            .then(configLiteral(manager, Config.commands()));
     }
 
     private void executeReload(CommandSender sender) {
@@ -76,14 +58,14 @@ public class StaffUtilsCommand extends BaseCommand {
         sender.sendMessage(Messages.staffUtils().reloadedConfigs());
     }
 
-    private <C> LiteralArgumentBuilder<C> configLiteral(BrigadierCommandManager<C> manager, ReflectiveConfig config) {
+    private <C> LiteralArgumentBuilder<C> configLiteral(CommandManager<C> manager, ReflectiveConfig config) {
         LiteralArgumentBuilder<C> builder = manager.literal(config.id());
         builder.requires(hasPermission(Permissions.COMMAND_STAFFUTILS + "." + config.id()));
         createCommandNodes(manager, builder, config.nodes());
         return builder;
     }
 
-    private <C> void createCommandNodes(BrigadierCommandManager<C> manager, LiteralArgumentBuilder<C> builder, Iterable<ValueTreeNode> nodes) {
+    private <C> void createCommandNodes(CommandManager<C> manager, LiteralArgumentBuilder<C> builder, Iterable<ValueTreeNode> nodes) {
         for(ValueTreeNode node : nodes) {
             if(node.hasMetadata(SkipWrite.TYPE)) continue;
 

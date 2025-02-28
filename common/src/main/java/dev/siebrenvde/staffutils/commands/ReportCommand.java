@@ -1,10 +1,10 @@
 package dev.siebrenvde.staffutils.commands;
 
 import com.mojang.brigadier.arguments.StringArgumentType;
-import com.mojang.brigadier.tree.LiteralCommandNode;
+import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import dev.siebrenvde.staffutils.StaffUtils;
 import dev.siebrenvde.staffutils.api.command.BaseCommand;
-import dev.siebrenvde.staffutils.api.command.BrigadierCommandManager;
+import dev.siebrenvde.staffutils.api.command.CommandManager;
 import dev.siebrenvde.staffutils.api.command.CommandSender;
 import dev.siebrenvde.staffutils.api.player.Player;
 import dev.siebrenvde.staffutils.api.player.ProxyPlayer;
@@ -13,7 +13,6 @@ import dev.siebrenvde.staffutils.messages.Messages;
 import dev.siebrenvde.staffutils.util.Permissions;
 import org.jspecify.annotations.NullMarked;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -27,7 +26,7 @@ public class ReportCommand extends BaseCommand {
     }
 
     @Override
-    public <C> LiteralCommandNode<C> brigadier(BrigadierCommandManager<C> manager) {
+    public <C> LiteralArgumentBuilder<C> brigadier(CommandManager<C> manager) {
         return manager.literal(getName())
             .then(manager.argument("player", StringArgumentType.word())
                 .suggests((ctx, builder) -> {
@@ -46,22 +45,7 @@ public class ReportCommand extends BaseCommand {
                         );
                     }))
                 )
-            ).build();
-    }
-
-    @Override
-    public void simple(CommandSender sender, String[] args) {
-        if(args.length < 2) {
-            sender.sendMessage(Messages.report().usage());
-            return;
-        }
-        executeReport(sender, args[0], String.join(" ", Arrays.copyOfRange(args, 1, args.length)));
-    }
-
-    @Override
-    public List<String> suggestions(CommandSender sender, String[] args) {
-        if(args.length != 1) return List.of();
-        return playerSuggestions(sender, args[0].toLowerCase());
+            );
     }
 
     private void executeReport(CommandSender sender, String playerName, String reason) {

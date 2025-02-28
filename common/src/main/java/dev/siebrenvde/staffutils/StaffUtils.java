@@ -44,7 +44,7 @@ public class StaffUtils {
         new LuckPermsAddon();
     }
 
-    public void registerCommands(CommandManager manager) {
+    public void registerCommands(CommandManager<?> manager) {
         manager.registerAll(
             new StaffChatCommand(),
             new ReportCommand(),
