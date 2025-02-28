@@ -12,14 +12,13 @@ import org.jspecify.annotations.NullMarked;
 @NullMarked
 public interface BrigadierCommandManager<C> extends CommandManager {
 
-    @Override
-    void register(BaseCommand command);
-
     /**
      * {@return a new LiteralArgumentBuilder for the provided name}
      * @param name the name of the literal
      */
-    LiteralArgumentBuilder<C> literal(String name);
+    default LiteralArgumentBuilder<C> literal(String name) {
+        return LiteralArgumentBuilder.literal(name);
+    }
 
     /**
      * {@return a new RequiredArgumentBuilder for the provided name and type}
@@ -27,6 +26,8 @@ public interface BrigadierCommandManager<C> extends CommandManager {
      * @param type the type of the argument
      * @param <T> the type of the ArgumentType
      */
-    <T> RequiredArgumentBuilder<C, T> argument(String name, ArgumentType<T> type);
+    default <T> RequiredArgumentBuilder<C, T> argument(String name, ArgumentType<T> type) {
+        return RequiredArgumentBuilder.argument(name, type);
+    }
 
 }

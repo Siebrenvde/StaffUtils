@@ -1,8 +1,5 @@
 package dev.siebrenvde.staffutils.velocity;
 
-import com.mojang.brigadier.arguments.ArgumentType;
-import com.mojang.brigadier.builder.LiteralArgumentBuilder;
-import com.mojang.brigadier.builder.RequiredArgumentBuilder;
 import com.velocitypowered.api.command.BrigadierCommand;
 import com.velocitypowered.api.command.CommandManager;
 import com.velocitypowered.api.command.CommandSource;
@@ -28,16 +25,6 @@ public class VelocityCommandManager implements BrigadierCommandManager<CommandSo
                 .build(),
             new BrigadierCommand(command.brigadier(this))
         );
-    }
-
-    @Override
-    public LiteralArgumentBuilder<CommandSource> literal(String name) {
-        return BrigadierCommand.literalArgumentBuilder(name);
-    }
-
-    @Override
-    public <T> RequiredArgumentBuilder<CommandSource, T> argument(String name, ArgumentType<T> type) {
-        return BrigadierCommand.requiredArgumentBuilder(name, type);
     }
 
 }
