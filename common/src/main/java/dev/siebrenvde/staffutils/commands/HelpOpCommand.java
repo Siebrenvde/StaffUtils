@@ -1,10 +1,10 @@
 package dev.siebrenvde.staffutils.commands;
 
 import com.mojang.brigadier.arguments.StringArgumentType;
-import com.mojang.brigadier.tree.LiteralCommandNode;
+import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import dev.siebrenvde.staffutils.StaffUtils;
 import dev.siebrenvde.staffutils.api.command.BaseCommand;
-import dev.siebrenvde.staffutils.api.command.BrigadierCommandManager;
+import dev.siebrenvde.staffutils.api.command.CommandManager;
 import dev.siebrenvde.staffutils.api.command.CommandSender;
 import dev.siebrenvde.staffutils.config.Config;
 import dev.siebrenvde.staffutils.messages.Messages;
@@ -21,7 +21,7 @@ public class HelpOpCommand extends BaseCommand {
     }
 
     @Override
-    public <C> LiteralCommandNode<C> brigadier(BrigadierCommandManager<C> manager) {
+    public <C> LiteralArgumentBuilder<C> brigadier(CommandManager<C> manager) {
         return manager.literal(getName())
             .then(manager.argument("message", StringArgumentType.greedyString())
                 .executes(withSender((ctx, sender) -> {
@@ -30,17 +30,7 @@ public class HelpOpCommand extends BaseCommand {
                         StringArgumentType.getString(ctx, "message")
                     );
                 }))
-            )
-            .build();
-    }
-
-    @Override
-    public void simple(CommandSender sender, String[] args) {
-        if(args.length == 0) {
-            sender.sendMessage(Messages.helpOp().usage());
-            return;
-        }
-        executeHelpOp(sender, String.join(" ", args));
+            );
     }
 
     private void executeHelpOp(CommandSender sender, String message) {

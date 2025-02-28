@@ -1,12 +1,12 @@
 package dev.siebrenvde.staffutils.commands;
 
 import com.mojang.brigadier.arguments.StringArgumentType;
-import com.mojang.brigadier.tree.LiteralCommandNode;
+import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import dev.siebrenvde.staffutils.StaffUtils;
 import dev.siebrenvde.staffutils.config.Config;
 import dev.siebrenvde.staffutils.messages.Messages;
 import dev.siebrenvde.staffutils.api.command.BaseCommand;
-import dev.siebrenvde.staffutils.api.command.BrigadierCommandManager;
+import dev.siebrenvde.staffutils.api.command.CommandManager;
 import dev.siebrenvde.staffutils.api.command.CommandSender;
 import dev.siebrenvde.staffutils.api.player.Player;
 import dev.siebrenvde.staffutils.util.Permissions;
@@ -30,7 +30,7 @@ public class StaffChatCommand extends BaseCommand {
     }
 
     @Override
-    public <C> LiteralCommandNode<C> brigadier(BrigadierCommandManager<C> manager) {
+    public <C> LiteralArgumentBuilder<C> brigadier(CommandManager<C> manager) {
         return manager.literal(getName())
             .requires(hasPermission(getRootPermission()))
             .executes(withSender((ctx, sender) -> executeToggle(sender)))
@@ -41,15 +41,7 @@ public class StaffChatCommand extends BaseCommand {
                         StringArgumentType.getString(ctx, "message")
                     );
                 }))
-            )
-            .build();
-    }
-
-    @Override
-    public void simple(CommandSender sender, String[] args) {
-        if(!checkPermission(sender, getRootPermission())) return;
-        if(args.length == 0) executeToggle(sender);
-        else executeSendMessage(sender, String.join(" ", args));
+            );
     }
 
     private void executeToggle(CommandSender sender) {

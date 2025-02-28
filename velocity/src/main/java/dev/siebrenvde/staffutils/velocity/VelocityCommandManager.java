@@ -1,18 +1,17 @@
 package dev.siebrenvde.staffutils.velocity;
 
 import com.velocitypowered.api.command.BrigadierCommand;
-import com.velocitypowered.api.command.CommandManager;
 import com.velocitypowered.api.command.CommandSource;
-import dev.siebrenvde.staffutils.api.command.BrigadierCommandManager;
+import dev.siebrenvde.staffutils.api.command.CommandManager;
 import dev.siebrenvde.staffutils.api.command.BaseCommand;
 import org.jspecify.annotations.NullMarked;
 
 @NullMarked
-public class VelocityCommandManager implements BrigadierCommandManager<CommandSource> {
+public class VelocityCommandManager implements CommandManager<CommandSource> {
 
-    private final CommandManager manager;
+    private final com.velocitypowered.api.command.CommandManager manager;
 
-    public VelocityCommandManager(CommandManager manager) {
+    public VelocityCommandManager(com.velocitypowered.api.command.CommandManager manager) {
         this.manager = manager;
     }
 

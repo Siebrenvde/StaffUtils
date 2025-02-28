@@ -1,8 +1,7 @@
 package dev.siebrenvde.staffutils.spigot;
 
-import dev.siebrenvde.staffutils.api.command.CommandManager;
+import dev.siebrenvde.staffutils.api.command.BrigadierCommandManager;
 import dev.siebrenvde.staffutils.api.command.BaseCommand;
-import dev.siebrenvde.staffutils.api.command.CommandSender;
 import org.bukkit.Bukkit;
 import org.bukkit.command.*;
 import org.bukkit.plugin.Plugin;
@@ -14,10 +13,12 @@ import java.util.Arrays;
 import java.util.List;
 
 @NullMarked
-public class SpigotCommandManager implements CommandManager {
+public class SpigotCommandManager extends BrigadierCommandManager<CommandSender> {
 
     @Override
     public void register(BaseCommand command) {
+        super.register(command);
+
         CommandMap commandMap;
         PluginCommand pluginCommand;
 
@@ -36,30 +37,24 @@ public class SpigotCommandManager implements CommandManager {
         pluginCommand.setAliases(Arrays.asList(command.getAliases()));
         pluginCommand.setDescription(command.getDescription());
 
-        SpigotCommand spigotCommand = new SpigotCommand(command);
+        SpigotCommand spigotCommand = new SpigotCommand(command, this);
         pluginCommand.setExecutor(spigotCommand);
         pluginCommand.setTabCompleter(spigotCommand);
 
         commandMap.register(command.getName(), "staffutils", pluginCommand);
     }
 
-    private record SpigotCommand(BaseCommand command) implements TabExecutor {
+    private record SpigotCommand(BaseCommand command, SpigotCommandManager manager) implements TabExecutor {
 
         @Override
-        public boolean onCommand(org.bukkit.command.CommandSender sender, Command cmd, String label, String[] args) {
-            command.simple(
-                CommandSender.of(sender),
-                args
-            );
+        public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
+            manager.execute(sender, command, args);
             return true;
         }
 
         @Override
-        public List<String> onTabComplete(org.bukkit.command.CommandSender sender, Command cmd, String label, String[] args) {
-            return command.suggestions(
-                CommandSender.of(sender),
-                args
-            );
+        public List<String> onTabComplete(CommandSender sender, Command cmd, String label, String[] args) {
+            return manager.suggest(sender, command, args);
         }
     }
 

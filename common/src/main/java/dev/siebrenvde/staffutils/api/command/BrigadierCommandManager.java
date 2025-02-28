@@ -1,33 +1,92 @@
 package dev.siebrenvde.staffutils.api.command;
 
-import com.mojang.brigadier.arguments.ArgumentType;
-import com.mojang.brigadier.builder.LiteralArgumentBuilder;
-import com.mojang.brigadier.builder.RequiredArgumentBuilder;
+import com.mojang.brigadier.CommandDispatcher;
+import com.mojang.brigadier.ParseResults;
+import com.mojang.brigadier.exceptions.CommandSyntaxException;
+import com.mojang.brigadier.tree.CommandNode;
+import dev.siebrenvde.staffutils.messages.Messages;
 import org.jspecify.annotations.NullMarked;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+
 /**
- * A command manager for Brigadier commands
+ * A command manager that uses its own {@link CommandDispatcher}
  * @param <C> The server software's command sender
  */
 @NullMarked
-public interface BrigadierCommandManager<C> extends CommandManager {
+public class BrigadierCommandManager<C> implements CommandManager<C> {
 
-    /**
-     * {@return a new LiteralArgumentBuilder for the provided name}
-     * @param name the name of the literal
-     */
-    default LiteralArgumentBuilder<C> literal(String name) {
-        return LiteralArgumentBuilder.literal(name);
+    private final CommandDispatcher<C> dispatcher;
+
+    public BrigadierCommandManager() {
+        dispatcher = new CommandDispatcher<>();
     }
 
-    /**
-     * {@return a new RequiredArgumentBuilder for the provided name and type}
-     * @param name the name of the argument
-     * @param type the type of the argument
-     * @param <T> the type of the ArgumentType
-     */
-    default <T> RequiredArgumentBuilder<C, T> argument(String name, ArgumentType<T> type) {
-        return RequiredArgumentBuilder.argument(name, type);
+    @Override
+    public void register(BaseCommand command) {
+        dispatcher.register(command.brigadier(this));
+    }
+
+    protected void execute(C source, BaseCommand command, String[] args) {
+        CommandSender sender = CommandSender.of(source);
+
+        if (command.getRootPermission() != null && !sender.hasPermission(command.getRootPermission())) {
+            sender.sendMessage(Messages.commands().permissionMessage());
+            return;
+        }
+
+        ParseResults<C> results = dispatcher.parse(
+            (command.getName() + " " + String.join(" ", args)).trim(),
+            source
+        );
+
+        try {
+            dispatcher.execute(results);
+        } catch (CommandSyntaxException e) {
+            Map<CommandNode<C>, String> usages = dispatcher.getSmartUsage(
+                results.getContext().getNodes().getLast().getNode(),
+                source
+            );
+
+            if (usages.isEmpty()) {
+                sender.sendMessage(Messages.commands().permissionMessage());
+                return;
+            }
+
+            String nodes = results.getContext().getNodes().stream()
+                .map(node -> node.getNode().getName())
+                .collect(Collectors.joining(" "));
+
+            if (usages.size() == 1) {
+                sender.sendMessage(Messages.commands().usage(
+                    String.format("/%s %s", nodes, usages.values().iterator().next())
+                ));
+                return;
+            }
+
+            sender.sendMessage(Messages.commands().multilineUsage(
+                usages.values().stream()
+                    .map(usage -> String.format("/%s %s", nodes, usage))
+                    .toList()
+            ));
+        }
+    }
+
+    protected List<String> suggest(C source, BaseCommand command, String[] args) {
+        List<String> completions = new ArrayList<>();
+
+        dispatcher.getCompletionSuggestions(
+            dispatcher.parse(command.getName() + " " + String.join(" ", args), source)
+        ).thenAccept(suggestions -> {
+            suggestions.getList().forEach(suggestion -> {
+                completions.add(suggestion.getText());
+            });
+        });
+
+        return completions;
     }
 
 }
