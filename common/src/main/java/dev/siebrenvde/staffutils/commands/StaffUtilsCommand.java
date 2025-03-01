@@ -18,6 +18,7 @@ public class StaffUtilsCommand<C> extends BaseCommand<C> {
     @Override
     public LiteralArgumentBuilder<C> builder() {
         return literal(getName())
+            .requires(hasPermission(getRootPermission()))
             .then(literal("reload")
                 .requires(hasPermission(Permissions.COMMAND_STAFFUTILS_RELOAD))
                 .executes(withSender((ctx, sender) -> {
