@@ -17,6 +17,7 @@ import org.jspecify.annotations.Nullable;
 import org.spicord.SpicordLoader;
 
 import java.nio.file.Path;
+import java.util.List;
 import java.util.Objects;
 
 @NullMarked
@@ -44,13 +45,13 @@ public class StaffUtils {
         new LuckPermsAddon();
     }
 
-    public void registerCommands(CommandManager<?> manager) {
-        manager.registerAll(
-            new StaffChatCommand(),
-            new ReportCommand(),
-            new HelpOpCommand(),
-            new StaffUtilsCommand()
-        );
+    public <C> void registerCommands(CommandManager<C> manager) {
+        manager.registerAll(List.of(
+            new StaffChatCommand<>(),
+            new ReportCommand<>(),
+            new HelpOpCommand<>(),
+            new StaffUtilsCommand<>()
+        ));
     }
 
     public static Logger logger() { return Objects.requireNonNull(LOGGER); }

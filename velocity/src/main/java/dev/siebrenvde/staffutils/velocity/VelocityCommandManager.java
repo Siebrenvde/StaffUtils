@@ -16,13 +16,13 @@ public class VelocityCommandManager implements CommandManager<CommandSource> {
     }
 
     @Override
-    public void register(BaseCommand command) {
+    public void register(BaseCommand<CommandSource> command) {
         manager.register(
             manager.metaBuilder(command.getName())
                 .aliases(command.getAliases())
                 .plugin(StaffUtilsVelocity.getInstance())
                 .build(),
-            new BrigadierCommand(command.brigadier(this))
+            new BrigadierCommand(command.builder())
         );
     }
 
