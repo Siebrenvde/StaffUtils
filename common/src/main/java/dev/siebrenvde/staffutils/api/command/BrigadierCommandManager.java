@@ -57,7 +57,7 @@ public class BrigadierCommandManager<C> implements CommandManager<C> {
             }
 
             String nodes = results.getContext().getNodes().stream()
-                .map(node -> node.getNode().getName())
+                .map(node -> node.getNode().getUsageText())
                 .collect(Collectors.joining(" "));
 
             if (usages.size() == 1) {
