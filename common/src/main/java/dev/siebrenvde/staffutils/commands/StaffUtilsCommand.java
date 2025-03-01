@@ -2,7 +2,6 @@ package dev.siebrenvde.staffutils.commands;
 
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import dev.siebrenvde.staffutils.api.command.BaseCommand;
-import dev.siebrenvde.staffutils.api.command.CommandSender;
 import dev.siebrenvde.staffutils.config.Config;
 import dev.siebrenvde.staffutils.messages.Messages;
 import dev.siebrenvde.staffutils.util.Permissions;
@@ -22,14 +21,10 @@ public class StaffUtilsCommand<C> extends BaseCommand<C> {
             .then(literal("reload")
                 .requires(hasPermission(Permissions.COMMAND_STAFFUTILS_RELOAD))
                 .executes(withSender((ctx, sender) -> {
-                    executeReload(sender);
+                    Config.reload();
+                    sender.sendMessage(Messages.staffUtils().reloadedConfigs());
                 }))
             );
-    }
-
-    private void executeReload(CommandSender sender) {
-        Config.reload();
-        sender.sendMessage(Messages.staffUtils().reloadedConfigs());
     }
 
 }

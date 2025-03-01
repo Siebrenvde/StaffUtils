@@ -74,6 +74,13 @@ public class Messages {
             );
         }
 
+        public Component playerNotFound(String input) {
+            return miniMessage().deserialize(
+                config().playerNotFound.getRealValue(),
+                Placeholder.unparsed("input", input)
+            );
+        }
+
     }
 
     public record StaffChat(MessageConfig.StaffChat config) {
@@ -157,13 +164,6 @@ public class Messages {
             return miniMessage().deserialize(
                 config().success.getRealValue(),
                 Placeholders.sender(reportedPlayer)
-            );
-        }
-
-        public Component playerNotFound(String input) {
-            return miniMessage().deserialize(
-                config().playerNotFound.getRealValue(),
-                Placeholder.unparsed("input", input)
             );
         }
 

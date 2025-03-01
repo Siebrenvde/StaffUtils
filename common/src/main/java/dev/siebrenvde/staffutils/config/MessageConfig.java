@@ -40,6 +40,11 @@ public final class MessageConfig extends ReflectiveConfig {
         @Comment("The usage message when there are multiple possible usages ")
         public final TrackedValue<String> multilineUsage = value("<red>Usages:<br><usage>");
 
+        @Comment("Sent when the entered player was not found")
+        @Comment("Placeholders:")
+        @Comment("<input> - The entered player name")
+        public final TrackedValue<String> playerNotFound = value("<red>Player '<input>' was not found");
+
     }
 
     public final static class StaffChat extends Section {
@@ -209,11 +214,6 @@ public final class MessageConfig extends ReflectiveConfig {
         @Comment("<displayname> - The reported player's displayname")
         @Comment("<username> - The reported player's username")
         public final TrackedValue<String> success = value("Successfully reported <red><username></red>");
-
-        @Comment("The message sent to the reporter when the player was not found")
-        @Comment("Placeholders:")
-        @Comment("<input> - The name entered by the reporter")
-        public final TrackedValue<String> playerNotFound = value("<red>Player '<input>' was not found</red>");
 
     }
 

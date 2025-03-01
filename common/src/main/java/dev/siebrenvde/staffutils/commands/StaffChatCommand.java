@@ -29,7 +29,21 @@ public class StaffChatCommand<C> extends BaseCommand<C> {
     public LiteralArgumentBuilder<C> builder() {
         return literal(getName())
             .requires(hasPermission(getRootPermission()))
-            .executes(withSender((ctx, sender) -> executeToggle(sender)))
+            .executes(withSender((ctx, sender) -> {
+                if (!(sender instanceof Player player)) {
+                    sender.sendMessage(Messages.staffChat().playerOnly());
+                    return;
+                }
+                if (!SignedMessageCompat.isSupported(player)) return;
+                UUID uuid = player.getUniqueId();
+                if (!ENABLED_PLAYERS.contains(uuid)) {
+                    ENABLED_PLAYERS.add(uuid);
+                    player.sendMessage(Messages.staffChat().enabled());
+                } else {
+                    ENABLED_PLAYERS.remove(uuid);
+                    player.sendMessage(Messages.staffChat().disabled());
+                }
+            }))
             .then(argument("message", StringArgumentType.greedyString())
                 .executes(withSender((ctx, sender) -> {
                     executeSendMessage(
@@ -38,22 +52,6 @@ public class StaffChatCommand<C> extends BaseCommand<C> {
                     );
                 }))
             );
-    }
-
-    private void executeToggle(CommandSender sender) {
-        if(!(sender instanceof Player player)) {
-            sender.sendMessage(Messages.staffChat().playerOnly());
-            return;
-        }
-        if(!SignedMessageCompat.isSupported(player)) return;
-        UUID uuid = player.getUniqueId();
-        if(!ENABLED_PLAYERS.contains(uuid)) {
-            ENABLED_PLAYERS.add(uuid);
-            player.sendMessage(Messages.staffChat().enabled());
-        } else {
-            ENABLED_PLAYERS.remove(uuid);
-            player.sendMessage(Messages.staffChat().disabled());
-        }
     }
 
     public static void executeSendMessage(CommandSender sender, String message) {
