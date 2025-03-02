@@ -26,11 +26,11 @@ public class BrigadierCommandManager<C> implements CommandManager<C> {
     }
 
     @Override
-    public void register(BaseCommand command) {
-        dispatcher.register(command.brigadier(this));
+    public void register(BaseCommand<C> command) {
+        dispatcher.register(command.builder());
     }
 
-    protected void execute(C source, BaseCommand command, String[] args) {
+    protected void execute(C source, BaseCommand<C> command, String[] args) {
         CommandSender sender = CommandSender.of(source);
 
         if (command.getRootPermission() != null && !sender.hasPermission(command.getRootPermission())) {
@@ -57,7 +57,7 @@ public class BrigadierCommandManager<C> implements CommandManager<C> {
             }
 
             String nodes = results.getContext().getNodes().stream()
-                .map(node -> node.getNode().getName())
+                .map(node -> node.getNode().getUsageText())
                 .collect(Collectors.joining(" "));
 
             if (usages.size() == 1) {
@@ -75,7 +75,7 @@ public class BrigadierCommandManager<C> implements CommandManager<C> {
         }
     }
 
-    protected List<String> suggest(C source, BaseCommand command, String[] args) {
+    protected List<String> suggest(C source, BaseCommand<C> command, String[] args) {
         List<String> completions = new ArrayList<>();
 
         dispatcher.getCompletionSuggestions(

@@ -18,17 +18,17 @@ public class BungeeCommandManager extends BrigadierCommandManager<CommandSender>
     }
 
     @Override
-    public void register(BaseCommand command) {
+    public void register(BaseCommand<CommandSender> command) {
         super.register(command);
         manager.registerCommand(StaffUtilsBungee.getInstance(), new BungeeCommand(command, this));
     }
 
     private static class BungeeCommand extends Command implements TabExecutor {
 
-        private final BaseCommand command;
+        private final BaseCommand<CommandSender> command;
         private final BungeeCommandManager manager;
 
-        public BungeeCommand(BaseCommand command, BungeeCommandManager manager) {
+        public BungeeCommand(BaseCommand<CommandSender> command, BungeeCommandManager manager) {
             super(command.getName(), command.getRootPermission(), command.getAliases());
             this.command = command;
             this.manager = manager;

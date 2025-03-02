@@ -9,8 +9,6 @@ import dev.siebrenvde.configlib.libs.quilt.config.api.annotations.Comment;
 import dev.siebrenvde.configlib.libs.quilt.config.api.values.*;
 import dev.siebrenvde.configlib.metadata.SkipWrite;
 import dev.siebrenvde.staffutils.api.command.BaseCommand;
-import dev.siebrenvde.staffutils.api.command.CommandManager;
-import dev.siebrenvde.staffutils.api.command.CommandSender;
 import dev.siebrenvde.staffutils.config.Config;
 import dev.siebrenvde.staffutils.config.annotations.WordString;
 import dev.siebrenvde.staffutils.messages.Messages;
@@ -28,52 +26,47 @@ import java.util.List;
 
 import static dev.siebrenvde.configlib.libs.quilt.config.impl.util.SerializerUtils.getSerializedName;
 import static dev.siebrenvde.configlib.utils.ConfigUtils.getDisplayName;
-import static dev.siebrenvde.staffutils.util.BrigadierUtils.hasPermission;
-import static dev.siebrenvde.staffutils.util.BrigadierUtils.withSender;
 import static net.kyori.adventure.text.Component.*;
 
 @NullMarked
-public class StaffUtilsCommand extends BaseCommand {
+public class StaffUtilsCommand<C> extends BaseCommand<C> {
 
     public StaffUtilsCommand() {
         super(Config.commands().staffUtils, Permissions.COMMAND_STAFFUTILS);
     }
 
     @Override
-    public <C> LiteralArgumentBuilder<C> brigadier(CommandManager<C> manager) {
-        return manager.literal(getName())
-            .then(manager.literal("reload")
+    public LiteralArgumentBuilder<C> builder() {
+        return literal(getName())
+            .requires(hasPermission(getRootPermission()))
+            .then(literal("reload")
                 .requires(hasPermission(Permissions.COMMAND_STAFFUTILS_RELOAD))
                 .executes(withSender((ctx, sender) -> {
-                    executeReload(sender);
+                    Config.reload();
+                    sender.sendMessage(Messages.staffUtils().reloadedConfigs());
                 }))
             )
-            .then(configLiteral(manager, Config.config()))
-            .then(configLiteral(manager, Config.messages()))
-            .then(configLiteral(manager, Config.commands()));
+            .then(configLiteral(Config.config()))
+            .then(configLiteral(Config.messages()))
+            .then(configLiteral(Config.commands()));
     }
 
-    private void executeReload(CommandSender sender) {
-        Config.reload();
-        sender.sendMessage(Messages.staffUtils().reloadedConfigs());
-    }
-
-    private <C> LiteralArgumentBuilder<C> configLiteral(CommandManager<C> manager, ReflectiveConfig config) {
-        LiteralArgumentBuilder<C> builder = manager.literal(config.id());
+    private LiteralArgumentBuilder<C> configLiteral(ReflectiveConfig config) {
+        LiteralArgumentBuilder<C> builder = literal(config.id());
         builder.requires(hasPermission(Permissions.COMMAND_STAFFUTILS + "." + config.id()));
-        createCommandNodes(manager, builder, config.nodes());
+        createCommandNodes(builder, config.nodes());
         return builder;
     }
 
-    private <C> void createCommandNodes(CommandManager<C> manager, LiteralArgumentBuilder<C> builder, Iterable<ValueTreeNode> nodes) {
+    private void createCommandNodes(LiteralArgumentBuilder<C> builder, Iterable<ValueTreeNode> nodes) {
         for(ValueTreeNode node : nodes) {
             if(node.hasMetadata(SkipWrite.TYPE)) continue;
 
-            LiteralArgumentBuilder<C> nodeLiteral = manager.literal(getSerializedName(node));
+            LiteralArgumentBuilder<C> nodeLiteral = literal(getSerializedName(node));
 
             if(node instanceof TrackedValue<?> value) {
 
-                nodeLiteral.then(manager.literal("get")
+                nodeLiteral.then(literal("get")
                     .executes(withSender((ctx, sender) -> {
                         sender.sendMessage(
                             text()
@@ -89,8 +82,8 @@ public class StaffUtilsCommand extends BaseCommand {
 
                     ArgumentType<?> type = asArgumentType(list.getDefaultValue(), value);
 
-                    nodeLiteral.then(manager.literal("add")
-                        .then(manager.argument("value", type)
+                    nodeLiteral.then(literal("add")
+                        .then(argument("value", type)
                             .executes(withSender((ctx, sender) -> {
                                 Object input = fromArgumentType(ctx, "value", type);
                                 addValueToList(list, input);
@@ -99,13 +92,13 @@ public class StaffUtilsCommand extends BaseCommand {
                         )
                     );
 
-                    nodeLiteral.then(manager.literal("remove")
-                        .then(manager.argument("index", IntegerArgumentType.integer(0))
+                    nodeLiteral.then(literal("remove")
+                        .then(argument("index", IntegerArgumentType.integer(0))
                             .suggests((ctx, suggestions) -> {
                                 int index = 0;
                                 for(Object obj : list.values()) {
                                     if(String.valueOf(index).startsWith(suggestions.getRemaining())) {
-                                        suggestions.suggest(index, manager.message(asString(obj)));
+                                        suggestions.suggest(index, message(asString(obj)));
                                     }
                                     index++;
                                 }
@@ -129,7 +122,7 @@ public class StaffUtilsCommand extends BaseCommand {
                         )
                     );
 
-                    nodeLiteral.then(manager.literal("clear")
+                    nodeLiteral.then(literal("clear")
                         .executes(withSender((ctx, sender) -> {
                             list.clear();
                             sender.sendMessage(text("Cleared"));
@@ -140,9 +133,9 @@ public class StaffUtilsCommand extends BaseCommand {
 
                     ArgumentType<?> type = asArgumentType(map.getDefaultValue(), value);
 
-                    nodeLiteral.then(manager.literal("put")
-                        .then(manager.argument("key", StringArgumentType.word())
-                            .then(manager.argument("value", type)
+                    nodeLiteral.then(literal("put")
+                        .then(argument("key", StringArgumentType.word())
+                            .then(argument("value", type)
                                 .executes(withSender((ctx, sender) -> {
                                     String key = StringArgumentType.getString(ctx, "key");
                                     Object input = fromArgumentType(ctx, "value", type);
@@ -159,8 +152,8 @@ public class StaffUtilsCommand extends BaseCommand {
                         )
                     );
 
-                    nodeLiteral.then(manager.literal("remove")
-                        .then(manager.argument("key", StringArgumentType.word())
+                    nodeLiteral.then(literal("remove")
+                        .then(argument("key", StringArgumentType.word())
                             .suggests((ctx, suggestions) -> {
                                 map.keySet().forEach(key -> {
                                     if(key.startsWith(suggestions.getRemaining())) suggestions.suggest(key);
@@ -179,7 +172,7 @@ public class StaffUtilsCommand extends BaseCommand {
                         )
                     );
 
-                    nodeLiteral.then(manager.literal("clear")
+                    nodeLiteral.then(literal("clear")
                         .executes(withSender((ctx, sender) -> {
                             map.clear();
                             sender.sendMessage(text("Cleared"));
@@ -190,8 +183,8 @@ public class StaffUtilsCommand extends BaseCommand {
 
                     ArgumentType<?> type = asArgumentType(value.getRealValue(), value);
 
-                    nodeLiteral.then(manager.literal("set")
-                        .then(manager.argument("value", type)
+                    nodeLiteral.then(literal("set")
+                        .then(argument("value", type)
                             .executes(withSender((ctx, sender) -> {
                                 Object input = fromArgumentType(ctx, "value", type);
                                 setValue(value, input);
@@ -200,7 +193,7 @@ public class StaffUtilsCommand extends BaseCommand {
                         )
                     );
 
-                    nodeLiteral.then(manager.literal("reset")
+                    nodeLiteral.then(literal("reset")
                         .executes(withSender((ctx, sender) -> {
                             resetValue(value);
                         }))
@@ -209,7 +202,7 @@ public class StaffUtilsCommand extends BaseCommand {
                 }
 
             } else {
-                createCommandNodes(manager, nodeLiteral, (ValueTreeNode.Section) node);
+                createCommandNodes(nodeLiteral, (ValueTreeNode.Section) node);
             }
 
             builder.then(nodeLiteral);
@@ -300,7 +293,7 @@ public class StaffUtilsCommand extends BaseCommand {
     }
 
     @SuppressWarnings("SameParameterValue")
-    private <C> Object fromArgumentType(CommandContext<C> ctx, String name, ArgumentType<?> type) {
+    private Object fromArgumentType(CommandContext<C> ctx, String name, ArgumentType<?> type) {
         return switch (type) {
             case StringArgumentType ignored -> StringArgumentType.getString(ctx, name);
             case BoolArgumentType ignored -> BoolArgumentType.getBool(ctx, name);

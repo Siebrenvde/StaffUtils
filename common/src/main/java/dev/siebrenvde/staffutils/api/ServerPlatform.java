@@ -1,5 +1,7 @@
 package dev.siebrenvde.staffutils.api;
 
+import com.mojang.brigadier.LiteralMessage;
+import com.mojang.brigadier.Message;
 import dev.siebrenvde.staffutils.api.command.CommandSender;
 import dev.siebrenvde.staffutils.api.player.Player;
 import org.jspecify.annotations.NullMarked;
@@ -43,6 +45,10 @@ public interface ServerPlatform {
      */
     default boolean isProxy() {
         return getServerType() == ServerType.VELOCITY || getServerType() == ServerType.BUNGEECORD;
+    }
+
+    default Message message(String message) {
+        return new LiteralMessage(message);
     }
 
 }

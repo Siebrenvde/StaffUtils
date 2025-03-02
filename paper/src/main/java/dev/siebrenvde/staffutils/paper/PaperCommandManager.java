@@ -19,9 +19,9 @@ public class PaperCommandManager implements CommandManager<CommandSourceStack> {
     }
 
     @Override
-    public void register(BaseCommand command) {
+    public void register(BaseCommand<CommandSourceStack> command) {
         commands.register(
-            command.brigadier(this).build(),
+            command.builder().build(),
             command.getDescription(),
             List.of(command.getAliases())
         );

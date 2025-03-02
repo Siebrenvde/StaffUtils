@@ -16,7 +16,7 @@ import java.util.List;
 public class SpigotCommandManager extends BrigadierCommandManager<CommandSender> {
 
     @Override
-    public void register(BaseCommand command) {
+    public void register(BaseCommand<CommandSender> command) {
         super.register(command);
 
         CommandMap commandMap;
@@ -44,7 +44,7 @@ public class SpigotCommandManager extends BrigadierCommandManager<CommandSender>
         commandMap.register(command.getName(), "staffutils", pluginCommand);
     }
 
-    private record SpigotCommand(BaseCommand command, SpigotCommandManager manager) implements TabExecutor {
+    private record SpigotCommand(BaseCommand<CommandSender> command, SpigotCommandManager manager) implements TabExecutor {
 
         @Override
         public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
