@@ -1,20 +1,23 @@
 plugins {
-    id("net.kyori.indra.git") version "3.1.3"
-    id("net.kyori.blossom") version "2.1.0"
-    id("org.jetbrains.gradle.plugin.idea-ext") version "1.1.10"
+    id("staffutils.common-conventions")
+    alias(libs.plugins.indra.git)
+    alias(libs.plugins.blossom)
+    alias(libs.plugins.idea.ext)
 }
 
 dependencies {
-    implementation("dev.siebrenvde:ConfigLib:0.2.0")
-    compileOnly("com.github.Spicord.Spicord:spicord-common:5.6.0")
-    compileOnly("net.dv8tion:JDA:5.0.1")
-    compileOnly("com.mojang:brigadier:1.0.18")
-    compileOnly("net.luckperms:api:5.4")
-    implementation("net.kyori:adventure-api:4.18.0")
-    implementation("net.kyori:adventure-text-minimessage:4.18.0")
-    implementation("net.kyori:adventure-text-serializer-plain:4.18.0")
-    implementation("net.kyori:adventure-text-serializer-legacy:4.18.0")
-    implementation("org.jspecify:jspecify:1.0.0")
+    implementation(libs.configlib)
+    compileOnly(libs.jspecify)
+    compileOnly(libs.brigadier)
+    compileOnly(libs.jda)
+
+    implementation(libs.adventure)
+    implementation(libs.minimessage)
+    implementation(libs.adventure.serialiser.plain)
+    implementation(libs.adventure.serialiser.legacy)
+
+    compileOnly(libs.luckperms)
+    compileOnly(libs.spicord)
 }
 
 sourceSets.main {

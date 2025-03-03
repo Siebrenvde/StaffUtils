@@ -1,12 +1,12 @@
 plugins {
-    id("xyz.jpenilla.resource-factory-velocity-convention") version "1.2.0"
+    id("staffutils.common-conventions")
+    alias(libs.plugins.resource.factory.velocity)
 }
 
 dependencies {
     implementation(project(":common"))
-    compileOnly("com.velocitypowered:velocity-api:3.4.0-SNAPSHOT")
-    annotationProcessor("com.velocitypowered:velocity-api:3.4.0-SNAPSHOT")
-    implementation("org.bstats:bstats-velocity:3.1.0")
+    compileOnly(libs.velocity)
+    implementation(libs.bstats.velocity)
 }
 
 velocityPluginJson {
