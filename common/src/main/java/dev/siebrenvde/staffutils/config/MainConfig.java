@@ -11,7 +11,7 @@ import org.jspecify.annotations.NullMarked;
 
 @SerializedNameConvention(NamingSchemes.SNAKE_CASE)
 @NullMarked
-public class MainConfig extends ReflectiveConfig {
+public final class MainConfig extends ReflectiveConfig {
 
     @Comment("The id of the staff channel")
     public final TrackedValue<String> staffChannel = value("");

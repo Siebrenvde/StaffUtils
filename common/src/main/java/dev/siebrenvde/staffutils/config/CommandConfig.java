@@ -40,7 +40,7 @@ public class CommandConfig extends ReflectiveConfig {
         "Ask staff for help"
     );
 
-    public static class Command extends Section {
+    public static final class Command extends Section {
         public final TrackedValue<Boolean> enabled;
         public final TrackedValue<String> name;
         public final TrackedValue<ValueList<String>> aliases;
