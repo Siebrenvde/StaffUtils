@@ -1,4 +1,4 @@
-package dev.siebrenvde.staffutils.spigot;
+package dev.siebrenvde.staffutils.paper;
 
 import dev.siebrenvde.staffutils.api.player.Player;
 import net.kyori.adventure.text.Component;
@@ -7,11 +7,11 @@ import org.jspecify.annotations.NullMarked;
 import java.util.UUID;
 
 @NullMarked
-public class SpigotPlayer extends SpigotCommandSender implements Player {
+public class PaperPlayer extends PaperCommandSender implements Player {
 
     private final org.bukkit.entity.Player player;
 
-    public SpigotPlayer(org.bukkit.entity.Player player) {
+    public PaperPlayer(org.bukkit.entity.Player player) {
         super(player);
         this.player = player;
     }
@@ -23,7 +23,7 @@ public class SpigotPlayer extends SpigotCommandSender implements Player {
 
     @Override
     public Component getDisplayName() {
-        return Component.text(player.getDisplayName());
+        return player.displayName();
     }
 
 }

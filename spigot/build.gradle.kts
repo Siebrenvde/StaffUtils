@@ -1,16 +1,20 @@
 plugins {
-    id("staffutils.common-conventions")
+    id("staffutils.implementation-conventions")
     alias(libs.plugins.resource.factory.bukkit)
 }
 
 dependencies {
     implementation(project(":common"))
-    implementation(project(":paper"))
     compileOnly(libs.spigot)
     compileOnly(libs.brigadier)
+    implementation(libs.bundles.adventure)
     implementation(libs.adventure.bukkit)
     implementation(libs.bstats.bukkit)
-    implementation(libs.jspecify)
+    compileOnly(libs.jspecify)
+}
+
+tasks.shadowJar {
+    relocate("net.kyori", "dev.siebrenvde.staffutils.libs.kyori")
 }
 
 bukkitPluginYaml {

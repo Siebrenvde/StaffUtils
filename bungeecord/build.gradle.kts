@@ -1,14 +1,19 @@
 plugins {
-    id("staffutils.common-conventions")
+    id("staffutils.implementation-conventions")
     alias(libs.plugins.resource.factory.bungee)
 }
 
 dependencies {
     implementation(project(":common"))
     compileOnly(libs.bungee)
+    implementation(libs.bundles.adventure)
     implementation(libs.adventure.bungee)
     implementation(libs.bstats.bungee)
-    implementation(libs.jspecify)
+    compileOnly(libs.jspecify)
+}
+
+tasks.shadowJar {
+    relocate("net.kyori", "dev.siebrenvde.staffutils.libs.kyori")
 }
 
 bungeePluginYaml {

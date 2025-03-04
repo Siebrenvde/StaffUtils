@@ -1,5 +1,5 @@
 plugins {
-    id("staffutils.common-conventions")
+    id("staffutils.implementation-conventions")
     alias(libs.plugins.resource.factory.velocity)
 }
 

@@ -1,24 +1,29 @@
 package dev.siebrenvde.staffutils.paper;
 
 import dev.siebrenvde.staffutils.StaffUtils;
-import io.papermc.paper.command.brigadier.CommandSourceStack;
+import dev.siebrenvde.staffutils.spigot.SpigotPlatform;
+import dev.siebrenvde.staffutils.spigot.StaffUtilsSpigot;
 import io.papermc.paper.plugin.lifecycle.event.types.LifecycleEvents;
-import org.bukkit.plugin.java.JavaPlugin;
 import org.jspecify.annotations.NullMarked;
 
 @NullMarked
-public class StaffUtilsPaper {
+public class StaffUtilsPaper extends StaffUtilsSpigot {
+
+    @Override
+    protected SpigotPlatform createPlatform() {
+        return new PaperPlatform();
+    }
 
     @SuppressWarnings("UnstableApiUsage")
-    public static void registerCommands(JavaPlugin plugin, StaffUtils staffUtils) {
-        plugin.getLifecycleManager().registerEventHandler(LifecycleEvents.COMMANDS, event -> {
+    @Override
+    protected void registerCommands(StaffUtils staffUtils) {
+        StaffUtils.logger().optional("Registering commands using Brigadier");
+        getLifecycleManager().registerEventHandler(LifecycleEvents.COMMANDS, event -> {
             staffUtils.registerCommands(new PaperCommandManager(event.registrar()));
         });
     }
 
-    @SuppressWarnings({"UnstableApiUsage", "unchecked"})
-    public static <S, C> C senderFromSourceStack(S sourceStack) {
-        return (C) ((CommandSourceStack) sourceStack).getSender();
-    }
+    @Override
+    protected void suggestPaper() {} // Disable
 
 }

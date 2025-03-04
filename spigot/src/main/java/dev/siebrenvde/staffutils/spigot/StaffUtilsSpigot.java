@@ -1,8 +1,6 @@
 package dev.siebrenvde.staffutils.spigot;
 
 import dev.siebrenvde.staffutils.StaffUtils;
-import dev.siebrenvde.staffutils.paper.PaperCompat;
-import dev.siebrenvde.staffutils.paper.StaffUtilsPaper;
 import net.kyori.adventure.platform.bukkit.BukkitAudiences;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -11,8 +9,10 @@ import org.jspecify.annotations.Nullable;
 
 import java.util.Objects;
 
+import static dev.siebrenvde.staffutils.StaffUtils.logger;
+
 @NullMarked
-public final class StaffUtilsSpigot extends JavaPlugin {
+public class StaffUtilsSpigot extends JavaPlugin {
 
     @Nullable private static StaffUtilsSpigot instance;
     @Nullable private static BukkitAudiences adventure;
@@ -21,10 +21,12 @@ public final class StaffUtilsSpigot extends JavaPlugin {
     public void onEnable() {
         new Metrics(this, 24627);
         instance = this;
-        adventure = BukkitAudiences.create(this);
+        try {
+            adventure = BukkitAudiences.create(this);
+        } catch (NoClassDefFoundError ignored) {}
         StaffUtils staffUtils = new StaffUtils(
             getDataFolder().toPath(),
-            new SpigotPlatform(),
+            createPlatform(),
             new SpigotServer(),
             new SpigotLogger(getLogger())
         );
@@ -32,17 +34,28 @@ public final class StaffUtilsSpigot extends JavaPlugin {
 
         SpigotEventListeners.register(this);
 
-        if(PaperCompat.hasBrigadier()) {
-            StaffUtils.logger().optional("Registering commands using Brigadier");
-            StaffUtilsPaper.registerCommands(this, staffUtils);
-        } else {
-            StaffUtils.logger().optional("Registering commands using Spigot's outdated system");
-            staffUtils.registerCommands(new SpigotCommandManager());
-        }
+        registerCommands(staffUtils);
 
-        if(!PaperCompat.isPaper()) {
-            StaffUtils.logger().info("It looks like you're using Spigot");
-            StaffUtils.logger().info("This plugin works better using Paper");
+        suggestPaper();
+    }
+
+    protected SpigotPlatform createPlatform() {
+        return new SpigotPlatform();
+    }
+
+    protected void registerCommands(StaffUtils staffUtils) {
+        logger().optional("Registering commands using Spigot's outdated system");
+        staffUtils.registerCommands(new SpigotCommandManager());
+    }
+
+    protected void suggestPaper() {
+        try {
+            Class.forName("io.papermc.paper.configuration.Configuration");
+            logger().warn("You're using the Spigot version of this plugin on a Paper server");
+            logger().warn("You should download the Paper version for a better experience");
+        } catch (ClassNotFoundException ignored) {
+            logger().info("It looks like you're using Spigot");
+            logger().info("This plugin works better using Paper");
         }
     }
 

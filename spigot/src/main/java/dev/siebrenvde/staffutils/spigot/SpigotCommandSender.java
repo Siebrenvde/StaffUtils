@@ -7,7 +7,7 @@ import org.jspecify.annotations.NullMarked;
 @NullMarked
 public class SpigotCommandSender implements CommandSender {
 
-    private final org.bukkit.command.CommandSender sender;
+    protected final org.bukkit.command.CommandSender sender;
 
     public SpigotCommandSender(org.bukkit.command.CommandSender sender) {
         this.sender = sender;

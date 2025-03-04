@@ -11,10 +11,7 @@ dependencies {
     compileOnly(libs.brigadier)
     compileOnly(libs.jda)
 
-    implementation(libs.adventure)
-    implementation(libs.minimessage)
-    implementation(libs.adventure.serialiser.plain)
-    implementation(libs.adventure.serialiser.legacy)
+    compileOnly(libs.bundles.adventure)
 
     compileOnly(libs.luckperms)
     compileOnly(libs.spicord)
