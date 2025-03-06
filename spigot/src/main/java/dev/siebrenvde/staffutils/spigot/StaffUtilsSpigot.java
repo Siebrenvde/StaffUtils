@@ -32,7 +32,7 @@ public class StaffUtilsSpigot extends JavaPlugin {
         );
         staffUtils.load();
 
-        SpigotEventListeners.register(this);
+        registerListeners();
 
         registerCommands(staffUtils);
 
@@ -41,6 +41,10 @@ public class StaffUtilsSpigot extends JavaPlugin {
 
     protected SpigotPlatform createPlatform() {
         return new SpigotPlatform();
+    }
+
+    protected void registerListeners() {
+        new SpigotEventListeners().register(this);
     }
 
     protected void registerCommands(StaffUtils staffUtils) {

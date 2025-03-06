@@ -14,6 +14,11 @@ public class StaffUtilsPaper extends StaffUtilsSpigot {
         return new PaperPlatform();
     }
 
+    @Override
+    protected void registerListeners() {
+        new PaperEventListeners().register(this);
+    }
+
     @SuppressWarnings("UnstableApiUsage")
     @Override
     protected void registerCommands(StaffUtils staffUtils) {

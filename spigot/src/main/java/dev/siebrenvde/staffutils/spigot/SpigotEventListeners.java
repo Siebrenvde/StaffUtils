@@ -14,12 +14,11 @@ import org.jspecify.annotations.NullMarked;
 @NullMarked
 public class SpigotEventListeners extends EventListeners implements Listener {
 
-    public static void register(JavaPlugin plugin) {
+    public void register(JavaPlugin plugin) {
         PluginManager manager = plugin.getServer().getPluginManager();
 
-        SpigotEventListeners instance = new SpigotEventListeners();
-        manager.registerEvents(instance, plugin);
-        manager.registerEvents(instance.getChatListener(), plugin);
+        manager.registerEvents(this, plugin);
+        manager.registerEvents(getChatListener(), plugin);
     }
 
     protected Listener getChatListener() {
