@@ -5,6 +5,7 @@ import com.mojang.brigadier.arguments.ArgumentType;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import com.mojang.brigadier.builder.RequiredArgumentBuilder;
 import com.mojang.brigadier.context.CommandContext;
+import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import dev.siebrenvde.staffutils.config.CommandConfig;
 import org.jspecify.annotations.NullMarked;
 import org.jspecify.annotations.Nullable;
@@ -96,7 +97,7 @@ public abstract class BaseCommand<C> {
 
     @FunctionalInterface
     protected interface SenderCommand<C> {
-        void run(CommandContext<C> ctx, CommandSender sender);
+        void run(CommandContext<C> ctx, CommandSender sender) throws CommandSyntaxException;
     }
 
     /**

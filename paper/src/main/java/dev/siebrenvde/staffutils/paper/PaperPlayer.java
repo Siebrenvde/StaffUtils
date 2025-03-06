@@ -1,6 +1,7 @@
 package dev.siebrenvde.staffutils.paper;
 
 import dev.siebrenvde.staffutils.api.player.Player;
+import dev.siebrenvde.staffutils.paper.command.PaperCommandSender;
 import net.kyori.adventure.text.Component;
 import org.jspecify.annotations.NullMarked;
 

@@ -9,6 +9,7 @@ dependencies {
         exclude(group = "net.kyori")
     }
     compileOnly(libs.paper)
+    implementation(libs.bstats.bukkit)
 }
 
 bukkitPluginYaml {

@@ -1,34 +1,41 @@
 package dev.siebrenvde.staffutils.paper;
 
 import dev.siebrenvde.staffutils.StaffUtils;
-import dev.siebrenvde.staffutils.spigot.SpigotPlatform;
-import dev.siebrenvde.staffutils.spigot.StaffUtilsSpigot;
+import dev.siebrenvde.staffutils.paper.command.PaperCommandArguments;
+import dev.siebrenvde.staffutils.paper.command.PaperCommandManager;
+import dev.siebrenvde.staffutils.spigot.SpigotLogger;
+import dev.siebrenvde.staffutils.spigot.SpigotServer;
 import io.papermc.paper.plugin.lifecycle.event.types.LifecycleEvents;
+import org.bstats.bukkit.Metrics;
+import org.bukkit.plugin.java.JavaPlugin;
 import org.jspecify.annotations.NullMarked;
 
 @NullMarked
-public class StaffUtilsPaper extends StaffUtilsSpigot {
+public class StaffUtilsPaper extends JavaPlugin {
 
     @Override
-    protected SpigotPlatform createPlatform() {
-        return new PaperPlatform();
-    }
+    public void onEnable() {
+        new Metrics(this, 24627);
+        StaffUtils staffUtils = new StaffUtils(
+            getDataFolder().toPath(),
+            new PaperPlatform(),
+            new SpigotServer(),
+            new SpigotLogger(getLogger()),
+            new PaperCommandArguments()
+        );
+        staffUtils.load();
 
-    @Override
-    protected void registerListeners() {
         new PaperEventListeners().register(this);
+
+        registerCommands(staffUtils);
     }
 
     @SuppressWarnings("UnstableApiUsage")
-    @Override
     protected void registerCommands(StaffUtils staffUtils) {
         StaffUtils.logger().optional("Registering commands using Brigadier");
         getLifecycleManager().registerEventHandler(LifecycleEvents.COMMANDS, event -> {
             staffUtils.registerCommands(new PaperCommandManager(event.registrar()));
         });
     }
-
-    @Override
-    protected void suggestPaper() {} // Disable
 
 }

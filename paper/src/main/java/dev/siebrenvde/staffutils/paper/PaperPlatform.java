@@ -3,6 +3,7 @@ package dev.siebrenvde.staffutils.paper;
 import dev.siebrenvde.staffutils.api.ServerType;
 import dev.siebrenvde.staffutils.api.command.CommandSender;
 import dev.siebrenvde.staffutils.api.player.Player;
+import dev.siebrenvde.staffutils.paper.command.PaperCommandSender;
 import dev.siebrenvde.staffutils.spigot.SpigotPlatform;
 import io.papermc.paper.command.brigadier.CommandSourceStack;
 import org.jspecify.annotations.NullMarked;

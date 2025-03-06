@@ -21,38 +21,28 @@ public class StaffUtilsSpigot extends JavaPlugin {
     public void onEnable() {
         new Metrics(this, 24627);
         instance = this;
-        try {
-            adventure = BukkitAudiences.create(this);
-        } catch (NoClassDefFoundError ignored) {}
+        adventure = BukkitAudiences.create(this);
         StaffUtils staffUtils = new StaffUtils(
             getDataFolder().toPath(),
-            createPlatform(),
+            new SpigotPlatform(),
             new SpigotServer(),
             new SpigotLogger(getLogger())
         );
         staffUtils.load();
 
-        registerListeners();
+        new SpigotEventListeners().register(this);
 
         registerCommands(staffUtils);
 
         suggestPaper();
     }
 
-    protected SpigotPlatform createPlatform() {
-        return new SpigotPlatform();
-    }
-
-    protected void registerListeners() {
-        new SpigotEventListeners().register(this);
-    }
-
-    protected void registerCommands(StaffUtils staffUtils) {
+    private void registerCommands(StaffUtils staffUtils) {
         logger().optional("Registering commands using Spigot's outdated system");
         staffUtils.registerCommands(new SpigotCommandManager());
     }
 
-    protected void suggestPaper() {
+    private void suggestPaper() {
         try {
             Class.forName("io.papermc.paper.configuration.Configuration");
             logger().warn("You're using the Spigot version of this plugin on a Paper server");

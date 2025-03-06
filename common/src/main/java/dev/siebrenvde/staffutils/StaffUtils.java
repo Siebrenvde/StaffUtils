@@ -1,7 +1,9 @@
 package dev.siebrenvde.staffutils;
 
 import dev.siebrenvde.staffutils.addons.LuckPermsAddon;
+import dev.siebrenvde.staffutils.api.command.argument.CommandArguments;
 import dev.siebrenvde.staffutils.api.server.Server;
+import dev.siebrenvde.staffutils.argument.CommandArgumentsImpl;
 import dev.siebrenvde.staffutils.commands.HelpOpCommand;
 import dev.siebrenvde.staffutils.commands.ReportCommand;
 import dev.siebrenvde.staffutils.commands.StaffUtilsCommand;
@@ -28,12 +30,18 @@ public class StaffUtils {
     @Nullable private static ServerPlatform platform;
     @Nullable private static Server server;
     @Nullable private static SpicordAddon spicordAddon;
+    @Nullable private static CommandArguments commandArguments;
 
     public StaffUtils(Path dataDirectory, ServerPlatform serverPlatform, Server globalServer, Logger logger) {
+        this(dataDirectory, serverPlatform, globalServer, logger, new CommandArgumentsImpl());
+    }
+
+    public StaffUtils(Path dataDirectory, ServerPlatform serverPlatform, Server globalServer, Logger logger, CommandArguments arguments) {
         LOGGER = logger;
         platform = serverPlatform;
         server = globalServer;
         Config.load(dataDirectory);
+        commandArguments = arguments;
     }
 
     public void load() {
@@ -58,5 +66,6 @@ public class StaffUtils {
     public static ServerPlatform getPlatform() { return Objects.requireNonNull(platform); }
     public static Server getServer() { return Objects.requireNonNull(server); }
     public static SpicordAddon getSpicord() { return Objects.requireNonNull(spicordAddon); }
+    public static CommandArguments getCommandArguments() { return Objects.requireNonNull(commandArguments); }
 
 }
