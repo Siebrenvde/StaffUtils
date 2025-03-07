@@ -1,6 +1,5 @@
 package dev.siebrenvde.staffutils.spigot;
 
-import dev.siebrenvde.staffutils.StaffUtils;
 import dev.siebrenvde.staffutils.api.player.Player;
 import dev.siebrenvde.staffutils.api.server.Server;
 import org.bukkit.Bukkit;
