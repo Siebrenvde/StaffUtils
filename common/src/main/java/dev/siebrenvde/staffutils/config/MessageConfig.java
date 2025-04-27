@@ -1,15 +1,15 @@
 package dev.siebrenvde.staffutils.config;
 
-import dev.siebrenvde.configlib.libs.quilt.config.api.ReflectiveConfig;
-import dev.siebrenvde.configlib.libs.quilt.config.api.annotations.Comment;
-import dev.siebrenvde.configlib.libs.quilt.config.api.annotations.SerializedName;
-import dev.siebrenvde.configlib.libs.quilt.config.api.annotations.SerializedNameConvention;
-import dev.siebrenvde.configlib.libs.quilt.config.api.metadata.NamingSchemes;
-import dev.siebrenvde.configlib.libs.quilt.config.api.values.TrackedValue;
 import dev.siebrenvde.configlib.metadata.ConfigComment;
 import dev.siebrenvde.staffutils.config.annotations.RequireNonProxy;
 import dev.siebrenvde.staffutils.config.annotations.RequireProxy;
 import org.jspecify.annotations.NullMarked;
+import org.quiltmc.config.api.ReflectiveConfig;
+import org.quiltmc.config.api.annotations.Comment;
+import org.quiltmc.config.api.annotations.SerializedName;
+import org.quiltmc.config.api.annotations.SerializedNameConvention;
+import org.quiltmc.config.api.metadata.NamingSchemes;
+import org.quiltmc.config.api.values.TrackedValue;
 
 @ConfigComment("All in-game messages are formatted using MiniMessage")
 @ConfigComment("You can use the MiniMessage Viewer to preview and format your messages:")

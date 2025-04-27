@@ -1,13 +1,14 @@
 package dev.siebrenvde.staffutils.config;
 
 import dev.siebrenvde.configlib.ConfigLib;
-import dev.siebrenvde.configlib.libs.quilt.config.api.ReflectiveConfig;
-import dev.siebrenvde.configlib.libs.quilt.config.impl.ConfigFieldAnnotationProcessors;
-import dev.siebrenvde.configlib.serialisers.TomlSerialiser;
+import dev.siebrenvde.configlib.metadata.SkipWrite;
+import dev.siebrenvde.configlib.serialisers.toml.TomlSerialiser;
+import dev.siebrenvde.staffutils.StaffUtils;
 import dev.siebrenvde.staffutils.config.annotations.RequireNonProxy;
 import dev.siebrenvde.staffutils.config.annotations.RequireProxy;
 import org.jspecify.annotations.NullMarked;
 import org.jspecify.annotations.Nullable;
+import org.quiltmc.config.api.ReflectiveConfig;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -20,8 +21,8 @@ public class Config {
     @Nullable private static Path configPath;
 
     static {
-        ConfigFieldAnnotationProcessors.register(RequireProxy.class, new RequireProxy.Processor());
-        ConfigFieldAnnotationProcessors.register(RequireNonProxy.class, new RequireNonProxy.Processor());
+        SkipWrite.skipWhen(RequireProxy.class, !StaffUtils.getPlatform().isProxy());
+        SkipWrite.skipWhen(RequireNonProxy.class, StaffUtils.getPlatform().isProxy());
     }
 
     @Nullable private static MainConfig CONFIG;

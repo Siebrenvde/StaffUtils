@@ -1,12 +1,12 @@
 package dev.siebrenvde.staffutils.config;
 
-import dev.siebrenvde.configlib.libs.quilt.config.api.ReflectiveConfig;
-import dev.siebrenvde.configlib.libs.quilt.config.api.annotations.SerializedName;
-import dev.siebrenvde.configlib.libs.quilt.config.api.values.TrackedValue;
-import dev.siebrenvde.configlib.libs.quilt.config.api.values.ValueList;
 import dev.siebrenvde.configlib.metadata.NoOptionSpacing;
 import org.jspecify.annotations.NullMarked;
 import org.jspecify.annotations.Nullable;
+import org.quiltmc.config.api.ReflectiveConfig;
+import org.quiltmc.config.api.annotations.SerializedName;
+import org.quiltmc.config.api.values.TrackedValue;
+import org.quiltmc.config.api.values.ValueList;
 
 @NoOptionSpacing
 @NullMarked

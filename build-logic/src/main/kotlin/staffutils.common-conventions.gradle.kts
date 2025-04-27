@@ -23,7 +23,7 @@ repositories {
     maven("https://jitpack.io/") {
         name = "jitpack"
     }
-    maven("https://files.siebrenvde.dev/repository/releases/") {
+    maven("https://repo.siebrenvde.dev/releases/") {
         name = "siebrenvde"
     }
 }
