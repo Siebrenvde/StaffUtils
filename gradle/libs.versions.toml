@@ -1,6 +1,6 @@
 [versions]
 bukkit = "1.21.4-R0.1-SNAPSHOT"
-adventure = "4.19.0"
+adventure = "4.20.0"
 adventure-platform = "4.3.4"
 bstats = "3.1.0"
 resource-factory = "1.2.0"

@@ -1,7 +1,7 @@
 package dev.siebrenvde.staffutils.spigot;
 
 import dev.siebrenvde.staffutils.api.command.CommandSender;
-import net.kyori.adventure.text.Component;
+import net.kyori.adventure.audience.Audience;
 import org.jspecify.annotations.NullMarked;
 
 @NullMarked
@@ -14,18 +14,13 @@ public class SpigotCommandSender implements CommandSender {
     }
 
     @Override
+    public Audience audience() {
+        return StaffUtilsSpigot.adventure().sender(sender);
+    }
+
+    @Override
     public String getName() {
         return sender.getName();
-    }
-
-    @Override
-    public Component getDisplayName() {
-        return Component.text(getName());
-    }
-
-    @Override
-    public void sendMessage(Component message) {
-        StaffUtilsSpigot.adventure().sender(sender).sendMessage(message);
     }
 
     @Override

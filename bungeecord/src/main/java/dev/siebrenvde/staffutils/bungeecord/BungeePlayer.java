@@ -4,8 +4,6 @@ import dev.siebrenvde.staffutils.api.player.ProxyPlayer;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 import org.jspecify.annotations.NullMarked;
 
-import java.util.UUID;
-
 @NullMarked
 public class BungeePlayer extends BungeeCommandSender implements ProxyPlayer {
 
@@ -24,11 +22,6 @@ public class BungeePlayer extends BungeeCommandSender implements ProxyPlayer {
     @Override
     public int getProtocolVersion() {
         return player.getPendingConnection().getVersion();
-    }
-
-    @Override
-    public UUID getUniqueId() {
-        return player.getUniqueId();
     }
 
 }

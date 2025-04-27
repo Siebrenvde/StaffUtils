@@ -1,11 +1,13 @@
 package dev.siebrenvde.staffutils.api.command;
 
 import dev.siebrenvde.staffutils.StaffUtils;
+import net.kyori.adventure.audience.ForwardingAudience;
+import net.kyori.adventure.identity.Identity;
 import net.kyori.adventure.text.Component;
 import org.jspecify.annotations.NullMarked;
 
 @NullMarked
-public interface CommandSender {
+public interface CommandSender extends ForwardingAudience.Single {
 
     /**
      * {@return a new CommandSender instance}
@@ -24,13 +26,9 @@ public interface CommandSender {
     /**
      * {@return the display name of the command sender}
      */
-    Component getDisplayName();
-
-    /**
-     * Sends a message to the command sender
-     * @param message the message to send
-     */
-    void sendMessage(Component message);
+    default Component getDisplayName() {
+        return get(Identity.DISPLAY_NAME).orElse(Component.text(getName()));
+    }
 
     /**
      * {@return whether the command sender has the provided permission}

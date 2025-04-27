@@ -1,7 +1,7 @@
 package dev.siebrenvde.staffutils.paper.command;
 
 import dev.siebrenvde.staffutils.spigot.SpigotCommandSender;
-import net.kyori.adventure.text.Component;
+import net.kyori.adventure.audience.Audience;
 import org.bukkit.command.CommandSender;
 import org.jspecify.annotations.NullMarked;
 
@@ -13,8 +13,8 @@ public class PaperCommandSender extends SpigotCommandSender {
     }
 
     @Override
-    public void sendMessage(Component message) {
-        sender.sendMessage(message);
+    public Audience audience() {
+        return sender;
     }
 
 }

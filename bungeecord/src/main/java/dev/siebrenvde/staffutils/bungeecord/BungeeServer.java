@@ -2,6 +2,7 @@ package dev.siebrenvde.staffutils.bungeecord;
 
 import dev.siebrenvde.staffutils.api.player.Player;
 import dev.siebrenvde.staffutils.api.server.Server;
+import net.kyori.adventure.audience.Audience;
 import net.md_5.bungee.api.config.ServerInfo;
 import org.jspecify.annotations.NullMarked;
 
@@ -15,6 +16,11 @@ public class BungeeServer implements Server {
 
     public BungeeServer(ServerInfo serverInfo) {
         this.serverInfo = serverInfo;
+    }
+
+    @Override
+    public Iterable<? extends Audience> audiences() {
+        return List.of(StaffUtilsBungee.adventure().server(getName()));
     }
 
     @Override

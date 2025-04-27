@@ -4,7 +4,6 @@ import dev.siebrenvde.staffutils.StaffUtils;
 import dev.siebrenvde.staffutils.paper.command.PaperCommandArguments;
 import dev.siebrenvde.staffutils.paper.command.PaperCommandManager;
 import dev.siebrenvde.staffutils.spigot.SpigotLogger;
-import dev.siebrenvde.staffutils.spigot.SpigotServer;
 import io.papermc.paper.plugin.lifecycle.event.types.LifecycleEvents;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -19,7 +18,7 @@ public class StaffUtilsPaper extends JavaPlugin {
         StaffUtils staffUtils = new StaffUtils(
             getDataFolder().toPath(),
             new PaperPlatform(),
-            new SpigotServer(),
+            new PaperServer(),
             new SpigotLogger(getLogger()),
             new PaperCommandArguments()
         );
