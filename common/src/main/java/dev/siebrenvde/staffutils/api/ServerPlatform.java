@@ -6,8 +6,6 @@ import dev.siebrenvde.staffutils.api.command.CommandSender;
 import dev.siebrenvde.staffutils.api.player.Player;
 import org.jspecify.annotations.NullMarked;
 
-import java.util.Optional;
-
 @NullMarked
 public interface ServerPlatform {
 
@@ -31,13 +29,6 @@ public interface ServerPlatform {
      * @param <P> the server software's player
      */
     <P> Player getPlayer(P player);
-
-    /**
-     * Returns an optional instance of {@link Player} for the provided name
-     * @param name the name of the player
-     * @return an optional instance of {@link Player}
-     */
-    Optional<Player> getPlayerByName(String name);
 
     /**
      * Returns whether the current server is a proxy server

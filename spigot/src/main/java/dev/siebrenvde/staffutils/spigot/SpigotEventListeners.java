@@ -3,8 +3,6 @@ package dev.siebrenvde.staffutils.spigot;
 import dev.siebrenvde.staffutils.StaffUtils;
 import dev.siebrenvde.staffutils.api.player.Player;
 import dev.siebrenvde.staffutils.listeners.EventListeners;
-import dev.siebrenvde.staffutils.paper.PaperCompat;
-import dev.siebrenvde.staffutils.paper.PaperEventListeners;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
@@ -16,18 +14,16 @@ import org.jspecify.annotations.NullMarked;
 @NullMarked
 public class SpigotEventListeners extends EventListeners implements Listener {
 
-    public static void register(JavaPlugin plugin) {
+    public void register(JavaPlugin plugin) {
         PluginManager manager = plugin.getServer().getPluginManager();
 
-        manager.registerEvents(new SpigotEventListeners(), plugin);
+        manager.registerEvents(this, plugin);
+        manager.registerEvents(getChatListener(), plugin);
+    }
 
-        if(PaperCompat.hasAsyncChatEvent()) {
-            StaffUtils.logger().optional("Using Paper's AsyncChatEvent");
-            manager.registerEvents(new PaperEventListeners.ChatListener(), plugin);
-        } else {
-            StaffUtils.logger().optional("Using Spigot's AsyncPlayerChatEvent");
-            manager.registerEvents(new ChatListener(), plugin);
-        }
+    protected Listener getChatListener() {
+        StaffUtils.logger().optional("Using Spigot's AsyncPlayerChatEvent");
+        return new ChatListener();
     }
 
     @EventHandler

@@ -1,8 +1,8 @@
 package dev.siebrenvde.staffutils.config.annotations;
 
-import dev.siebrenvde.configlib.libs.quilt.config.api.annotations.ConfigFieldAnnotationProcessor;
-import dev.siebrenvde.configlib.libs.quilt.config.api.metadata.MetadataContainerBuilder;
-import dev.siebrenvde.configlib.libs.quilt.config.api.metadata.MetadataType;
+import org.quiltmc.config.api.annotations.ConfigFieldAnnotationProcessor;
+import org.quiltmc.config.api.metadata.MetadataContainerBuilder;
+import org.quiltmc.config.api.metadata.MetadataType;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

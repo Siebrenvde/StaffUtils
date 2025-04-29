@@ -1,0 +1,50 @@
+[versions]
+bukkit = "1.21.4-R0.1-SNAPSHOT"
+adventure = "4.20.0"
+adventure-platform = "4.3.4"
+bstats = "3.1.0"
+resource-factory = "1.2.0"
+
+[libraries]
+configlib = "dev.siebrenvde:ConfigLib:0.3.0"
+jspecify = "org.jspecify:jspecify:1.0.0"
+brigadier = "com.mojang:brigadier:1.3.10"
+jda = "net.dv8tion:JDA:5.0.1"
+
+# Platforms
+paper = { module = "io.papermc.paper:paper-api", version.ref = "bukkit" }
+spigot = { module = "org.spigotmc:spigot-api", version.ref = "bukkit" }
+velocity = "com.velocitypowered:velocity-api:3.4.0-SNAPSHOT"
+bungee = "net.md-5:bungeecord-api:1.21-R0.1-SNAPSHOT"
+
+# Adventure
+adventure = { module = "net.kyori:adventure-api", version.ref = "adventure" }
+minimessage = { module = "net.kyori:adventure-text-minimessage", version.ref = "adventure" }
+adventure-serialiser-plain = { module = "net.kyori:adventure-text-serializer-plain", version.ref = "adventure" }
+adventure-serialiser-legacy = { module = "net.kyori:adventure-text-serializer-legacy", version.ref = "adventure" }
+adventure-bukkit = { module = "net.kyori:adventure-platform-bukkit", version.ref = "adventure-platform" }
+adventure-bungee = { module = "net.kyori:adventure-platform-bungeecord", version.ref = "adventure-platform" }
+
+# Addons
+luckperms = "net.luckperms:api:5.4"
+spicord = "com.github.Spicord.Spicord:spicord-common:5.6.0"
+
+# bStats
+bstats-bukkit = { module = "org.bstats:bstats-bukkit", version.ref = "bstats" }
+bstats-velocity = { module = "org.bstats:bstats-velocity", version.ref = "bstats" }
+bstats-bungee = { module = "org.bstats:bstats-bungeecord", version.ref = "bstats" }
+
+# Build
+build-indra = "net.kyori:indra-common:3.1.3"
+build-shadow = "com.gradleup.shadow:shadow-gradle-plugin:8.3.6"
+
+[bundles]
+adventure = [ "adventure", "minimessage", "adventure-serialiser-plain", "adventure-serialiser-legacy" ]
+
+[plugins]
+indra-git = { id = "net.kyori.indra.git" }
+blossom = { id = "net.kyori.blossom", version = "2.1.0" }
+idea-ext = { id = "org.jetbrains.gradle.plugin.idea-ext", version = "1.1.10" }
+resource-factory-bukkit = { id = "xyz.jpenilla.resource-factory-bukkit-convention", version.ref = "resource-factory" }
+resource-factory-velocity = { id = "xyz.jpenilla.resource-factory-velocity-convention", version.ref = "resource-factory" }
+resource-factory-bungee = { id = "xyz.jpenilla.resource-factory-bungee-convention", version.ref = "resource-factory" }

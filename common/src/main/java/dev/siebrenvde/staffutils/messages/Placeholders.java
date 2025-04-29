@@ -10,10 +10,10 @@ import net.dv8tion.jda.api.entities.Role;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextColor;
 import net.kyori.adventure.text.minimessage.MiniMessage;
+import net.kyori.adventure.text.minimessage.tag.TagPattern;
 import net.kyori.adventure.text.minimessage.tag.resolver.TagResolver;
 import net.kyori.adventure.text.minimessage.tag.standard.StandardTags;
 import net.luckperms.api.model.group.Group;
-import org.intellij.lang.annotations.Subst;
 import org.jspecify.annotations.NullMarked;
 import org.jspecify.annotations.Nullable;
 
@@ -43,7 +43,7 @@ public class Placeholders {
         return sender(null, sender);
     }
 
-    public static TagResolver sender(@Subst("sender") @Nullable String prefix, CommandSender sender) {
+    public static TagResolver sender(@TagPattern @Nullable String prefix, CommandSender sender) {
         prefix = prefix != null ? prefix + "_" : "";
         List<TagResolver> resolvers = new ArrayList<>();
         resolvers.add(unparsed(prefix + "username", sender.getName()));

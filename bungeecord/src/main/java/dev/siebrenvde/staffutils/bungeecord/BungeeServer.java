@@ -2,10 +2,12 @@ package dev.siebrenvde.staffutils.bungeecord;
 
 import dev.siebrenvde.staffutils.api.player.Player;
 import dev.siebrenvde.staffutils.api.server.Server;
+import net.kyori.adventure.audience.Audience;
 import net.md_5.bungee.api.config.ServerInfo;
 import org.jspecify.annotations.NullMarked;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @NullMarked
@@ -18,6 +20,11 @@ public class BungeeServer implements Server {
     }
 
     @Override
+    public Iterable<? extends Audience> audiences() {
+        return List.of(StaffUtilsBungee.adventure().server(getName()));
+    }
+
+    @Override
     public String getName() {
         return serverInfo.getName();
     }
@@ -27,6 +34,14 @@ public class BungeeServer implements Server {
         return serverInfo.getPlayers().stream()
             .map(BungeePlayer::new)
             .collect(Collectors.toList());
+    }
+
+    @Override
+    public Optional<Player> getPlayer(String name) {
+        return serverInfo.getPlayers().stream()
+            .filter(p -> p.getName().equalsIgnoreCase(name))
+            .findFirst()
+            .map(BungeePlayer::new);
     }
 
 }

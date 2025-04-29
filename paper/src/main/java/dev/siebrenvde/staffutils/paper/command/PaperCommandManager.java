@@ -1,4 +1,4 @@
-package dev.siebrenvde.staffutils.paper;
+package dev.siebrenvde.staffutils.paper.command;
 
 import dev.siebrenvde.staffutils.api.command.CommandManager;
 import dev.siebrenvde.staffutils.api.command.BaseCommand;

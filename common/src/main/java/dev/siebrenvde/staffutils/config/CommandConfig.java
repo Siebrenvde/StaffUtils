@@ -1,18 +1,18 @@
 package dev.siebrenvde.staffutils.config;
 
-import dev.siebrenvde.configlib.libs.quilt.config.api.ReflectiveConfig;
-import dev.siebrenvde.configlib.libs.quilt.config.api.annotations.ChangeWarning;
-import dev.siebrenvde.configlib.libs.quilt.config.api.annotations.DisplayNameConvention;
-import dev.siebrenvde.configlib.libs.quilt.config.api.annotations.SerializedName;
-import dev.siebrenvde.configlib.libs.quilt.config.api.metadata.NamingSchemes;
-import dev.siebrenvde.configlib.libs.quilt.config.api.values.TrackedValue;
-import dev.siebrenvde.configlib.libs.quilt.config.api.values.ValueList;
 import dev.siebrenvde.configlib.metadata.NoOptionSpacing;
 import org.jspecify.annotations.NullMarked;
 import org.jspecify.annotations.Nullable;
+import org.quiltmc.config.api.ReflectiveConfig;
+import org.quiltmc.config.api.annotations.ChangeWarning;
+import org.quiltmc.config.api.annotations.DisplayNameConvention;
+import org.quiltmc.config.api.annotations.SerializedName;
+import org.quiltmc.config.api.metadata.NamingSchemes;
+import org.quiltmc.config.api.values.TrackedValue;
+import org.quiltmc.config.api.values.ValueList;
 import dev.siebrenvde.staffutils.config.annotations.WordString;
 
-import static dev.siebrenvde.configlib.libs.quilt.config.api.metadata.ChangeWarning.Type.RequiresRestart;
+import static org.quiltmc.config.api.metadata.ChangeWarning.Type.RequiresRestart;
 
 @DisplayNameConvention(NamingSchemes.TITLE_CASE)
 @ChangeWarning(RequiresRestart)
@@ -48,7 +48,7 @@ public class CommandConfig extends ReflectiveConfig {
         "Ask staff for help"
     );
 
-    public static class Command extends Section {
+    public static final class Command extends Section {
         public final TrackedValue<Boolean> enabled;
         @WordString public final TrackedValue<String> name;
         public final TrackedValue<ValueList<String>> aliases;

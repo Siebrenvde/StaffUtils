@@ -1,11 +1,14 @@
-package dev.siebrenvde.staffutils.api.command.arguments;
+package dev.siebrenvde.staffutils.argument.arguments;
 
+import com.mojang.brigadier.arguments.ArgumentType;
 import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.context.CommandContext;
+import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.brigadier.suggestion.Suggestions;
 import com.mojang.brigadier.suggestion.SuggestionsBuilder;
 import dev.siebrenvde.staffutils.StaffUtils;
 import dev.siebrenvde.staffutils.api.command.CommandSender;
+import dev.siebrenvde.staffutils.api.command.argument.arguments.PlayerArgument;
 import dev.siebrenvde.staffutils.api.player.Player;
 import dev.siebrenvde.staffutils.api.player.ProxyPlayer;
 import dev.siebrenvde.staffutils.config.Config;
@@ -18,13 +21,15 @@ import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 
 @NullMarked
-public class PlayerArgument {
+public class PlayerArgumentImpl implements PlayerArgument {
 
-    public static StringArgumentType player() {
+    @Override
+    public ArgumentType<?> getType() {
         return StringArgumentType.word();
     }
 
-    public static <C> CompletableFuture<Suggestions> suggestPlayers(CommandContext<C> ctx, SuggestionsBuilder builder) {
+    @Override
+    public <C> CompletableFuture<Suggestions> listSuggestions(CommandContext<C> ctx, SuggestionsBuilder builder) {
         List<Player> players = CommandSender.of(ctx.getSource()) instanceof ProxyPlayer player && !allowGlobal()
             ? player.getServer().getPlayers()
             : StaffUtils.getServer().getPlayers();
@@ -37,13 +42,12 @@ public class PlayerArgument {
         return builder.buildFuture();
     }
 
-    public static <C> @Nullable Player resolvePlayer(CommandContext<C> ctx, String name) {
+    @Override
+    public <C> @Nullable Player resolve(CommandContext<C> ctx, String name) throws CommandSyntaxException {
         String playerName = StringArgumentType.getString(ctx, name);
 
         Optional<Player> player = CommandSender.of(ctx.getSource()) instanceof ProxyPlayer proxyPlayer && !allowGlobal()
-            ? proxyPlayer.getServer().getPlayers().stream()
-                .filter(p -> p.getName().equalsIgnoreCase(playerName))
-                .findFirst()
+            ? proxyPlayer.getServer().getPlayer(playerName)
             : Player.byName(playerName);
 
         return player.orElseGet(() -> {
@@ -55,7 +59,7 @@ public class PlayerArgument {
     }
 
     @SuppressWarnings("BooleanMethodIsAlwaysInverted")
-    private static boolean allowGlobal() {
+    private boolean allowGlobal() {
         return Config.config().allowGlobalPlayerCommands.getRealValue();
     }
 

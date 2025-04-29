@@ -2,6 +2,7 @@ package dev.siebrenvde.staffutils.api.player;
 
 import dev.siebrenvde.staffutils.StaffUtils;
 import dev.siebrenvde.staffutils.api.command.CommandSender;
+import net.kyori.adventure.identity.Identity;
 import org.jspecify.annotations.NullMarked;
 
 import java.util.Optional;
@@ -25,11 +26,15 @@ public interface Player extends CommandSender {
      * @param name the name of the player
      * @return an optional player instance
      */
-    static Optional<Player> byName(String name) { return StaffUtils.getPlatform().getPlayerByName(name); }
+    static Optional<Player> byName(String name) {
+        return StaffUtils.getServer().getPlayer(name);
+    }
 
     /**
      * {@return the player's UUID}
      */
-    UUID getUniqueId();
+    default UUID getUniqueId() {
+        return get(Identity.UUID).orElseThrow();
+    }
 
 }

@@ -1,7 +1,7 @@
 package dev.siebrenvde.staffutils.bungeecord;
 
 import dev.siebrenvde.staffutils.api.command.CommandSender;
-import net.kyori.adventure.text.Component;
+import net.kyori.adventure.audience.Audience;
 import org.jspecify.annotations.NullMarked;
 
 @NullMarked
@@ -14,18 +14,13 @@ public class BungeeCommandSender implements CommandSender {
     }
 
     @Override
+    public Audience audience() {
+        return StaffUtilsBungee.adventure().sender(sender);
+    }
+
+    @Override
     public String getName() {
         return sender.getName();
-    }
-
-    @Override
-    public Component getDisplayName() {
-        return Component.text(getName());
-    }
-
-    @Override
-    public void sendMessage(Component message) {
-        StaffUtilsBungee.adventure().sender(sender).sendMessage(message);
     }
 
     @Override

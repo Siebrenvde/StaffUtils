@@ -1,15 +1,20 @@
 plugins {
-    id("xyz.jpenilla.resource-factory-bukkit-convention") version "1.2.0"
+    id("staffutils.implementation-conventions")
+    alias(libs.plugins.resource.factory.bukkit)
 }
 
 dependencies {
     implementation(project(":common"))
-    implementation(project(":paper"))
-    compileOnly("org.spigotmc:spigot-api:1.21.1-R0.1-SNAPSHOT")
-    compileOnly("com.mojang:brigadier:1.0.18")
-    implementation("net.kyori:adventure-platform-bukkit:4.3.4")
-    implementation("org.bstats:bstats-bukkit:3.1.0")
-    implementation("org.jspecify:jspecify:1.0.0")
+    compileOnly(libs.spigot)
+    compileOnly(libs.brigadier)
+    implementation(libs.bundles.adventure)
+    implementation(libs.adventure.bukkit)
+    implementation(libs.bstats.bukkit)
+    compileOnly(libs.jspecify)
+}
+
+tasks.shadowJar {
+    relocate("net.kyori", "dev.siebrenvde.staffutils.libs.kyori")
 }
 
 bukkitPluginYaml {

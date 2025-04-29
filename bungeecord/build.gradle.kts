@@ -1,13 +1,19 @@
 plugins {
-    id("xyz.jpenilla.resource-factory-bungee-convention") version "1.2.0"
+    id("staffutils.implementation-conventions")
+    alias(libs.plugins.resource.factory.bungee)
 }
 
 dependencies {
     implementation(project(":common"))
-    compileOnly("net.md-5:bungeecord-api:1.21-R0.1-SNAPSHOT")
-    implementation("net.kyori:adventure-platform-bungeecord:4.3.4")
-    implementation("org.bstats:bstats-bungeecord:3.1.0")
-    implementation("org.jspecify:jspecify:1.0.0")
+    compileOnly(libs.bungee)
+    implementation(libs.bundles.adventure)
+    implementation(libs.adventure.bungee)
+    implementation(libs.bstats.bungee)
+    compileOnly(libs.jspecify)
+}
+
+tasks.shadowJar {
+    relocate("net.kyori", "dev.siebrenvde.staffutils.libs.kyori")
 }
 
 bungeePluginYaml {

@@ -1,16 +1,16 @@
 package dev.siebrenvde.staffutils.config;
 
-import dev.siebrenvde.configlib.libs.quilt.config.api.ReflectiveConfig;
-import dev.siebrenvde.configlib.libs.quilt.config.api.annotations.Comment;
-import dev.siebrenvde.configlib.libs.quilt.config.api.annotations.DisplayNameConvention;
-import dev.siebrenvde.configlib.libs.quilt.config.api.annotations.SerializedName;
-import dev.siebrenvde.configlib.libs.quilt.config.api.annotations.SerializedNameConvention;
-import dev.siebrenvde.configlib.libs.quilt.config.api.metadata.NamingSchemes;
-import dev.siebrenvde.configlib.libs.quilt.config.api.values.TrackedValue;
 import dev.siebrenvde.configlib.metadata.ConfigComment;
 import dev.siebrenvde.staffutils.config.annotations.RequireNonProxy;
 import dev.siebrenvde.staffutils.config.annotations.RequireProxy;
 import org.jspecify.annotations.NullMarked;
+import org.quiltmc.config.api.ReflectiveConfig;
+import org.quiltmc.config.api.annotations.Comment;
+import org.quiltmc.config.api.annotations.DisplayNameConvention;
+import org.quiltmc.config.api.annotations.SerializedName;
+import org.quiltmc.config.api.annotations.SerializedNameConvention;
+import org.quiltmc.config.api.metadata.NamingSchemes;
+import org.quiltmc.config.api.values.TrackedValue;
 
 @ConfigComment("All in-game messages are formatted using MiniMessage")
 @ConfigComment("You can use the MiniMessage Viewer to preview and format your messages:")
@@ -31,7 +31,7 @@ public final class MessageConfig extends ReflectiveConfig {
     @SerializedName("staffutils")
     public final MsgStaffUtils staffUtils = new MsgStaffUtils();
 
-    public final static class MsgCommands extends Section {
+    public static final class MsgCommands extends Section {
 
         @Comment("The message sent to players when they don't have permission to execute a command")
         public final TrackedValue<String> permissionMessage = value("<red>You don't have permission to execute this command</red>");
@@ -49,7 +49,7 @@ public final class MessageConfig extends ReflectiveConfig {
 
     }
 
-    public final static class StaffChat extends Section {
+    public static final class StaffChat extends Section {
 
         @Comment("The message shown to in-game staff when using the staffchat command")
         @Comment("Placeholders:")
@@ -133,7 +133,7 @@ public final class MessageConfig extends ReflectiveConfig {
 
     }
 
-    public final static class Report extends Section {
+    public static final class Report extends Section {
 
         @Comment("The message shown to in-game staff when a player is reported")
         @Comment("Placeholders:")
@@ -219,7 +219,7 @@ public final class MessageConfig extends ReflectiveConfig {
 
     }
 
-    public final static class HelpOp extends Section {
+    public static final class HelpOp extends Section {
 
         @Comment("The message shown to in-game staff when the helpop command is used")
         @Comment("Placeholders:")
@@ -278,7 +278,7 @@ public final class MessageConfig extends ReflectiveConfig {
 
     }
 
-    public final static class MsgStaffUtils extends Section {
+    public static final class MsgStaffUtils extends Section {
 
         @Comment("The message sent to the sender when reloading the config files")
         public final TrackedValue<String> reloadedConfigs = value("<aqua>Reloaded config files");

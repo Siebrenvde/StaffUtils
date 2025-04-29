@@ -1,32 +1,47 @@
 package dev.siebrenvde.staffutils.commands;
 
-import com.mojang.brigadier.arguments.*;
+import com.mojang.brigadier.arguments.ArgumentType;
+import com.mojang.brigadier.arguments.BoolArgumentType;
+import com.mojang.brigadier.arguments.DoubleArgumentType;
+import com.mojang.brigadier.arguments.FloatArgumentType;
+import com.mojang.brigadier.arguments.IntegerArgumentType;
+import com.mojang.brigadier.arguments.LongArgumentType;
+import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import com.mojang.brigadier.context.CommandContext;
-import dev.siebrenvde.configlib.libs.quilt.config.api.Constraint;
-import dev.siebrenvde.configlib.libs.quilt.config.api.ReflectiveConfig;
-import dev.siebrenvde.configlib.libs.quilt.config.api.annotations.Comment;
-import dev.siebrenvde.configlib.libs.quilt.config.api.values.*;
 import dev.siebrenvde.configlib.metadata.SkipWrite;
+import dev.siebrenvde.staffutils.StaffUtils;
 import dev.siebrenvde.staffutils.api.command.BaseCommand;
 import dev.siebrenvde.staffutils.config.Config;
 import dev.siebrenvde.staffutils.config.annotations.WordString;
 import dev.siebrenvde.staffutils.messages.Messages;
+import dev.siebrenvde.staffutils.util.BuildParameters;
 import dev.siebrenvde.staffutils.util.Permissions;
-import net.kyori.adventure.text.format.TextDecoration;
-import org.jspecify.annotations.NullMarked;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.JoinConfiguration;
 import net.kyori.adventure.text.TextComponent;
+import net.kyori.adventure.text.event.ClickEvent;
 import net.kyori.adventure.text.event.HoverEvent;
 import net.kyori.adventure.text.format.NamedTextColor;
+import net.kyori.adventure.text.format.TextDecoration;
+import org.jspecify.annotations.NullMarked;
+import org.quiltmc.config.api.Constraint;
+import org.quiltmc.config.api.ReflectiveConfig;
+import org.quiltmc.config.api.annotations.Comment;
+import org.quiltmc.config.api.values.ConfigSerializableObject;
+import org.quiltmc.config.api.values.TrackedValue;
+import org.quiltmc.config.api.values.ValueList;
+import org.quiltmc.config.api.values.ValueMap;
+import org.quiltmc.config.api.values.ValueTreeNode;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static dev.siebrenvde.configlib.libs.quilt.config.impl.util.SerializerUtils.getSerializedName;
 import static dev.siebrenvde.configlib.utils.ConfigUtils.getDisplayName;
-import static net.kyori.adventure.text.Component.*;
+import static net.kyori.adventure.text.Component.join;
+import static net.kyori.adventure.text.Component.newline;
+import static net.kyori.adventure.text.Component.text;
+import static org.quiltmc.config.impl.util.SerializerUtils.getSerializedName;
 
 @NullMarked
 public class StaffUtilsCommand<C> extends BaseCommand<C> {
@@ -39,6 +54,30 @@ public class StaffUtilsCommand<C> extends BaseCommand<C> {
     public LiteralArgumentBuilder<C> builder() {
         return literal(getName())
             .requires(hasPermission(getRootPermission()))
+            .then(literal("version")
+                .executes(withSender((ctx, sender) -> {
+                    sender.sendMessage(
+                        text()
+                            .append(text("StaffUtils "))
+                            .append(text("("))
+                            .append(StaffUtils.getPlatform().getServerType().displayName())
+                            .append(text(")"))
+                            .append(text(" version "))
+                            .append(text(BuildParameters.VERSION, NamedTextColor.YELLOW))
+                            .appendSpace()
+                            .append(
+                                text()
+                                    .append(text("("))
+                                    .append(text(BuildParameters.GIT_BRANCH, NamedTextColor.AQUA))
+                                    .append(text("@"))
+                                    .append(text(BuildParameters.GIT_COMMIT.substring(0, 7), NamedTextColor.GREEN))
+                                    .append(text(")"))
+                                    .clickEvent(ClickEvent.openUrl("https://github.com/Siebrenvde/StaffUtils/commit/" + BuildParameters.GIT_COMMIT))
+                            )
+                            .build()
+                    );
+                }))
+            )
             .then(literal("reload")
                 .requires(hasPermission(Permissions.COMMAND_STAFFUTILS_RELOAD))
                 .executes(withSender((ctx, sender) -> {
@@ -59,12 +98,12 @@ public class StaffUtilsCommand<C> extends BaseCommand<C> {
     }
 
     private void createCommandNodes(LiteralArgumentBuilder<C> builder, Iterable<ValueTreeNode> nodes) {
-        for(ValueTreeNode node : nodes) {
-            if(node.hasMetadata(SkipWrite.TYPE)) continue;
+        for (ValueTreeNode node : nodes) {
+            if (node.hasMetadata(SkipWrite.TYPE)) continue;
 
             LiteralArgumentBuilder<C> nodeLiteral = literal(getSerializedName(node));
 
-            if(node instanceof TrackedValue<?> value) {
+            if (node instanceof TrackedValue<?> value) {
 
                 nodeLiteral.then(literal("get")
                     .executes(withSender((ctx, sender) -> {
@@ -78,7 +117,7 @@ public class StaffUtilsCommand<C> extends BaseCommand<C> {
                     }))
                 );
 
-                if(value.getRealValue() instanceof ValueList<?> list) {
+                if (value.getRealValue() instanceof ValueList<?> list) {
 
                     ArgumentType<?> type = asArgumentType(list.getDefaultValue(), value);
 
@@ -96,8 +135,8 @@ public class StaffUtilsCommand<C> extends BaseCommand<C> {
                         .then(argument("index", IntegerArgumentType.integer(0))
                             .suggests((ctx, suggestions) -> {
                                 int index = 0;
-                                for(Object obj : list.values()) {
-                                    if(String.valueOf(index).startsWith(suggestions.getRemaining())) {
+                                for (Object obj : list.values()) {
+                                    if (String.valueOf(index).startsWith(suggestions.getRemaining())) {
                                         suggestions.suggest(index, message(asString(obj)));
                                     }
                                     index++;
@@ -106,7 +145,7 @@ public class StaffUtilsCommand<C> extends BaseCommand<C> {
                             })
                             .executes(withSender((ctx, sender) -> {
                                 int index = IntegerArgumentType.getInteger(ctx, "index");
-                                if(index > list.size() - 1) {
+                                if (index > list.size() - 1) {
                                     sender.sendMessage(
                                         text()
                                             .append(text("Out of range"))
@@ -129,7 +168,7 @@ public class StaffUtilsCommand<C> extends BaseCommand<C> {
                         }))
                     );
 
-                } else if(value.getRealValue() instanceof ValueMap<?> map) {
+                } else if (value.getRealValue() instanceof ValueMap<?> map) {
 
                     ArgumentType<?> type = asArgumentType(map.getDefaultValue(), value);
 
@@ -156,13 +195,13 @@ public class StaffUtilsCommand<C> extends BaseCommand<C> {
                         .then(argument("key", StringArgumentType.word())
                             .suggests((ctx, suggestions) -> {
                                 map.keySet().forEach(key -> {
-                                    if(key.startsWith(suggestions.getRemaining())) suggestions.suggest(key);
+                                    if (key.startsWith(suggestions.getRemaining())) suggestions.suggest(key);
                                 });
                                 return suggestions.buildFuture();
                             })
                             .executes(withSender((ctx, sender) -> {
                                 String key = StringArgumentType.getString(ctx, "key");
-                                if(!map.containsKey(key)) {
+                                if (!map.containsKey(key)) {
                                     sender.sendMessage(text("Invalid key"));
                                     return;
                                 }
@@ -212,7 +251,7 @@ public class StaffUtilsCommand<C> extends BaseCommand<C> {
     private Component asComponent(Object value) {
         switch (value) {
             case ValueMap<?> map -> {
-                if(map.isEmpty()) return text("no values").decorate(TextDecoration.ITALIC);
+                if (map.isEmpty()) return text("no values").decorate(TextDecoration.ITALIC);
                 List<Component> values = new ArrayList<>();
                 map.forEach((key, mapValue) -> {
                     values.add(text(key + " = ").append(asComponent(mapValue)));
@@ -320,7 +359,7 @@ public class StaffUtilsCommand<C> extends BaseCommand<C> {
         TextComponent.Builder name = text();
         name.append(text(getDisplayName(node)));
 
-        if(node.hasMetadata(Comment.TYPE)) {
+        if (node.hasMetadata(Comment.TYPE)) {
             List<Component> comments = new ArrayList<>();
             node.metadata(Comment.TYPE).forEach(comment -> comments.add(text(comment)));
             name.hoverEvent(HoverEvent.showText(join(
