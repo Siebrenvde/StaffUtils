@@ -26,7 +26,9 @@ public interface Player extends CommandSender {
      * @param name the name of the player
      * @return an optional player instance
      */
-    static Optional<Player> byName(String name) { return StaffUtils.getPlatform().getPlayerByName(name); }
+    static Optional<Player> byName(String name) {
+        return StaffUtils.getServer().getPlayer(name);
+    }
 
     /**
      * {@return the player's UUID}

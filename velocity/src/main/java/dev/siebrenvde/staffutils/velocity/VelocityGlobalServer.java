@@ -6,6 +6,7 @@ import net.kyori.adventure.audience.Audience;
 import org.jspecify.annotations.NullMarked;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @NullMarked
@@ -26,6 +27,11 @@ public class VelocityGlobalServer implements Server {
         return StaffUtilsVelocity.getProxy().getAllPlayers().stream()
             .map(VelocityPlayer::new)
             .collect(Collectors.toList());
+    }
+
+    @Override
+    public Optional<Player> getPlayer(String name) {
+        return StaffUtilsVelocity.getProxy().getPlayer(name).map(VelocityPlayer::new);
     }
 
 }

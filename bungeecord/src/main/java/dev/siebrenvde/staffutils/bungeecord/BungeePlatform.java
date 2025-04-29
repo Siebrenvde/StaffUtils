@@ -7,8 +7,6 @@ import dev.siebrenvde.staffutils.api.ServerPlatform;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 import org.jspecify.annotations.NullMarked;
 
-import java.util.Optional;
-
 @NullMarked
 public class BungeePlatform implements ServerPlatform {
 
@@ -26,14 +24,6 @@ public class BungeePlatform implements ServerPlatform {
     @Override
     public <P> Player getPlayer(P player) {
         return new BungeePlayer((ProxiedPlayer) player);
-    }
-
-    @Override
-    public Optional<Player> getPlayerByName(String name) {
-        ProxiedPlayer player = StaffUtilsBungee.getInstance().getProxy().getPlayer(name);
-        return player != null
-            ? Optional.of(new BungeePlayer(player))
-            : Optional.empty();
     }
 
 }

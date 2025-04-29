@@ -47,9 +47,7 @@ public class PlayerArgumentImpl implements PlayerArgument {
         String playerName = StringArgumentType.getString(ctx, name);
 
         Optional<Player> player = CommandSender.of(ctx.getSource()) instanceof ProxyPlayer proxyPlayer && !allowGlobal()
-            ? proxyPlayer.getServer().getPlayers().stream()
-                .filter(p -> p.getName().equalsIgnoreCase(playerName))
-                .findFirst()
+            ? proxyPlayer.getServer().getPlayer(playerName)
             : Player.byName(playerName);
 
         return player.orElseGet(() -> {

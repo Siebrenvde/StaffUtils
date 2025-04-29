@@ -9,6 +9,7 @@ import org.jspecify.annotations.Nullable;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @NullMarked
@@ -40,6 +41,16 @@ public class VelocityServer implements Server {
                 .map(VelocityPlayer::new)
                 .collect(Collectors.toList())
             : Collections.emptyList();
+    }
+
+    @Override
+    public Optional<Player> getPlayer(String name) {
+        return connection != null
+            ? connection.getServer().getPlayersConnected().stream()
+                .filter(player -> player.getUsername().equalsIgnoreCase(name))
+                .findFirst()
+                .map(VelocityPlayer::new)
+            : Optional.empty();
     }
 
 }

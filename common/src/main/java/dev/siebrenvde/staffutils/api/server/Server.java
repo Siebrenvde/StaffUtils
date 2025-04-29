@@ -6,6 +6,7 @@ import net.kyori.adventure.text.Component;
 import org.jspecify.annotations.NullMarked;
 
 import java.util.List;
+import java.util.Optional;
 
 @NullMarked
 public interface Server extends ForwardingAudience {
@@ -32,5 +33,12 @@ public interface Server extends ForwardingAudience {
      * {@return a list of connected players}
      */
     List<Player> getPlayers();
+
+    /**
+     * Returns an optional instance of {@link Player} for the provided name
+     * @param name the name of the player
+     * @return an optional instance of {@link Player}
+     */
+    Optional<Player> getPlayer(String name);
 
 }

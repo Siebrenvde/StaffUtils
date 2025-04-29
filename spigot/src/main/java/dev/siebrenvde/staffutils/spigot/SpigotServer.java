@@ -7,6 +7,7 @@ import org.bukkit.Bukkit;
 import org.jspecify.annotations.NullMarked;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @NullMarked
@@ -27,6 +28,11 @@ public class SpigotServer implements Server {
         return Bukkit.getOnlinePlayers().stream()
             .map(Player::of)
             .collect(Collectors.toList());
+    }
+
+    @Override
+    public Optional<Player> getPlayer(String name) {
+        return Optional.ofNullable(Bukkit.getPlayerExact(name)).map(Player::of);
     }
 
 }

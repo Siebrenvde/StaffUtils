@@ -7,6 +7,7 @@ import net.md_5.bungee.api.config.ServerInfo;
 import org.jspecify.annotations.NullMarked;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @NullMarked
@@ -33,6 +34,14 @@ public class BungeeServer implements Server {
         return serverInfo.getPlayers().stream()
             .map(BungeePlayer::new)
             .collect(Collectors.toList());
+    }
+
+    @Override
+    public Optional<Player> getPlayer(String name) {
+        return serverInfo.getPlayers().stream()
+            .filter(p -> p.getName().equalsIgnoreCase(name))
+            .findFirst()
+            .map(BungeePlayer::new);
     }
 
 }
