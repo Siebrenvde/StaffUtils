@@ -15,7 +15,9 @@ public interface CommandArgumentType<T extends @Nullable Object> {
 
     ArgumentType<?> getType();
 
-    <C> CompletableFuture<Suggestions> listSuggestions(CommandContext<C> ctx, SuggestionsBuilder builder);
+    default <C> CompletableFuture<Suggestions> listSuggestions(CommandContext<C> ctx, SuggestionsBuilder builder) {
+        return getType().listSuggestions(ctx, builder);
+    }
 
     <C> @Nullable T resolve(CommandContext<C> ctx, String name) throws CommandSyntaxException;
 
